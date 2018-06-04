@@ -29,26 +29,31 @@ public class JsonUtils {
 
         if(null != jsonObject) {
 
-            JSONObject nameObject = jsonObject.getJSONObject(NAME);
-            String name = nameObject.getString(MAIN_NAME);
-            if(null != name) sandwich.setMainName(name);
+            JSONObject nameObject = jsonObject.optJSONObject(NAME);
+            String name = nameObject.optString(MAIN_NAME);
+            if(!TextUtils.isEmpty(name)) sandwich.setMainName(name);
 
-            JSONArray psudoNameArray = nameObject.getJSONArray(ALSO_KNOWNAS);
-            sandwich.setAlsoKnownAs(parseJsonStringArray(psudoNameArray));
+            JSONArray psudoNameArray = nameObject.optJSONArray(ALSO_KNOWNAS);
+            if (null != psudoNameArray) sandwich.setAlsoKnownAs(parseJsonStringArray(psudoNameArray));
 
-            String placeOfOrigin = jsonObject.getString(ORIGIN_PLACE);
-            if(placeOfOrigin.equals("") || TextUtils.isEmpty(placeOfOrigin)){
+            String placeOfOrigin = jsonObject.optString(ORIGIN_PLACE);
+            if(TextUtils.isEmpty(placeOfOrigin)){
                 placeOfOrigin = "Unknown";
+            } else {
+                sandwich.setPlaceOfOrigin(placeOfOrigin);
             }
-            sandwich.setPlaceOfOrigin(placeOfOrigin);
 
-            String description = jsonObject.getString(DESCRIPTION);
-            if(null != description) sandwich.setDescription(description);
+            String description = jsonObject.optString(DESCRIPTION);
+            if(!TextUtils.isEmpty(description)) {
+                sandwich.setDescription(description);
+            } else {
+                sandwich.setDescription("NA");
+            }
 
-            String image = jsonObject.getString(IMAGE);
+            String image = jsonObject.optString(IMAGE);
             if(null != image) sandwich.setImage(image);
 
-            JSONArray ingrediants = jsonObject.getJSONArray(INGREDIENTS);
+            JSONArray ingrediants = jsonObject.optJSONArray(INGREDIENTS);
             if(null != ingrediants) sandwich.setIngredients(parseJsonStringArray(ingrediants));
         }
         else {
@@ -63,7 +68,7 @@ public class JsonUtils {
         List<String> names = new ArrayList<>();
 
         for(int i = 0; i< jsonArrayInput.length(); i++) {
-            names.add(jsonArrayInput.getString(i));
+            names.add(jsonArrayInput.optString(i));
         }
 
         return names;
