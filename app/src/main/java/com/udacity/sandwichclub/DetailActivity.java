@@ -1,0 +1,96 @@
+package com.udacity.sandwichclub;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+import com.udacity.sandwichclub.databinding.ActivityDetailBinding;
+import com.udacity.sandwichclub.databinding.ActivitySubdetailBinding;
+import com.udacity.sandwichclub.model.Sandwich;
+import com.udacity.sandwichclub.utils.JsonUtils;
+
+import org.json.JSONException;
+
+import java.util.List;
+
+public class DetailActivity extends AppCompatActivity {
+
+    public static final String EXTRA_POSITION = "extra_position";
+    private static final int DEFAULT_POSITION = -1;
+
+    ActivityDetailBinding activityDetailBinding;
+
+    Sandwich sandwich = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        activityDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+
+        Intent intent = getIntent();
+        if (intent == null) {
+            closeOnError();
+        }
+
+        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
+        if (position == DEFAULT_POSITION) {
+            // EXTRA_POSITION not found in intent
+            closeOnError();
+            return;
+        }
+
+        String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
+        String json = sandwiches[position];
+
+        try {
+            sandwich = JsonUtils.parseSandwichJson(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (sandwich == null) {
+            // Sandwich data unavailable
+            closeOnError();
+            return;
+        }
+
+        Picasso.with(this)
+                .load(sandwich.getImage())
+                .into(activityDetailBinding.backdrop);
+
+        populateUI();
+
+        setTitle(sandwich.getMainName());
+    }
+
+    private void closeOnError() {
+        finish();
+        Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void populateUI() {
+        activityDetailBinding.itemDetails.tvOrigin.setText(sandwich.getPlaceOfOrigin());
+        activityDetailBinding.itemDetails.tvAlsoknownas.setText(convertListtoString(sandwich.getAlsoKnownAs()));
+        activityDetailBinding.itemDetails.tvDescription.setText(sandwich.getDescription());
+        activityDetailBinding.itemDetails.tvIngrediants.setText(convertListtoString(sandwich.getIngredients()));
+    }
+
+    private String convertListtoString(List<String> inputArray){
+        String data = "";
+
+        for(String each : inputArray){
+            data = data + each +"\n";
+        }
+
+        return data.trim();
+    }
+
+}
