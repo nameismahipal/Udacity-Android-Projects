@@ -60,9 +60,10 @@ public class DetailActivity extends AppCompatActivity {
             closeOnError();
             return;
         }
-
         Picasso.with(this)
                 .load(sandwich.getImage())
+//              .placeholder(//TODO add r.drawable... image)
+//              .error(//TODO add r.drawable... image)
                 .into(activityDetailBinding.backdrop);
 
         populateUI();
@@ -78,19 +79,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private void populateUI() {
         activityDetailBinding.itemDetails.tvOrigin.setText(sandwich.getPlaceOfOrigin());
-        activityDetailBinding.itemDetails.tvAlsoknownas.setText(convertListtoString(sandwich.getAlsoKnownAs()));
+        
+        activityDetailBinding.itemDetails.tvAlsoknownas.setText(TextUtils.join("\n", sandwich.getAlsoKnownAs()));
+        
         activityDetailBinding.itemDetails.tvDescription.setText(sandwich.getDescription());
-        activityDetailBinding.itemDetails.tvIngrediants.setText(convertListtoString(sandwich.getIngredients()));
+        
+        activityDetailBinding.itemDetails.tvIngrediants.setText(TextUtils.join("\n", sandwich.getIngredients()));
     }
 
-    private String convertListtoString(List<String> inputArray){
-        String data = "";
-
-        for(String each : inputArray){
-            data = data + each +"\n";
-        }
-
-        return data.trim();
-    }
+ 
 
 }
