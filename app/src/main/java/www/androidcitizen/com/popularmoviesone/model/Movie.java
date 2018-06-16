@@ -15,10 +15,10 @@ public class Movie {
     private float   voterAvg;
 
     public Movie(String title, int movieId, String posterPath, float voterAvg) {
-        this.title = title;
-        this.movieId = movieId;
+        this.title      = title;
+        this.movieId    = movieId;
         this.posterPath = posterPath;
-        this.voterAvg = voterAvg;
+        this.voterAvg   = voterAvg;
     }
 
     public String getTitle() {
@@ -38,7 +38,7 @@ public class Movie {
     }
 
     public String getPosterPath() {
-        return BaseConfig.POSTER_IMAGE_URL_PATH + posterPath;
+        return BaseConfig.PORT_POSTER_IMAGE_URL_PATH + posterPath;
     }
 
     public void setPosterPath(String posterPath) {

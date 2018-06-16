@@ -1,5 +1,6 @@
 package www.androidcitizen.com.popularmoviesone.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,25 +20,30 @@ import www.androidcitizen.com.popularmoviesone.model.Movie;
 import www.androidcitizen.com.popularmoviesone.utilities.JsonUtils;
 import www.androidcitizen.com.popularmoviesone.utilities.NetworkUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MovieAdapter.MovieClickListener {
 
-    RecyclerView rvMovieGridList;
-    MovieAdapter adapter;
+    private RecyclerView rvMovieGridList;
+    private static MovieAdapter adapter;
+
+    private static List<Movie> moviesList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        BaseConfig.setMovieOverviewActivity();
 
         rvMovieGridList = (RecyclerView) findViewById(R.id.rv_movieList);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         rvMovieGridList.setHasFixedSize(true);
         rvMovieGridList.setLayoutManager(layoutManager);
 
-        adapter = new MovieAdapter();
+        adapter = new MovieAdapter(this);
 
         rvMovieGridList.setAdapter(adapter);
 
@@ -45,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public class MovieAsyncTask extends AsyncTask<String, Void, List<Movie>> {
+    private static class MovieAsyncTask extends AsyncTask<String, Void, List<Movie>> {
 
         @Override
         protected List<Movie> doInBackground(String... strings) {
@@ -60,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 jsonResponse = NetworkUtils.getResponseFromHttpUrl(searchUrl);
 
-                movies = JsonUtils.processJsonData(jsonResponse);
+                movies = JsonUtils.processMovieOverviewJsonData(jsonResponse);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -73,8 +79,25 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<Movie> movies) {
-            adapter.newData(movies);
+            if(null != moviesList)
+                moviesList = null;
+
+            if (null != movies) {
+                moviesList = movies;
+                adapter.newData(movies);
+            }
         }
+    }
+
+    @Override
+    public void onMovieItemClick(int clickedItemIndex) {
+
+        if(null != moviesList) {
+            Intent movieDetailActivity = new Intent(this, MovieDetailActivity.class);
+            movieDetailActivity.putExtra(BaseConfig.MOVIE_ID, moviesList.get(clickedItemIndex).getMovieId());
+            startActivity(movieDetailActivity);
+        }
+
     }
 
 }
