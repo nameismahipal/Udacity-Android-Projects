@@ -7,6 +7,8 @@ package www.androidcitizen.com.popularmoviesone.config;
 
 public class BaseConfig {
 
+    public final static  String API_KEY = "";
+
     private final static int NO_SCREEN = -1000;
 
     public static int CURRENT_ACTIVITY = NO_SCREEN;
@@ -34,7 +36,6 @@ public class BaseConfig {
     public final static  String UPCOMING_KEY      = "upcoming";
 
     public final static  String apiKey  = "api_key";
-    public final static  String API_KEY = "231770e320e461bebfa9c748217ae54e";
 
 
     public static void setMovieOverviewActivity() {

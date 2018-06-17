@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.model.Movie;
+import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
 
 /**
  * Created by Mahi on 13/06/18.
@@ -21,7 +21,7 @@ import www.androidcitizen.com.popularmoviesone.model.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>{
 
-    private List<Movie> movies = null;
+    private List<MovieDetails> movieDetails = null;
 
     final private MovieClickListener movieClickListener;
 
@@ -31,14 +31,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
-        if(null != movies)
-            return movies.size();
+        if(null != movieDetails)
+            return movieDetails.size();
         else
             return 0;
     }
 
-    public void newData(List<Movie> newData){
-        movies = newData;
+    public void newData(List<MovieDetails> newData){
+        movieDetails = newData;
         notifyDataSetChanged();
     }
 
@@ -76,7 +76,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void onBind(int index) {
 
             Picasso.get()
-                    .load(movies.get(index).getPosterPath())
+                    .load(movieDetails.get(index).getPosterPath())
                     //.placeholder("http://via.placeholder.com/350x150")
                     //.error(R.drawable.user_placeholder_error)
                     .into(imagePosterView);

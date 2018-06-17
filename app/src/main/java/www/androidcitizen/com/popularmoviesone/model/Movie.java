@@ -1,55 +1,64 @@
 package www.androidcitizen.com.popularmoviesone.model;
 
-import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by Mahi on 13/06/18.
  * www.androidcitizen.com
- */
+
+ Used http://www.jsonschema2pojo.org/ tool for Code creation.
+*/
 
 public class Movie {
 
-    private String  title;
-    private int     movieId;
-    private String  posterPath;
-    private float   voterAvg;
+    @SerializedName("page")
+    @Expose
+    private Integer page;
 
-    public Movie(String title, int movieId, String posterPath, float voterAvg) {
-        this.title      = title;
-        this.movieId    = movieId;
-        this.posterPath = posterPath;
-        this.voterAvg   = voterAvg;
+    @SerializedName("total_results")
+    @Expose
+    private Integer totalResults;
+
+    @SerializedName("total_pages")
+    @Expose
+    private Integer totalPages;
+
+    @SerializedName("results")
+    @Expose
+    private List<MovieDetails> movieDetails = null;
+
+    public Integer getPage() {
+        return page;
     }
 
-    public String getTitle() {
-        return title;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Integer getTotalResults() {
+        return totalResults;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public Integer getTotalPages() {
+        return totalPages;
     }
 
-    public String getPosterPath() {
-        return BaseConfig.PORT_POSTER_IMAGE_URL_PATH + posterPath;
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public List<MovieDetails> getMovieDetails() {
+        return movieDetails;
     }
 
-    public float getVoterAvg() {
-        return voterAvg;
-    }
-
-    public void setVoterAvg(float voterAvg) {
-        this.voterAvg = voterAvg;
+    public void setMovieDetails(List<MovieDetails> results) {
+        this.movieDetails = results;
     }
 }
