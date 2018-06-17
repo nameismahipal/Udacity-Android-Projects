@@ -4,7 +4,12 @@ Please See Commit Messages for more details.
 
 ## Output:
 
-#### 0eca0da2a5a27f0038de778c7576ce4a64a813ab
+#### commit 3288f3ed28d4f5bcbb00be353dff8dd60c3956a0 
+
+- Gson lib for JSON Parsing.
+- Parcelable for sending object data b/n activities.
+
+#### commit 0eca0da2a5a27f0038de778c7576ce4a64a813ab
 
 - Updated Movie Details Activity.(AsyncTask)
 - Issue on below commit, is found to be with the Simulator. 
