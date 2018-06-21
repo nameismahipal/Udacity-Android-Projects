@@ -7,7 +7,7 @@ package www.androidcitizen.com.popularmoviesone.config;
 
 public class BaseConfig {
 
-    public final static  String API_KEY = "";
+    public final static  String API_KEY = "231770e320e461bebfa9c748217ae54e";
 
     private final static int NO_SCREEN = -1000;
 
@@ -18,6 +18,9 @@ public class BaseConfig {
     public final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
     public final static String MOVIES_BASE_URL       = "https://api.themoviedb.org/3/movie";
     public final static String DISCOVER_MOVIES_URL   = "https://api.themoviedb.org/3/discover/movie";
+
+    public final static String POPULAR_BASE_URL       = "https://api.themoviedb.org/3/movie/popular";
+    public final static String TOPRATED_BASE_URL       = "https://api.themoviedb.org/3/movie/top_rated";
 
     private final static  String PORTRAIT_POSTER_SIZE           = "/w154";
     private final static  String PORTRAIT_BACKDROP_POSTER_SIZE  = "/w300";

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single"
+        android:id="@+id/menu_actions">
+        <item android:id="@+id/all"
+            android:title="All"
+            android:checked="true"/>
+        <item android:id="@+id/toprated"
+            android:title="Top Rated"
+            android:checked="false"/>
+        <item android:id="@+id/popular"
+            android:title="Popular"
+            android:checked="false"/>
+    </group>
+</menu>
