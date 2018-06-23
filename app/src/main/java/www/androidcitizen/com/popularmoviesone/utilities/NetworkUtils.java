@@ -17,9 +17,10 @@ import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 
 public class NetworkUtils {
 
-    public static URL buildUrl(String searchQuery) {
+    public static URL buildUrl(String searchQuery, int pageNum) {
         Uri builtUri = Uri.parse(searchQuery).buildUpon()
                 .appendQueryParameter(BaseConfig.apiKey, BaseConfig.API_KEY)
+                .appendQueryParameter("page", Integer.toString(pageNum))
                 .build();
 
         URL url = null;

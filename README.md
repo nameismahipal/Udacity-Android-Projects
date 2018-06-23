@@ -4,6 +4,11 @@ Please See Commit Messages for more details.
 
 ## Output:
 
+#### commit b15678a42ab279976700996cc85d19e9e3c1d45b 
+
+- AsyncTask is changed to AsyncLoader.
+- Added Filter options to select Top-Rated/Popular.
+
 #### commit 3288f3ed28d4f5bcbb00be353dff8dd60c3956a0 
 
 - Gson lib for JSON Parsing.

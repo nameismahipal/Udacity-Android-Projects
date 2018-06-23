@@ -29,21 +29,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.movieClickListener = movieClickListener;
     }
 
+    public interface MovieClickListener{
+        void  onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails);
+    }
+
     @Override
     public int getItemCount() {
         if(null != movieDetails)
             return movieDetails.size();
         else
             return 0;
-    }
-
-    public void newData(List<MovieDetails> newData){
-        movieDetails = newData;
-        notifyDataSetChanged();
-    }
-
-    public interface MovieClickListener{
-        void  onMovieItemClick(int clickedItemIndex);
     }
 
     @NonNull
@@ -86,8 +81,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @Override
         public void onClick(View v) {
             int clickedItemIndex = getAdapterPosition();
-            movieClickListener.onMovieItemClick(clickedItemIndex);
+            movieClickListener.onMovieItemClick(clickedItemIndex, movieDetails.get(clickedItemIndex));
         }
+    }
+
+    public void newData(List<MovieDetails> movieList){
+
+        if(null == movieDetails) {
+
+            movieDetails = movieList;
+            notifyDataSetChanged();
+
+        } else {
+
+            for (MovieDetails movieDetail : movieList) {
+                add(movieDetail);
+            }
+        }
+    }
+
+    public void add(MovieDetails movieInfo) {
+        movieDetails.add(movieInfo);
+        notifyItemInserted(movieDetails.size() - 1);
     }
 
 }

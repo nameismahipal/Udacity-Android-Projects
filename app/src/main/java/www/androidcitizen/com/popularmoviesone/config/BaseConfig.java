@@ -7,7 +7,7 @@ package www.androidcitizen.com.popularmoviesone.config;
 
 public class BaseConfig {
 
-    public final static  String API_KEY = "231770e320e461bebfa9c748217ae54e";
+    public final static  String API_KEY = "";
 
     private final static int NO_SCREEN = -1000;
 
