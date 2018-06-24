@@ -105,4 +105,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyItemInserted(movieDetails.size() - 1);
     }
 
+    public void clearAll() {
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public void remove(MovieDetails movie) {
+        int position = movieDetails.indexOf(movie);
+        movieDetails.remove(position);
+        notifyItemRemoved(position);
+
+    }
+
+    public MovieDetails getItem(int position) {
+        return movieDetails.get(position);
+    }
+
+
 }

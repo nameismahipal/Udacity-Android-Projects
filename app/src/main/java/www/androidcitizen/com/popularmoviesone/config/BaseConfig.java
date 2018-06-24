@@ -11,7 +11,6 @@ public class BaseConfig {
 
     private final static int NO_SCREEN = -1000;
 
-    public static int CURRENT_ACTIVITY = NO_SCREEN;
     public final static int MOVIE_OVERVIEW_ACTIVITY = 1001;
     public final static int MOVIE_DETAIL_ACTIVITY   = 1002;
 
@@ -21,6 +20,8 @@ public class BaseConfig {
 
     public final static String POPULAR_BASE_URL       = "https://api.themoviedb.org/3/movie/popular";
     public final static String TOPRATED_BASE_URL       = "https://api.themoviedb.org/3/movie/top_rated";
+
+    public static String CURRENT_BASE_URL = DISCOVER_MOVIES_URL;
 
     private final static  String PORTRAIT_POSTER_SIZE           = "/w154";
     private final static  String PORTRAIT_BACKDROP_POSTER_SIZE  = "/w300";
@@ -39,21 +40,6 @@ public class BaseConfig {
     public final static  String UPCOMING_KEY      = "upcoming";
 
     public final static  String apiKey  = "api_key";
-
-
-    public static void setMovieOverviewActivity() {
-        setDefaults();
-        CURRENT_ACTIVITY = MOVIE_OVERVIEW_ACTIVITY;
-    }
-
-    public static void setMovieDetailActivity() {
-        setDefaults();
-        CURRENT_ACTIVITY = MOVIE_DETAIL_ACTIVITY;
-    }
-
-    private static void setDefaults(){
-        CURRENT_ACTIVITY = NO_SCREEN;
-    }
 
 
     /*

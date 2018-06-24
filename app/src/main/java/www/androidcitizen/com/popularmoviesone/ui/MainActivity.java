@@ -42,29 +42,25 @@ public class MainActivity extends AppCompatActivity
 
     private static final String MOVIE_PAGE_KEY = "MOVIE_PAGE";
     private static int PAGE_NUM = 1;
-
+    private static int TOTAL_PAGES = 1;
     private static int POP_ITEM_INDEX = 0;
-
-    private static boolean isLastPage = false;
-    private static boolean isLoading = false;
+    private static int SCROLL_ITEM_POSITION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        BaseConfig.setMovieOverviewActivity();
 
         rvMovieGridList = (RecyclerView) findViewById(R.id.rv_movieList);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         scrollListener = new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if(page < movie.getTotalPages()){
-                    loadNewList(BaseConfig.DISCOVER_MOVIES_URL, page);
+                if(page < TOTAL_PAGES){
+                    loadNewList(BaseConfig.CURRENT_BASE_URL, page);
                 }
             }
         };
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         rvMovieGridList.setAdapter(adapter);
 
         Bundle bundle = new Bundle();
-        bundle.putString(MOVIE_LOADING_KEY, BaseConfig.DISCOVER_MOVIES_URL);
+        bundle.putString(MOVIE_LOADING_KEY, BaseConfig.CURRENT_BASE_URL);
         bundle.putInt(MOVIE_PAGE_KEY, PAGE_NUM);
 
         LoaderManager loaderManager = getLoaderManager();
@@ -87,13 +83,28 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails) {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putInt("pop_filter_item", POP_ITEM_INDEX);
+//        outState.putInt("page_num", PAGE_NUM);
+//        outState.putInt("scroll_position", SCROLL_ITEM_POSITION);
+    }
 
-            //MovieDetails sendData = movie.getMovieDetails().get(clickedItemIndex);
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+//        POP_ITEM_INDEX = savedInstanceState.getInt("pop_filter_item");
+//        PAGE_NUM = savedInstanceState.getInt("page_num");
+//        SCROLL_ITEM_POSITION = savedInstanceState.getInt("scroll_position");
+    }
+
+    @Override
+    public void onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails) {
 
             Intent movieDetailActivity = new Intent(this, MovieDetailActivity.class);
             movieDetailActivity.putExtra("movieDetailsdata", movieDetails);
             startActivity(movieDetailActivity);
+            rvMovieGridList.smoothScrollToPosition(clickedItemIndex);
 
     }
 
@@ -126,25 +137,34 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.all:
                 POP_ITEM_INDEX = 0;
-                setPopMenuCheckedAndCallUrl(item, BaseConfig.DISCOVER_MOVIES_URL);
-                return true;
+                BaseConfig.CURRENT_BASE_URL = BaseConfig.DISCOVER_MOVIES_URL;
+                break;
             case R.id.toprated:
                 POP_ITEM_INDEX = 1;
-                setPopMenuCheckedAndCallUrl(item, BaseConfig.TOPRATED_BASE_URL);
-                return true;
+                BaseConfig.CURRENT_BASE_URL = BaseConfig.TOPRATED_BASE_URL;
+                break;
             case R.id.popular:
                 POP_ITEM_INDEX = 2;
-                setPopMenuCheckedAndCallUrl(item, BaseConfig.POPULAR_BASE_URL);
-                return true;
+                BaseConfig.CURRENT_BASE_URL = BaseConfig.POPULAR_BASE_URL;
+                break;
             default:
                 return false;
         }
+
+        setPopMenuCheckedAndCallUrl(item);
+        return true;
     }
 
-    private void setPopMenuCheckedAndCallUrl(MenuItem item, String url) {
+    private void setPopMenuCheckedAndCallUrl(MenuItem item) {
+        clearList();
         item.setChecked(true);
         PAGE_NUM = 1;
-        loadNewList(url, PAGE_NUM);
+        loadNewList(BaseConfig.CURRENT_BASE_URL, PAGE_NUM);
+    }
+
+    private void clearList() {
+        adapter.clearAll();
+        scrollListener.resetState();
     }
 
     private void loadNewList(String url, int pageNum) {
@@ -159,7 +179,7 @@ public class MainActivity extends AppCompatActivity
 
         return new AsyncTaskLoader<Movie>(this) {
 
-            Movie movieChache = null;
+            Movie movieChache;
 
             @Override
             public Movie loadInBackground() {
@@ -189,7 +209,7 @@ public class MainActivity extends AppCompatActivity
             protected void onStartLoading() {
                 super.onStartLoading();
                 if(null != movieChache) {
-
+                    deliverResult(movieChache);
                 } else {
                     forceLoad();
                 }
@@ -205,11 +225,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Movie> loader, Movie movieObj) {
-//        if(null != movie)
-//            movie = null;
 
         if (null != movieObj) {
             movie = movieObj;
+            PAGE_NUM = movie.getPage();
+            TOTAL_PAGES = movie.getTotalPages();
             adapter.newData(movieObj.getMovieDetails());
         }
     }

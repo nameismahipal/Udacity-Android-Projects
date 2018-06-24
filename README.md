@@ -4,6 +4,10 @@ Please See Commit Messages for more details.
 
 ## Output:
 
+#### commit 4475adcff7c121ca5ce4a48baf8cf0170377a1c4 
+
+- Added continous scrolling.
+- 
 #### commit b15678a42ab279976700996cc85d19e9e3c1d45b 
 
 - AsyncTask is changed to AsyncLoader.

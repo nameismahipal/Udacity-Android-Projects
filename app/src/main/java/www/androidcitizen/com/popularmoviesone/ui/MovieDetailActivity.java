@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -25,7 +24,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-        BaseConfig.setMovieDetailActivity();
 
         ivPoster        = findViewById(R.id.iv_posterImage);
         ivBackground    = findViewById(R.id.iv_backgroundImage);
