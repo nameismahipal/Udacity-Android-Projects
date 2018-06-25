@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity
     private static MovieAdapter adapter;
     private EndlessScrollListener scrollListener;
 
-    private static Movie movie = null;
-
     private static final int MOVIE_LOADING_ID = 301;
     private static final String MOVIE_LOADING_KEY = "MOVIE_LOADING_KEY";
 
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        rvMovieGridList = (RecyclerView) findViewById(R.id.rv_movieList);
+        rvMovieGridList = findViewById(R.id.rv_movieList);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
 
@@ -80,22 +78,6 @@ public class MainActivity extends AppCompatActivity
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(MOVIE_LOADING_ID, bundle, this);
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-//        outState.putInt("pop_filter_item", POP_ITEM_INDEX);
-//        outState.putInt("page_num", PAGE_NUM);
-//        outState.putInt("scroll_position", SCROLL_ITEM_POSITION);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-//        POP_ITEM_INDEX = savedInstanceState.getInt("pop_filter_item");
-//        PAGE_NUM = savedInstanceState.getInt("page_num");
-//        SCROLL_ITEM_POSITION = savedInstanceState.getInt("scroll_position");
     }
 
     @Override
@@ -227,7 +209,7 @@ public class MainActivity extends AppCompatActivity
     public void onLoadFinished(Loader<Movie> loader, Movie movieObj) {
 
         if (null != movieObj) {
-            movie = movieObj;
+            Movie movie = movieObj;
             PAGE_NUM = movie.getPage();
             TOTAL_PAGES = movie.getTotalPages();
             adapter.newData(movieObj.getMovieDetails());

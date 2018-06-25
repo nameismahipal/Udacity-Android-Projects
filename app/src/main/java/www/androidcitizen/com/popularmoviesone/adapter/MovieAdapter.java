@@ -64,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         private MovieViewHolder(View view) {
             super(view);
-            imagePosterView = (ImageView) view.findViewById(R.id.iv_posterImage);
+            imagePosterView = view.findViewById(R.id.iv_posterImage);
             imagePosterView.setOnClickListener(this);
         }
 
@@ -100,7 +100,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
     }
 
-    public void add(MovieDetails movieInfo) {
+    private void add(MovieDetails movieInfo) {
         movieDetails.add(movieInfo);
         notifyItemInserted(movieDetails.size() - 1);
     }
@@ -111,14 +111,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
     }
 
-    public void remove(MovieDetails movie) {
+    private void remove(MovieDetails movie) {
         int position = movieDetails.indexOf(movie);
         movieDetails.remove(position);
         notifyItemRemoved(position);
 
     }
 
-    public MovieDetails getItem(int position) {
+    private MovieDetails getItem(int position) {
         return movieDetails.get(position);
     }
 

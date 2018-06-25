@@ -13,16 +13,17 @@ import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private ImageView ivPoster;
-    private ImageView ivBackground;
-    private TextView tvTitle;
-    private RatingBar rvRatingbar;
-    private TextView tvReleaseDate;
-    private TextView tvOverview;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ImageView ivPoster;
+        ImageView ivBackground;
+        TextView tvTitle;
+        RatingBar rvRatingbar;
+        TextView tvReleaseDate;
+        TextView tvOverview;
+
         setContentView(R.layout.activity_movie_detail);
 
         ivPoster        = findViewById(R.id.iv_posterImage);

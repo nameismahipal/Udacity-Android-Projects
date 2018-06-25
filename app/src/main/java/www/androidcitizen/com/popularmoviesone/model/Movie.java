@@ -32,7 +32,7 @@ public class Movie implements Parcelable {
 
     @SerializedName("results")
     @Expose
-    private List<MovieDetails> movieDetails = null;
+    private List<MovieDetails> movieDetails;
 
     public Integer getPage() {
         return page;
@@ -71,7 +71,7 @@ public class Movie implements Parcelable {
         totalResults = in.readByte() == 0x00 ? null : in.readInt();
         totalPages = in.readByte() == 0x00 ? null : in.readInt();
         if (in.readByte() == 0x01) {
-            movieDetails = new ArrayList<MovieDetails>();
+            movieDetails = new ArrayList<>();
             in.readList(movieDetails, MovieDetails.class.getClassLoader());
         } else {
             movieDetails = null;

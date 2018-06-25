@@ -3,6 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/ic_filter"
         android:icon="@drawable/ic_round_filter_list_w_24px"
-        android:title="Filter"
+        android:title="@string/filter"
         app:showAsAction="ifRoom" />
 </menu>

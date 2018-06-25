@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:adjustViewBounds="true"
-        android:contentDescription="Poster Image" />
+        android:contentDescription="@string/poster_image" />
 
 </FrameLayout>
 </ScrollView>
