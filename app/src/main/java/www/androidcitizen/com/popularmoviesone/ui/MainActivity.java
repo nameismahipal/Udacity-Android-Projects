@@ -2,6 +2,7 @@ package www.androidcitizen.com.popularmoviesone.ui;
 
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -52,7 +53,21 @@ public class MainActivity extends AppCompatActivity
 
         rvMovieGridList = findViewById(R.id.rv_movieList);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        setupRecycleView();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(MOVIE_LOADING_KEY, BaseConfig.CURRENT_BASE_URL);
+        bundle.putInt(MOVIE_PAGE_KEY, PAGE_NUM);
+
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(MOVIE_LOADING_ID, bundle,this);
+
+    }
+
+    private void setupRecycleView(){
+        int spanCount = getColumnValue(this);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
 
         scrollListener = new EndlessScrollListener(layoutManager) {
             @Override
@@ -70,14 +85,14 @@ public class MainActivity extends AppCompatActivity
         adapter = new MovieAdapter(this);
 
         rvMovieGridList.setAdapter(adapter);
+    }
 
-        Bundle bundle = new Bundle();
-        bundle.putString(MOVIE_LOADING_KEY, BaseConfig.CURRENT_BASE_URL);
-        bundle.putInt(MOVIE_PAGE_KEY, PAGE_NUM);
-
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(MOVIE_LOADING_ID, bundle, this);
-
+    private static int getColumnValue(Context context){
+        if(context.getResources().getBoolean(R.bool.is_portrait)){
+            return 2;
+        } else {
+            return 4;
+        }
     }
 
     @Override
