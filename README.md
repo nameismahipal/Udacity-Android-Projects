@@ -4,10 +4,14 @@ Please See Commit Messages for more details.
 
 ## Output:
 
+#### commit bfaabc2d9ee7481c4dd98e7737b57cffd4e290d9 
+
+- Added Data Binding (Basic).
+
 #### commit 4475adcff7c121ca5ce4a48baf8cf0170377a1c4 
 
 - Added continuous scrolling.
-- 
+
 #### commit b15678a42ab279976700996cc85d19e9e3c1d45b 
 
 - AsyncTask is changed to AsyncLoader.
