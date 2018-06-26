@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     private static int PAGE_NUM = 1;
     private static int TOTAL_PAGES = 1;
     private static int POP_ITEM_INDEX = 0;
-    private static int SCROLL_ITEM_POSITION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
