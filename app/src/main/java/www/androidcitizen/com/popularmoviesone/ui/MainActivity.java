@@ -5,6 +5,7 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,6 +23,7 @@ import www.androidcitizen.com.popularmoviesone.Pagination.EndlessScrollListener;
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.adapter.MovieAdapter;
 import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
+import www.androidcitizen.com.popularmoviesone.databinding.ActivityMainBinding;
 import www.androidcitizen.com.popularmoviesone.model.Movie;
 import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
 import www.androidcitizen.com.popularmoviesone.utilities.JsonUtils;
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity
         LoaderManager.LoaderCallbacks<Movie>,
         PopupMenu.OnMenuItemClickListener {
 
-    private RecyclerView rvMovieGridList;
+    ActivityMainBinding mainBinding;
+
     private static MovieAdapter adapter;
     private EndlessScrollListener scrollListener;
 
@@ -48,9 +51,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
-        rvMovieGridList = findViewById(R.id.rv_movieList);
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         setupRecycleView();
 
@@ -77,13 +78,13 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
-        rvMovieGridList.setHasFixedSize(true);
-        rvMovieGridList.setLayoutManager(layoutManager);
-        rvMovieGridList.addOnScrollListener(scrollListener);
+        mainBinding.rvMovieList.setHasFixedSize(true);
+        mainBinding.rvMovieList.setLayoutManager(layoutManager);
+        mainBinding.rvMovieList.addOnScrollListener(scrollListener);
 
         adapter = new MovieAdapter(this);
 
-        rvMovieGridList.setAdapter(adapter);
+        mainBinding.rvMovieList.setAdapter(adapter);
     }
 
     private static int getColumnValue(Context context){
@@ -94,13 +95,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails) {
 
             Intent movieDetailActivity = new Intent(this, MovieDetailActivity.class);
             movieDetailActivity.putExtra("movieDetailsdata", movieDetails);
             startActivity(movieDetailActivity);
-            rvMovieGridList.smoothScrollToPosition(clickedItemIndex);
 
     }
 
