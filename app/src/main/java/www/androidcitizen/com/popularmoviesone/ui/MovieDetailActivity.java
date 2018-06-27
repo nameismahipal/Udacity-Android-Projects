@@ -1,5 +1,6 @@
 package www.androidcitizen.com.popularmoviesone.ui;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +15,27 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     ActivityMovieDetailBinding detailBinding;
 
+    MovieDetails movieDetails;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         detailBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
 
-        MovieDetails movieDetails = getIntent().getParcelableExtra("movieDetailsdata");
+        Intent intent = getIntent();
+        if (intent.hasExtra("movieDetailsdata")) {
+
+            movieDetails = getIntent().getParcelableExtra("movieDetailsdata");
+
+            if(null != movieDetails) {
+                setViewData();
+            }
+        }
+
+    }
+
+    void setViewData(){
 
         Picasso.get()
                 .load(movieDetails.getBackdropPath())
@@ -34,10 +49,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                 //.error(R.drawable.user_placeholder_error)
                 .into(detailBinding.ivPosterImage);
 
-            detailBinding.tvTitle.setText(movieDetails.getTitle());
-            detailBinding.ratingBar.setRating(movieDetails.getVoteAverage()/2);
-            detailBinding.tvReleaseDate.setText(movieDetails.getReleaseDate());
-            detailBinding.tvOverView.setText(movieDetails.getOverview());
+        detailBinding.tvTitle.setText(movieDetails.getTitle());
+        detailBinding.ratingBar.setRating(movieDetails.getVoteAverage() / 2);
+        detailBinding.tvReleaseDate.setText(movieDetails.getReleaseDate());
+        detailBinding.tvOverView.setText(movieDetails.getOverview());
     }
 
 }

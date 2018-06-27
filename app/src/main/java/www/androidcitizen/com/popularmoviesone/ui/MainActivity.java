@@ -1,7 +1,6 @@
 package www.androidcitizen.com.popularmoviesone.ui;
 
 import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -16,9 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.io.IOException;
-import java.net.URL;
-
 import www.androidcitizen.com.popularmoviesone.Pagination.EndlessScrollListener;
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.adapter.MovieAdapter;
@@ -26,8 +22,7 @@ import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMainBinding;
 import www.androidcitizen.com.popularmoviesone.model.Movie;
 import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
-import www.androidcitizen.com.popularmoviesone.utilities.JsonUtils;
-import www.androidcitizen.com.popularmoviesone.utilities.NetworkUtils;
+import www.androidcitizen.com.popularmoviesone.utilities.MovieLoader;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.MovieClickListener,
@@ -46,6 +41,11 @@ public class MainActivity extends AppCompatActivity
     private static int PAGE_NUM = 1;
     private static int TOTAL_PAGES = 1;
     private static int POP_ITEM_INDEX = 0;
+
+    private final static int ALL_MOVIES_INDEX = 0;
+    private final static int TOPRATED_MOVIES_INDEX = 1;
+    private final static int POPULAR_MOVIES_INDEX = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,15 +133,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.all:
-                POP_ITEM_INDEX = 0;
+                POP_ITEM_INDEX = ALL_MOVIES_INDEX;
                 BaseConfig.CURRENT_BASE_URL = BaseConfig.DISCOVER_MOVIES_URL;
                 break;
             case R.id.toprated:
-                POP_ITEM_INDEX = 1;
+                POP_ITEM_INDEX = TOPRATED_MOVIES_INDEX;
                 BaseConfig.CURRENT_BASE_URL = BaseConfig.TOPRATED_BASE_URL;
                 break;
             case R.id.popular:
-                POP_ITEM_INDEX = 2;
+                POP_ITEM_INDEX = POPULAR_MOVIES_INDEX;
                 BaseConfig.CURRENT_BASE_URL = BaseConfig.POPULAR_BASE_URL;
                 break;
             default:
@@ -172,52 +172,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public Loader<Movie> onCreateLoader(int id, final Bundle bundle) {
+    public Loader<Movie> onCreateLoader(int id, Bundle bundle) {
 
-        return new AsyncTaskLoader<Movie>(this) {
-
-            Movie movieChache;
-
-            @Override
-            public Movie loadInBackground() {
-                String baseUrl = bundle.getString(MOVIE_LOADING_KEY); //strings[0];
-                int pageNum = bundle.getInt(MOVIE_PAGE_KEY);
-
-                URL searchUrl;
-                String jsonResponse;
-
-                Movie movie = null;
-
-                searchUrl = NetworkUtils.buildUrl(baseUrl, pageNum);
-
-                try {
-                    jsonResponse = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-
-                    movie = JsonUtils.processMovieOverviewJsonData(jsonResponse);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                return movie;
-            }
-
-            @Override
-            protected void onStartLoading() {
-                super.onStartLoading();
-                if(null != movieChache) {
-                    deliverResult(movieChache);
-                } else {
-                    forceLoad();
-                }
-            }
-
-            @Override
-            public void deliverResult(Movie data) {
-                movieChache = data;
-                super.deliverResult(data);
-            }
-        };
+        return new MovieLoader(this, bundle);
     }
 
     @Override

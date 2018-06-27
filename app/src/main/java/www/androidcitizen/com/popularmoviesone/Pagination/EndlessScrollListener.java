@@ -11,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  *
  * https://gist.github.com/nesquena/d09dc68ff07e845cc622
  *
+ * References:
  * https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews-and-RecyclerView
  *
  * https://blog.iamsuleiman.com/android-pagination-tutorial-getting-started-recyclerview/
