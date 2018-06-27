@@ -9,26 +9,27 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         >
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.MovieDetailActivity">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.MovieDetailActivity">
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guidelineLeft"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/dimen_16dp" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dimen_8dp" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guidelineRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/dimen_16dp" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/dimen_8dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineTop"
@@ -42,61 +43,55 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:visibility="gone"
         android:contentDescription="@string/background_image"
-        app:layout_constraintStart_toEndOf="@id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_posterImage"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/dimen_8dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/poster_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="129dp"
-        android:layout_height="35dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textAlignment="viewStart"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toEndOf="@+id/iv_posterImage"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
-        tools:text="Title" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:isIndicator="true"
         android:numStars="5"
         android:rating="5"
         android:stepSize="0.1"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
         android:id="@+id/tv_releaseDate"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/ratingBar"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        tools:text="28-9-10" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+         />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier1"
@@ -104,43 +99,36 @@
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="ratingBar, tv_releaseDate"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+        />
 
     <TextView
         android:id="@+id/synopsis"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/synopsis"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintStart_toStartOf="@+id/ratingBar"
         app:layout_constraintTop_toBottomOf="@+id/barrier1" />
 
-    <ScrollView
+        <ScrollView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_8dp"
         app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/synopsis"
         app:layout_constraintTop_toBottomOf="@+id/synopsis">
 
         <TextView
             android:id="@+id/tv_OverView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:layout_height="wrap_content"/>
 
-    </ScrollView>
-
+        </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
     </layout>
-

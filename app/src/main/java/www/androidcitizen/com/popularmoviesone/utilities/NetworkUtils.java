@@ -15,7 +15,10 @@ import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
  * Re-used from Udacity, Android Developer Course, Lesson T02.05
  */
 
-public class NetworkUtils {
+public final class NetworkUtils {
+
+    private NetworkUtils() {
+    }
 
     public static URL buildUrl(String searchQuery, int pageNum) {
         Uri builtUri = Uri.parse(searchQuery).buildUpon()

@@ -4,22 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-<ScrollView
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_movieList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:layoutManager="android.support.v7.widget.GridLayoutManager"
         tools:listitem="@layout/grid_item_view"
         tools:spanCount="2"
         tools:totalCount="20"
         >
     </android.support.v7.widget.RecyclerView>
-
- </ScrollView>
 
 </layout>

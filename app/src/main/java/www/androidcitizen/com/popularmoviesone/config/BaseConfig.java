@@ -5,7 +5,7 @@ package www.androidcitizen.com.popularmoviesone.config;
  * www.androidcitizen.com
  */
 
-public class BaseConfig {
+public final class BaseConfig {
 
     public final static  String API_KEY = "<API-KEY>";
 
@@ -33,6 +33,7 @@ public class BaseConfig {
 
     public final static  String apiKey  = "api_key";
 
+    private BaseConfig() { }
 
     /*
     https://api.themoviedb.org/3/discover/movie?api_key=231770e320e461bebfa9c748217ae54e
