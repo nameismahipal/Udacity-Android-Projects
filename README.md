@@ -6,9 +6,6 @@ API KEY TBD in BaseConfig.java
 
 ## Output:
 
-### commit 13a4f918407d8865b11731bd31f73e98fa2f5954
-
-Stage 1 Submission
 
 #### commit bfaabc2d9ee7481c4dd98e7737b57cffd4e290d9 
 
