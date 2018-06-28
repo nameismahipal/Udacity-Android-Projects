@@ -7,7 +7,7 @@ package www.androidcitizen.com.popularmoviesone.config;
 
 public final class BaseConfig {
 
-    public final static  String API_KEY = "<API-KEY>";
+    public final static  String API_KEY = "<API_KEY>";
 
     private final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
     public final static String MOVIES_BASE_URL       = "https://api.themoviedb.org/3/movie";
