@@ -51,7 +51,6 @@
                 android:layout_height="231dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/poster_image"
-                android:src="@drawable/poster"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guidelineLeft"
                 app:layout_constraintTop_toTopOf="@+id/guidelineTop"
