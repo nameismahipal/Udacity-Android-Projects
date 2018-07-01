@@ -6,6 +6,10 @@ API KEY TBD in BaseConfig.java
 
 ## Output:
 
+#### commit d5d39bc4dac8868055cbd2ce1b55de521a76aa29 
+
+Retrofit Added. 
+
 #### commit 0f83effa8a512335b1b05f97bca295d516f63287 
 
 Stage 1 
