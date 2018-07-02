@@ -1,5 +1,7 @@
 package www.androidcitizen.com.popularmoviesone.config;
 
+import www.androidcitizen.com.popularmoviesone.BuildConfig;
+
 /**
  * Created by Mahi on 13/06/18.
  * www.androidcitizen.com
@@ -7,31 +9,15 @@ package www.androidcitizen.com.popularmoviesone.config;
 
 public final class BaseConfig {
 
-    public final static  String API_KEY = "<API-KEY>";
+    public final static  String API_KEY = BuildConfig.ApiKey;
 
     private final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
-    public final static String MOVIES_BASE_URL       = "https://api.themoviedb.org/3/movie";
-    public final static String DISCOVER_MOVIES_URL   = "https://api.themoviedb.org/3/discover/movie";
-
-    public final static String POPULAR_BASE_URL       = "https://api.themoviedb.org/3/movie/popular";
-    public final static String TOPRATED_BASE_URL       = "https://api.themoviedb.org/3/movie/top_rated";
-
-    public static String CURRENT_BASE_URL = DISCOVER_MOVIES_URL;
 
     private final static  String PORTRAIT_POSTER_SIZE           = "/w154";
     private final static  String PORTRAIT_BACKDROP_POSTER_SIZE  = "/w300";
 
     public final static String PORT_POSTER_IMAGE_URL_PATH   = IMAGE_BASE_URL + PORTRAIT_POSTER_SIZE;
     public final static String PORT_BACKDROP_IMAGE_URL_PATH = IMAGE_BASE_URL + PORTRAIT_BACKDROP_POSTER_SIZE;
-
-    public final static String MOVIE_ID = "mdb_movie_id";
-
-    public final static  String POPULAR_KEY       = "popular";
-    public final static  String TOP_RATED_KEY     = "top_rated";
-    public final static  String NOW_PLAYING_KEY   = "now_playing";
-    public final static  String UPCOMING_KEY      = "upcoming";
-
-    public final static  String apiKey  = "api_key";
 
     private BaseConfig() { }
 

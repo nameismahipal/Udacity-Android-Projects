@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def MOVIEDB_API_KEY = themoviedb_org_API_KEY ?: "Enter API-KEY in gradle.properties (home dir)"
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -9,12 +11,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    each { type ->
+        type.buildConfigField 'String', "ApiKey", MOVIEDB_API_KEY
+
+        type.resValue 'string', "api_key", MOVIEDB_API_KEY
     }
+
+    }
+
     buildTypes {
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
 
     dataBinding.enabled = true
