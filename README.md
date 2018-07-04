@@ -2,37 +2,45 @@
 
 Please See Commit Messages for more details.
 
-API KEY TBD in BaseConfig.java
+https://www.androidcitizen.com/hiding-api-keys/
+
+Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (Module: app).
 
 ## Output:
 
-#### commit 8ad1a869c25fd1344a57d28b091c16e1e4c92ad2 
+#### commit 0162f80  
+
+- Network Debugging Added.
+
+https://www.androidcitizen.com/retrofit-2-and-network-logging/
+
+#### commit 8ad1a86
 
 - Retrofit Added. 
 
-#### commit 0f83effa8a512335b1b05f97bca295d516f63287 
+#### commit 0f83eff 
 
 - Stage 1 *
 
-#### commit bfaabc2d9ee7481c4dd98e7737b57cffd4e290d9 
+#### commit bfaabc2 
 
 - Added Data Binding (Basic).
 
-#### commit 4475adcff7c121ca5ce4a48baf8cf0170377a1c4 
+#### commit 4475adc 
 
 - Added continuous scrolling.
 
-#### commit b15678a42ab279976700996cc85d19e9e3c1d45b 
+#### commit b15678a
 
 - AsyncTask is changed to AsyncLoader.
 - Added Filter options to select Top-Rated/Popular.
 
-#### commit 3288f3ed28d4f5bcbb00be353dff8dd60c3956a0 
+#### commit 3288f3e 
 
 - Gson lib for JSON Parsing.
 - Parcelable for sending object data b/n activities.
 
-#### commit 0eca0da2a5a27f0038de778c7576ce4a64a813ab
+#### commit 0eca0da
 
 - Updated Movie Details Activity.(AsyncTask)
 - Issue on below commit, is found to be with the Simulator. 
