@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-def MOVIEDB_API_KEY = themoviedb_org_API_KEY ?: "Enter API-KEY in gradle.properties (home dir)"
+def MOVIEDB_API_KEY = themoviedb_api_key ?: "Enter API-KEY in gradle.properties (home dir)"
 
 android {
     compileSdkVersion 27
@@ -52,12 +52,15 @@ dependencies {
     // Picaso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    // Gson
-    implementation 'com.google.code.gson:gson:2.8.5'
-
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    // Stetho Log Interceptor
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    // Network Helper
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation ('com.android.support.test:runner:1.0.2') {

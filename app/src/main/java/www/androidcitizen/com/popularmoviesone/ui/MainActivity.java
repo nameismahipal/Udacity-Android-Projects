@@ -13,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.stetho.Stetho;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Stetho.initializeWithDefaults(this);
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -101,28 +105,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     private MovieService initializeMovieService(){
+       // MovieService movieService = MovieInterface.getMovieService();
         MovieService movieService = MovieInterface.getMovieInterface().create(MovieService.class);
-
         return movieService;
     }
 
     private void fetchAllMovies() {
-        //MovieService movieService = MovieInterface.getMovieInterface().create(MovieService.class);
 
-        Call<Movie> moviesServiceCall = initializeMovieService().getAllMovies(API_KEY, String.valueOf(PAGE_NUM));
+        Call<Movie> moviesServiceCall = initializeMovieService().getAllMovies(API_KEY, PAGE_NUM);
 
         serverRequest(moviesServiceCall);
     }
 
     private void fetchTopRatedMovies() {
 
-        Call<Movie> moviesServiceCall = initializeMovieService().getTopRatedMovies(API_KEY, String.valueOf(PAGE_NUM));
+        Call<Movie> moviesServiceCall = initializeMovieService().getTopRatedMovies(API_KEY, PAGE_NUM);
 
         serverRequest(moviesServiceCall);
     }
 
     private void fetchPopularMovies() {
-        Call<Movie> moviesServiceCall = initializeMovieService().getPopularMovies(API_KEY,String.valueOf(PAGE_NUM));
+        Call<Movie> moviesServiceCall = initializeMovieService().getPopularMovies(API_KEY, PAGE_NUM);
         serverRequest(moviesServiceCall);
     }
 
@@ -196,10 +199,16 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
+        clearList();
         PAGE_NUM = 1;
         fetchMovies(MOVIE_FETCH_INDEX);
 
         return true;
+    }
+
+    private void clearList() {
+        adapter.clearAll();
+        scrollListener.resetState();
     }
 
 }

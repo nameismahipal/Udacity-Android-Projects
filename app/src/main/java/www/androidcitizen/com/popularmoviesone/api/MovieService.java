@@ -13,12 +13,12 @@ import www.androidcitizen.com.popularmoviesone.model.Movie;
 public interface MovieService {
 
     @GET("movie/top_rated")
-    Call<Movie> getTopRatedMovies(@Query("api_key") String apiKey, @Query("page") String pageNum);
+    Call<Movie> getTopRatedMovies(@Query("api_key") String apiKey, @Query("page") int pageNum);
 
     @GET("movie/popular")
-    Call<Movie> getPopularMovies(@Query("api_key") String apiKey, @Query("page") String pageNum);
+    Call<Movie> getPopularMovies(@Query("api_key") String apiKey, @Query("page") int pageNum);
 
     @GET("discover/movie")
-    Call<Movie> getAllMovies(@Query("api_key") String apiKey, @Query("page") String pageNum);
+    Call<Movie> getAllMovies(@Query("api_key") String apiKey, @Query("page") int pageNum);
 
 }

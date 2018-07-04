@@ -1,5 +1,8 @@
 package www.androidcitizen.com.popularmoviesone.api;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,16 +15,30 @@ public class MovieInterface {
 
     private final static String MOVIES_BASE_URL = "https://api.themoviedb.org/3/";
     private static Retrofit retrofit;
+    private static MovieService movieService;
 
     public static Retrofit getMovieInterface() {
 
         if(null == retrofit) {
-             retrofit = new Retrofit.Builder()
+
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                    .addNetworkInterceptor(new StethoInterceptor());
+
+            retrofit = new Retrofit.Builder()
                      .baseUrl(MOVIES_BASE_URL)
                      .addConverterFactory(GsonConverterFactory.create())
+                     .client(httpClient.build())
                      .build();
         }
 
         return retrofit;
+    }
+
+    public static MovieService getMovieService(){
+        if(null == movieService) {
+            movieService = getMovieInterface().create(MovieService.class);
+        }
+
+        return movieService;
     }
 }
