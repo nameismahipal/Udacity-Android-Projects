@@ -12,7 +12,7 @@ Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (
 
 - Network Debugging Added.
 
-https://www.androidcitizen.com/retrofit-2-and-network-logging/
+	- https://www.androidcitizen.com/retrofit-2-and-network-logging/
 
 #### commit 8ad1a86
 

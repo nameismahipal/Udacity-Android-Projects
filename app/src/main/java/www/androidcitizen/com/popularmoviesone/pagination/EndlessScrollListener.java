@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
+
 /**
  *
  * Re-used from
@@ -23,13 +25,13 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     // before loading more.
     private int visibleThreshold = 5;
     // The current offset index of data you have loaded
-    private int currentPage = 1;
+    private int currentPage = BaseConfig.PAGE_NUM;
     // The total number of items in the dataset after the last load
     private int previousTotalItemCount = 0;
     // True if we are still waiting for the last set of data to load.
     private boolean loading = true;
     // Sets the starting page index
-    private final int startingPageIndex = 0;
+    private final int startingPageIndex = 1;
 
     private final RecyclerView.LayoutManager mLayoutManager;
 

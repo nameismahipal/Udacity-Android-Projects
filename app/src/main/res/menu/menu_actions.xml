@@ -11,5 +11,8 @@
         <item android:id="@+id/popular"
             android:title="@string/popular"
             android:checked="false"/>
+        <item android:id="@+id/favourite"
+            android:title="@string/favourite"
+            android:checked="false"/>
     </group>
 </menu>

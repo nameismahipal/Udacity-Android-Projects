@@ -11,6 +11,16 @@ public final class BaseConfig {
 
     public final static  String API_KEY = BuildConfig.ApiKey;
 
+    public static int PAGE_NUM = 1;
+
+    public final static int ALL_MOVIES_INDEX       = 0;
+    public final static int TOPRATED_MOVIES_INDEX  = 1;
+    public final static int POPULAR_MOVIES_INDEX   = 2;
+    public final static int FAVOURITE_MOVIES_INDEX = 3;
+
+    public final static int    MOVIE_SERVER_LOADING_ID = 11;
+    public final static String MOVIE_SERVICE_LOADING_KEY = "MOVIE_SERVICE_CALL";
+
     private final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
 
     private final static  String PORTRAIT_POSTER_SIZE           = "/w154";
