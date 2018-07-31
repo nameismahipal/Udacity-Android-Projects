@@ -32,23 +32,41 @@
         android:layout_height="150dp"
         android:contentDescription="@string/poster_image"
         app:layout_constraintBottom_toBottomOf="@id/iv_backgroundImage"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@id/iv_backgroundImage"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.446" />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_16dp"
-        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintEnd_toStartOf="@+id/like_button"
         app:layout_constraintStart_toEndOf="@+id/iv_posterImage"
         app:layout_constraintTop_toBottomOf="@+id/iv_backgroundImage"
         tools:text="Mad Max" />
+
+    <com.like.LikeButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon_type="heart"
+        app:icon_size="32dp"
+        android:id="@+id/like_button"
+        app:circle_start_color="@color/colorPrimary"
+        app:circle_end_color="@color/colorAccent"
+        app:dots_primary_color="@color/colorAccent"
+        app:dots_secondary_color="@color/colorPrimary"
+        app:liked="false"
+        app:anim_scale_factor="2"
+        app:is_enabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/iv_backgroundImage"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@id/tv_title"
+        />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineLeft"
