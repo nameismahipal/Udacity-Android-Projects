@@ -15,7 +15,16 @@ public class MovieInterface {
 
     private final static String MOVIES_BASE_URL = "https://api.themoviedb.org/3/";
     private static Retrofit retrofit;
-    private static MovieService movieService;
+
+    private static volatile MovieService movieService;
+
+    private MovieInterface() {
+
+        //prevention from reflection api (to avoid creating another instance)
+        if(null != movieService) {
+            throw new RuntimeException("Use getMovieService() to get single instance of the class");
+        }
+    }
 
     public static Retrofit getMovieInterface() {
 
@@ -36,7 +45,13 @@ public class MovieInterface {
 
     public static MovieService getMovieService(){
         if(null == movieService) {
-            movieService = getMovieInterface().create(MovieService.class);
+
+            synchronized (MovieInterface.class) {
+
+                if(null == movieService) {
+                    movieService = getMovieInterface().create(MovieService.class);
+                }
+            }
         }
 
         return movieService;

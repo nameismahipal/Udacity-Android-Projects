@@ -8,6 +8,10 @@ Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (
 
 ## Output:
 
+#### commit 271eebb2
+
+- Added AsyncLoader with Retrofit (Sync Call).
+
 #### commit 0162f80  
 
 - Network Debugging Added.
@@ -16,7 +20,7 @@ Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (
 
 #### commit 8ad1a86
 
-- Retrofit Added. 
+- Retrofit Added (Async Call).
 
 #### commit 0f83eff 
 
