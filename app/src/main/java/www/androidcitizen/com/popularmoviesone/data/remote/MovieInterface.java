@@ -1,4 +1,4 @@
-package www.androidcitizen.com.popularmoviesone.api;
+package www.androidcitizen.com.popularmoviesone.data.remote;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 

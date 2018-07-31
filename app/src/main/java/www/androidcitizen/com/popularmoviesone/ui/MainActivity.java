@@ -17,19 +17,14 @@ import android.view.View;
 
 import com.facebook.stetho.Stetho;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.adapter.MovieAdapter;
-import www.androidcitizen.com.popularmoviesone.api.MovieInterface;
-import www.androidcitizen.com.popularmoviesone.api.MovieService;
+import www.androidcitizen.com.popularmoviesone.data.adapter.MovieAdapter;
 import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMainBinding;
-import www.androidcitizen.com.popularmoviesone.model.Movie;
-import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
+import www.androidcitizen.com.popularmoviesone.data.model.Movie;
+import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 import www.androidcitizen.com.popularmoviesone.pagination.EndlessScrollListener;
-import www.androidcitizen.com.popularmoviesone.utilities.MovieLoader;
+import www.androidcitizen.com.popularmoviesone.data.MovieLoader;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.MovieClickListener,

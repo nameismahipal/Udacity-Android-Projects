@@ -53,10 +53,8 @@ Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (
 #### commit 0eca0da
 
 - Updated Movie Details Activity.(AsyncTask)
-- Issue on below commit, is found to be with the Simulator. 
 - Included, Scrollview for Image.
 
 #### commit 1e3f8ed5a32b2e94df1d196a95aa565828ec123b 
 
 - Have used AsyncTask for fetching movie data from imdb api.
-- Have issues on RecyclerView Scrolling, and after loading issues. 

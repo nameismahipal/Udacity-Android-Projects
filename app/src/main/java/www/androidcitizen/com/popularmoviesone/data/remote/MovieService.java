@@ -1,10 +1,10 @@
-package www.androidcitizen.com.popularmoviesone.api;
+package www.androidcitizen.com.popularmoviesone.data.remote;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import www.androidcitizen.com.popularmoviesone.model.Movie;
+import www.androidcitizen.com.popularmoviesone.data.model.Movie;
 
 /**
  * Created by Mahi on 01/07/18.

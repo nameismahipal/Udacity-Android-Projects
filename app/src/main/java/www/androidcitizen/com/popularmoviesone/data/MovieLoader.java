@@ -1,18 +1,17 @@
-package www.androidcitizen.com.popularmoviesone.utilities;
+package www.androidcitizen.com.popularmoviesone.data;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.Bundle;
 
 import java.io.IOException;
-import java.net.URL;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import www.androidcitizen.com.popularmoviesone.api.MovieInterface;
-import www.androidcitizen.com.popularmoviesone.api.MovieService;
+import www.androidcitizen.com.popularmoviesone.data.remote.MovieInterface;
+import www.androidcitizen.com.popularmoviesone.data.remote.MovieService;
 import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
-import www.androidcitizen.com.popularmoviesone.model.Movie;
+import www.androidcitizen.com.popularmoviesone.data.model.Movie;
 
 /**
  * Created by Mahi on 27/06/18.

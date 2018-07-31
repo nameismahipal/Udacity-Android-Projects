@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso;
 
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMovieDetailBinding;
-import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
+import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 
 public class MovieDetailActivity extends AppCompatActivity {
 

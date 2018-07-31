@@ -1,4 +1,4 @@
-package www.androidcitizen.com.popularmoviesone.model;
+package www.androidcitizen.com.popularmoviesone.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

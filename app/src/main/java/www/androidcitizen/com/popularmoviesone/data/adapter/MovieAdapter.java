@@ -1,4 +1,4 @@
-package www.androidcitizen.com.popularmoviesone.adapter;
+package www.androidcitizen.com.popularmoviesone.data.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.model.MovieDetails;
+import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 
 /**
  * Created by Mahi on 13/06/18.
