@@ -26,6 +26,12 @@
             android:parentActivityName=".ui.MainActivity">
 
         </activity>
+        
+        <provider
+            android:name=".data.database.FavProvider"
+            android:authorities="www.androidcitizen.com.popularmoviesone"
+            android:exported="false"
+            />
 
     </application>
 
