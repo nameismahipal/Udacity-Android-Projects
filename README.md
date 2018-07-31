@@ -8,6 +8,12 @@ Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (
 
 ## Output:
 
+#### commit c5ac0c74
+
+- Updated Singleton class (MovieInterface.java).
+
+	- https://medium.com/exploring-code/how-to-make-the-perfect-singleton-de6b951dfdb0
+
 #### commit 271eebb2
 
 - Added AsyncLoader with Retrofit (Sync Call).
