@@ -21,6 +21,14 @@ public final class BaseConfig {
     public final static int    MOVIE_SERVER_LOADING_ID = 11;
     public final static String MOVIE_SERVICE_LOADING_KEY = "MOVIE_SERVICE_CALL";
 
+    public final static int    MOVIE_DATABASE_LOADING_ID = 12;
+    public final static String FAV_MOVIE_DB_FAV_ITEM     = "FAV_MOVIE_DB_FAV_ITEM";
+    public final static String FAV_MOVIE_DB_FAV_MOVIE_ID = "FAV_MOVIE_DB_MOVIE_ID";
+    public final static String FAV_MOVIE_DB_UPDATE       = "FAV_MOVIE_DB_UPDATE";
+    public final static int FAV_MOVIE_SKIP    = 20;
+    public final static int FAV_MOVIE_ADD    = 21;
+    public final static int FAV_MOVIE_DELETE = 22;
+
     private final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
 
     private final static  String PORTRAIT_POSTER_SIZE           = "/w154";

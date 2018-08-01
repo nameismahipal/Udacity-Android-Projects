@@ -39,7 +39,6 @@
 
             <ImageView
                 android:id="@+id/iv_backgroundImage"
-                android:src="@drawable/background"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
@@ -48,7 +47,6 @@
 
             <ImageView
                 android:id="@+id/iv_posterImage"
-                android:src="@drawable/poster"
                 android:layout_width="wrap_content"
                 android:layout_height="231dp"
                 android:adjustViewBounds="true"
@@ -84,7 +82,7 @@
                 app:dots_secondary_color="@color/colorPrimary"
                 app:liked="false"
                 app:anim_scale_factor="2"
-                app:is_enabled="false"
+                app:is_enabled="true"
                 app:layout_constraintStart_toEndOf="@+id/tv_title"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
                 app:layout_constraintTop_toTopOf="parent"

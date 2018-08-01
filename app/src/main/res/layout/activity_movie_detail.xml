@@ -62,7 +62,7 @@
         app:dots_secondary_color="@color/colorPrimary"
         app:liked="false"
         app:anim_scale_factor="2"
-        app:is_enabled="false"
+        app:is_enabled="true"
         app:layout_constraintTop_toBottomOf="@+id/iv_backgroundImage"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toEndOf="@id/tv_title"

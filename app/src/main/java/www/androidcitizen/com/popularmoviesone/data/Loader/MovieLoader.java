@@ -1,4 +1,4 @@
-package www.androidcitizen.com.popularmoviesone.data;
+package www.androidcitizen.com.popularmoviesone.data.Loader;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -32,6 +32,16 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
     }
 
     @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        if(null != movieChache) {
+            deliverResult(movieChache);
+        } else {
+            forceLoad();
+        }
+    }
+
+    @Override
     public Movie loadInBackground() {
 
         Movie movie = null;
@@ -57,16 +67,6 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
         }
 
         return movie;
-    }
-
-    @Override
-    protected void onStartLoading() {
-        super.onStartLoading();
-        if(null != movieChache) {
-            deliverResult(movieChache);
-        } else {
-            forceLoad();
-        }
     }
 
     @Override
@@ -99,7 +99,6 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
             case BaseConfig.FAVOURITE_MOVIES_INDEX:
                                 //moviesServiceCall = fetchFavouriteMovies();
                                 break;
-
         }
 
         return moviesServiceCall;

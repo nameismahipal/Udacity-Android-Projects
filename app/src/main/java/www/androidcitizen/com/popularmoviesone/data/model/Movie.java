@@ -14,7 +14,7 @@ import java.util.List;
  * www.androidcitizen.com
 
  Used http://www.jsonschema2pojo.org/ tool for Code creation.
-*/
+ */
 
 public class Movie implements Parcelable {
 

@@ -15,7 +15,7 @@ import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
  * Created by Mahi on 13/06/18.
  * www.androidcitizen.com
 
- Used http://www.jsonschema2pojo.org/ tool for Code creation.
+ Used http://www.jsonschema2pojo.org/ tool for Code creation from JSON Format Data.
 
  Parcelable code generated using http://www.parcelabler.com
 
@@ -23,93 +23,47 @@ import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 
 public class MovieDetails implements Parcelable {
 
-    @SerializedName("vote_count")
-    @Expose
-    private Integer voteCount;
-
     @SerializedName("id")
     @Expose
-    private Integer id;
-
-    @SerializedName("video")
-    @Expose
-    private Boolean video;
-
-    @SerializedName("vote_average")
-    @Expose
-    private float voteAverage;
+    private int id;
 
     @SerializedName("title")
     @Expose
     private String title;
 
-    @SerializedName("popularity")
-    @Expose
-    private Double popularity;
-
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
-
-    @SerializedName("original_language")
-    @Expose
-    private String originalLanguage;
-
-    @SerializedName("original_title")
-    @Expose
-    private String originalTitle;
-
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds;
 
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
 
-    @SerializedName("adult")
+    @SerializedName("release_date")
     @Expose
-    private Boolean adult;
+    private String releaseDate;
 
     @SerializedName("overview")
     @Expose
     private String overview;
 
-    @SerializedName("release_date")
+    @SerializedName("vote_average")
     @Expose
-    private String releaseDate;
+    private float voteAverage;
 
-    public MovieDetails(Integer voteCount, Integer id, Boolean video,
-                        float voteAverage, String title, Double popularity,
-                        String posterPath, String originalLanguage, String originalTitle,
-                        List<Integer> genreIds, String backdropPath, Boolean adult,
-                        String overview, String releaseDate) {
-
-        this.voteCount = voteCount;
+    public MovieDetails(int id, String title, String posterPath,
+                        String backdropPath, String releaseDate,
+                        String overview, float voteAverage) {
         this.id = id;
-        this.video = video;
-        this.voteAverage = voteAverage;
         this.title = title;
-        this.popularity = popularity;
         this.posterPath = posterPath;
-        this.originalLanguage = originalLanguage;
-        this.originalTitle = originalTitle;
-        this.genreIds = genreIds;
         this.backdropPath = backdropPath;
-        this.adult = adult;
-        this.overview = overview;
         this.releaseDate = releaseDate;
+        this.overview = overview;
+        this.voteAverage = voteAverage;
     }
 
-    public Integer getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -117,16 +71,8 @@ public class MovieDetails implements Parcelable {
         this.id = id;
     }
 
-    public Boolean getVideo() {
-        return video;
-    }
-
-    public void setVideo(Boolean video) {
-        this.video = video;
-    }
-
     public float getVoteAverage() {
-        return voteAverage;
+        return voteAverage/2;
     }
 
     public void setVoteAverage(float voteAverage) {
@@ -141,14 +87,6 @@ public class MovieDetails implements Parcelable {
         this.title = title;
     }
 
-    public Double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
-
     public String getPosterPath() {
         return BaseConfig.PORT_POSTER_IMAGE_URL_PATH + posterPath;
     }
@@ -157,29 +95,6 @@ public class MovieDetails implements Parcelable {
         this.posterPath = posterPath;
     }
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
 
     public String getBackdropPath() {
         return BaseConfig.PORT_BACKDROP_IMAGE_URL_PATH + backdropPath;
@@ -187,14 +102,6 @@ public class MovieDetails implements Parcelable {
 
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
-    }
-
-    public Boolean getAdult() {
-        return adult;
-    }
-
-    public void setAdult(Boolean adult) {
-        this.adult = adult;
     }
 
     public String getOverview() {
@@ -213,29 +120,14 @@ public class MovieDetails implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-
-    MovieDetails(Parcel in) {
-        voteCount = in.readByte() == 0x00 ? null : in.readInt();
-        id = in.readByte() == 0x00 ? null : in.readInt();
-        byte videoVal = in.readByte();
-        video = videoVal == 0x02 ? null : videoVal != 0x00;
-        voteAverage = in.readFloat();
+    protected MovieDetails(Parcel in) {
+        id = in.readInt();
         title = in.readString();
-        popularity = in.readByte() == 0x00 ? null : in.readDouble();
         posterPath = in.readString();
-        originalLanguage = in.readString();
-        originalTitle = in.readString();
-        if (in.readByte() == 0x01) {
-            genreIds = new ArrayList<>();
-            in.readList(genreIds, Integer.class.getClassLoader());
-        } else {
-            genreIds = null;
-        }
         backdropPath = in.readString();
-        byte adultVal = in.readByte();
-        adult = adultVal == 0x02 ? null : adultVal != 0x00;
-        overview = in.readString();
         releaseDate = in.readString();
+        overview = in.readString();
+        voteAverage = in.readFloat();
     }
 
     @Override
@@ -245,48 +137,13 @@ public class MovieDetails implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        if (voteCount == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeInt(voteCount);
-        }
-        if (id == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeInt(id);
-        }
-        if (video == null) {
-            dest.writeByte((byte) (0x02));
-        } else {
-            dest.writeByte((byte) (video ? 0x01 : 0x00));
-        }
-        dest.writeFloat(voteAverage);
+        dest.writeInt(id);
         dest.writeString(title);
-        if (popularity == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeDouble(popularity);
-        }
         dest.writeString(posterPath);
-        dest.writeString(originalLanguage);
-        dest.writeString(originalTitle);
-        if (genreIds == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(genreIds);
-        }
         dest.writeString(backdropPath);
-        if (adult == null) {
-            dest.writeByte((byte) (0x02));
-        } else {
-            dest.writeByte((byte) (adult ? 0x01 : 0x00));
-        }
-        dest.writeString(overview);
         dest.writeString(releaseDate);
+        dest.writeString(overview);
+        dest.writeFloat(voteAverage);
     }
 
     @SuppressWarnings("unused")
@@ -301,5 +158,4 @@ public class MovieDetails implements Parcelable {
             return new MovieDetails[size];
         }
     };
-
 }
