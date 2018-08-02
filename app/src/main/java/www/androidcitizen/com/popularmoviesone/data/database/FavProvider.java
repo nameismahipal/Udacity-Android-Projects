@@ -70,7 +70,7 @@ public class FavProvider extends ContentProvider {
          */
 
         uriMatcher.addURI(FavContract.AUTHORITY, FavContract.PATH_FAV_MOVIES, FAV_MOVIES);
-        uriMatcher.addURI(FavContract.AUTHORITY,FavContract.PATH_FAV_MOVIES , FAV_MOVIES_ID);
+        uriMatcher.addURI(FavContract.AUTHORITY,FavContract.PATH_FAV_MOVIES + "/#", FAV_MOVIES_ID);
 
         return uriMatcher;
     }
@@ -215,7 +215,7 @@ public class FavProvider extends ContentProvider {
         }
 
         // Step 4
-            // Notify Resolver
+            // Notify all listeners that data has changed.
         getContext().getContentResolver().notifyChange(uri, null);
 
         return returnUri;
@@ -229,7 +229,7 @@ public class FavProvider extends ContentProvider {
         Step 1: Get WRITE Access of db Helper.
         Step 2: Match uri
         Step 3: Delete Method
-        Step 4: Notify Resolver
+        Step 4: Notify all listeners that data has changed.
          */
 
         int iNumOfItemsDeleted;
@@ -283,7 +283,7 @@ public class FavProvider extends ContentProvider {
         Step 1: Get WRITE Access of db Helper.
         Step 2: Match uri
         Step 3: Update Method
-        Step 4: Notify Resolver
+        Step 4: Notify all listeners that data has changed.
          */
 
         int iNumOfItemsUpdated;

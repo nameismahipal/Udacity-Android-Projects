@@ -6,10 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
+import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 
 /**
  * Created by Mahi on 13/06/18.
@@ -88,7 +85,7 @@ public class MovieDetails implements Parcelable {
     }
 
     public String getPosterPath() {
-        return BaseConfig.PORT_POSTER_IMAGE_URL_PATH + posterPath;
+        return GlobalRef.PORT_POSTER_IMAGE_URL_PATH + posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -97,7 +94,7 @@ public class MovieDetails implements Parcelable {
 
 
     public String getBackdropPath() {
-        return BaseConfig.PORT_BACKDROP_IMAGE_URL_PATH + backdropPath;
+        return GlobalRef.PORT_BACKDROP_IMAGE_URL_PATH + backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {

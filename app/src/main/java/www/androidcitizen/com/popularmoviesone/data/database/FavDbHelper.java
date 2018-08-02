@@ -53,7 +53,7 @@ public class FavDbHelper extends SQLiteOpenHelper {
                         "CREATE TABLE " + FavMovieEntry.TABLE_NAME + "(" +
                         FavMovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         FavMovieEntry.COLUMN_MOVIE_ID + " INTEGER NOT NULL," +
-                        FavMovieEntry.COLUMN_ORIGINAL_TITLE + " TEXT NOT NULL," +
+                        FavMovieEntry.COLUMN_TITLE + " TEXT NOT NULL," +
                         FavMovieEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL," +
                         FavMovieEntry.COLUMN_BACKDROP_PATH + " TEXT NOT NULL," +
                         FavMovieEntry.COLUMN_RELEASE_DATE + " TEXT NOT NULL," +

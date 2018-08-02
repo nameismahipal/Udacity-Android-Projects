@@ -8,9 +8,9 @@ import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Response;
+import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.remote.MovieInterface;
 import www.androidcitizen.com.popularmoviesone.data.remote.MovieService;
-import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 import www.androidcitizen.com.popularmoviesone.data.model.Movie;
 
 /**
@@ -21,7 +21,7 @@ import www.androidcitizen.com.popularmoviesone.data.model.Movie;
  *
  */
 
-public class MovieLoader extends AsyncTaskLoader<Movie> {
+public class MovieLoader extends AsyncTaskLoader<Object> {
 
     Movie movieChache;
     Bundle bundle;
@@ -42,11 +42,10 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
     }
 
     @Override
-    public Movie loadInBackground() {
-
+    public Object loadInBackground() {
         Movie movie = null;
 
-        int index = bundle.getInt(BaseConfig.MOVIE_SERVICE_LOADING_KEY);
+        int index = bundle.getInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY);
 
         Call<Movie> movieServiceCall = fetchMovies(index);
 
@@ -70,10 +69,46 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
     }
 
     @Override
-    public void deliverResult(Movie data) {
-        movieChache = data;
+    public void deliverResult(Object data) {
+        movieChache = (Movie) data;
         super.deliverResult(data);
     }
+
+    /*
+        @Override
+        public Movie loadInBackground() {
+
+            Movie movie = null;
+
+            int index = bundle.getInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY);
+
+            Call<Movie> movieServiceCall = fetchMovies(index);
+
+            try {
+
+                Response<Movie> movieResponse = movieServiceCall.execute();
+
+                if(movieResponse.isSuccessful()) {
+
+                    movie = movieResponse.body();
+
+                } else {
+                    movie = null;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return movie;
+        }
+
+        @Override
+        public void deliverResult(Movie data) {
+            movieChache = data;
+            super.deliverResult(data);
+        }
+    */
 
     private MovieService initializeMovieService(){
 
@@ -87,16 +122,16 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
 
         switch (movieIndex) {
 
-            case BaseConfig.ALL_MOVIES_INDEX:
+            case GlobalRef.ALL_MOVIES_INDEX:
                                 moviesServiceCall = fetchAllMovies();
                                 break;
-            case BaseConfig.TOPRATED_MOVIES_INDEX:
+            case GlobalRef.TOPRATED_MOVIES_INDEX:
                                 moviesServiceCall = fetchTopRatedMovies();
                                 break;
-            case BaseConfig.POPULAR_MOVIES_INDEX:
+            case GlobalRef.POPULAR_MOVIES_INDEX:
                                 moviesServiceCall = fetchPopularMovies();
                                 break;
-            case BaseConfig.FAVOURITE_MOVIES_INDEX:
+            case GlobalRef.FAVOURITE_MOVIES_INDEX:
                                 //moviesServiceCall = fetchFavouriteMovies();
                                 break;
         }
@@ -110,25 +145,23 @@ public class MovieLoader extends AsyncTaskLoader<Movie> {
 
     private Call<Movie> fetchAllMovies() {
 
-        Call<Movie> moviesServiceCall = initializeMovieService().getAllMovies(BaseConfig.API_KEY, BaseConfig.PAGE_NUM);
+        Call<Movie> moviesServiceCall = initializeMovieService().getAllMovies(GlobalRef.API_KEY, GlobalRef.PAGE_NUM);
 
         return moviesServiceCall;
     }
 
     private Call<Movie>  fetchTopRatedMovies() {
 
-        Call<Movie> moviesServiceCall = initializeMovieService().getTopRatedMovies(BaseConfig.API_KEY, BaseConfig.PAGE_NUM);
+        Call<Movie> moviesServiceCall = initializeMovieService().getTopRatedMovies(GlobalRef.API_KEY, GlobalRef.PAGE_NUM);
 
         return moviesServiceCall;
     }
 
     private Call<Movie>  fetchPopularMovies() {
 
-        Call<Movie> moviesServiceCall = initializeMovieService().getPopularMovies(BaseConfig.API_KEY, BaseConfig.PAGE_NUM);
+        Call<Movie> moviesServiceCall = initializeMovieService().getPopularMovies(GlobalRef.API_KEY, GlobalRef.PAGE_NUM);
 
         return moviesServiceCall;
-
     }
-
 
 }

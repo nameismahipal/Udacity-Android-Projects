@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
+import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 
 /**
  *
@@ -23,9 +23,9 @@ import www.androidcitizen.com.popularmoviesone.config.BaseConfig;
 public abstract class EndlessScrollListener extends RecyclerView.OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 3;
     // The current offset index of data you have loaded
-    private int currentPage = BaseConfig.PAGE_NUM;
+    private int currentPage = GlobalRef.PAGE_NUM;
     // The total number of items in the dataset after the last load
     private int previousTotalItemCount = 0;
     // True if we are still waiting for the last set of data to load.

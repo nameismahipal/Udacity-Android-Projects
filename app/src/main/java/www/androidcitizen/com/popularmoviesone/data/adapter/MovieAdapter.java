@@ -1,5 +1,6 @@
 package www.androidcitizen.com.popularmoviesone.data.adapter;
 
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
+import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 
 /**
@@ -97,6 +99,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             for (MovieDetails movieDetail : movieList) {
                 add(movieDetail);
             }
+        }
+    }
+
+    public void newCursorData(Cursor cursor) {
+
+        if(null != cursor && 0 != cursor.getCount()) {
+            cursor.moveToFirst();
+            do {
+
+                MovieDetails movieDetails =
+                        new MovieDetails(cursor.getInt(GlobalRef.INDEX_MOVIE_ID),
+                                cursor.getString(GlobalRef.INDEX_TITLE),
+                                cursor.getString(GlobalRef.INDEX_POSTER_PATH),
+                                cursor.getString(GlobalRef.INDEX_BACKDROP_PATH),
+                                cursor.getString(GlobalRef.INDEX_RELEASE_DATE),
+                                cursor.getString(GlobalRef.INDEX_OVERVIEW),
+                                cursor.getFloat(GlobalRef.INDEX_VOTE_AVERAGE));
+
+                add(movieDetails);
+
+            } while (cursor.moveToNext());
         }
     }
 
