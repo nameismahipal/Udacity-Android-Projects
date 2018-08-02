@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -53,21 +54,35 @@ public class MainActivity extends AppCompatActivity
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, MOVIE_FETCH_INDEX);
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, MOVIE_FETCH_INDEX);
 
-        getLoaderManager().initLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle, this);
-        getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, null, this);
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_NULL);
+
+        getLoaderManager().initLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle1, this);
+        //getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle2, this);
 
         setupRecycleView();
     }
 
     private void fetchMovies(int iIndex) {
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, iIndex);
+        if(GlobalRef.FAVOURITE_MOVIES_INDEX == iIndex) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_READ);
 
-        getLoaderManager().restartLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle, this);
+            //getLoaderManager().destroyLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID);
+            getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle, this);
+
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, iIndex);
+
+            getLoaderManager().destroyLoader(GlobalRef.MOVIE_SERVER_LOADING_ID);
+            getLoaderManager().restartLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle, this);
+
+        }
     }
 
     private void setupRecycleView(){
@@ -175,12 +190,19 @@ public class MainActivity extends AppCompatActivity
 
             case GlobalRef.MOVIE_DATABASE_LOADING_ID:
 
-                if(null == bundleArgs) return null;
+                int iDbAction = bundleArgs.getInt(GlobalRef.FAV_MOVIE_DB_KEY);
 
-                return new CursorLoader(this,
-                        FavContract.FavMovieEntry.CONTENT_URI,
-                        GlobalRef.PROJECTION,
-                        null, null, null);
+                switch (iDbAction) {
+
+                    case GlobalRef.FAV_MOVIE_NULL:
+                            return null;
+
+                    case GlobalRef.FAV_MOVIE_READ:
+                            return new CursorLoader(this,
+                            FavContract.FavMovieEntry.CONTENT_URI,
+                            GlobalRef.PROJECTION,
+                            null, null, null);
+                }
         }
 
         return null;
@@ -204,7 +226,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader loader) {
-            adapter.clearAll();
+
     }
 
     private void setupAdapterServerData(Object object){

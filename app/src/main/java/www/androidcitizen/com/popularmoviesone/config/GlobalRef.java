@@ -46,10 +46,12 @@ public final class GlobalRef {
     public final static int    MOVIE_DATABASE_LOADING_ID = 12;
     public final static String FAV_MOVIE_DB_FAV_ITEM     = "FAV_MOVIE_DB_FAV_ITEM";
     public final static String FAV_MOVIE_DB_FAV_MOVIE_ID = "FAV_MOVIE_DB_MOVIE_ID";
-    public final static String FAV_MOVIE_DB_UPDATE       = "FAV_MOVIE_DB_UPDATE";
 
-    public final static int FAV_MOVIE_ADD    = 21;
-    public final static int FAV_MOVIE_DELETE = 22;
+    public final static String FAV_MOVIE_DB_KEY   = "FAV_MOVIE_DB_UPDATE_KEY";
+    public final static int FAV_MOVIE_NULL    = 20;
+    public final static int FAV_MOVIE_ADD     = 21;
+    public final static int FAV_MOVIE_DELETE  = 22;
+    public final static int FAV_MOVIE_READ    = 23;
 
     private final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
 

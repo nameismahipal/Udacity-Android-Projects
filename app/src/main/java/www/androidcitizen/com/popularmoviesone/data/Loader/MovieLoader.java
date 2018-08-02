@@ -74,48 +74,6 @@ public class MovieLoader extends AsyncTaskLoader<Object> {
         super.deliverResult(data);
     }
 
-    /*
-        @Override
-        public Movie loadInBackground() {
-
-            Movie movie = null;
-
-            int index = bundle.getInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY);
-
-            Call<Movie> movieServiceCall = fetchMovies(index);
-
-            try {
-
-                Response<Movie> movieResponse = movieServiceCall.execute();
-
-                if(movieResponse.isSuccessful()) {
-
-                    movie = movieResponse.body();
-
-                } else {
-                    movie = null;
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return movie;
-        }
-
-        @Override
-        public void deliverResult(Movie data) {
-            movieChache = data;
-            super.deliverResult(data);
-        }
-    */
-
-    private MovieService initializeMovieService(){
-
-        MovieService movieService = MovieInterface.getMovieInterface().create(MovieService.class);
-        return movieService;
-    }
-
     private Call<Movie> fetchMovies(int movieIndex){
 
         Call<Movie> moviesServiceCall = null;
@@ -123,20 +81,23 @@ public class MovieLoader extends AsyncTaskLoader<Object> {
         switch (movieIndex) {
 
             case GlobalRef.ALL_MOVIES_INDEX:
-                                moviesServiceCall = fetchAllMovies();
-                                break;
+                moviesServiceCall = fetchAllMovies();
+                break;
             case GlobalRef.TOPRATED_MOVIES_INDEX:
-                                moviesServiceCall = fetchTopRatedMovies();
-                                break;
+                moviesServiceCall = fetchTopRatedMovies();
+                break;
             case GlobalRef.POPULAR_MOVIES_INDEX:
-                                moviesServiceCall = fetchPopularMovies();
-                                break;
-            case GlobalRef.FAVOURITE_MOVIES_INDEX:
-                                //moviesServiceCall = fetchFavouriteMovies();
-                                break;
+                moviesServiceCall = fetchPopularMovies();
+                break;
         }
 
         return moviesServiceCall;
+    }
+
+    private MovieService initializeMovieService(){
+
+        MovieService movieService = MovieInterface.getMovieInterface().create(MovieService.class);
+        return movieService;
     }
 
     private void fetchFavouriteMovies() {

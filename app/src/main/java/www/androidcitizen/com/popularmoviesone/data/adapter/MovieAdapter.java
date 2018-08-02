@@ -121,6 +121,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             } while (cursor.moveToNext());
         }
+
+        if (0 == cursor.getCount() || null == cursor) {
+            movieDetails = null;
+        }
     }
 
     private void add(MovieDetails movieInfo) {
