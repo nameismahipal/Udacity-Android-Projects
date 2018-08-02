@@ -1,6 +1,7 @@
 package www.androidcitizen.com.popularmoviesone.ui;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -9,10 +10,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
+import www.androidcitizen.com.popularmoviesone.data.database.FavContract;
 import www.androidcitizen.com.popularmoviesone.data.database.FavContract.*;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMovieDetailBinding;
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
@@ -21,6 +25,8 @@ public class MovieDetailActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks<Cursor>{
 
     ActivityMovieDetailBinding detailBinding;
+
+    MovieDetails movieDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,56 +37,35 @@ public class MovieDetailActivity extends AppCompatActivity
         Intent intent = getIntent();
         if (intent.hasExtra("movieDetailsdata")) {
 
-            MovieDetails movieDetails = getIntent().getParcelableExtra("movieDetailsdata");
+            movieDetails = getIntent().getParcelableExtra("movieDetailsdata");
 
             if(null != movieDetails) {
                 setViewData(movieDetails);
             }
-
         }
 
-        //getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle, this);
 
-        /*
         detailBinding.likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                if(1 == DATA_AVAILABLE) {
-                    // Add in database (use async thread)
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(GlobalRef.FAV_MOVIE_DB_UPDATE, GlobalRef.FAV_MOVIE_ADD);
-                    bundle.putParcelable(GlobalRef.FAV_MOVIE_DB_FAV_ITEM, movieSubDetails);
 
-                    getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID,
-                            bundle,
-                            MovieDetailActivity.this);
-                }
+                // Add in database (use async thread)
+                insertFavItem();
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                if(1 == DATA_AVAILABLE) {
-                    // Remove from database (use async thread)
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(GlobalRef.FAV_MOVIE_DB_UPDATE, GlobalRef.FAV_MOVIE_DELETE);
-                    bundle.putInt(GlobalRef.FAV_MOVIE_DB_FAV_MOVIE_ID, movieSubDetails.getMovie_id());
 
-                    getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID,
-                            bundle,
-                            MovieDetailActivity.this);
-                }
+                // Remove from database (use async thread)
+                deleteFavItem();
             }
         });
-        */
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     void setViewData(MovieDetails movieUIDetails){
+
+        isFavorite();
 
         Picasso.get()
                 .load(movieUIDetails.getBackdropPath())
@@ -100,20 +85,53 @@ public class MovieDetailActivity extends AppCompatActivity
         detailBinding.tvOverView.setText(movieUIDetails.getOverview());
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this,
-                FavMovieEntry.CONTENT_URI,
-                GlobalRef.PROJECTION,
-                null,
-                null,
-                null
-                );
+    void insertFavItem() {
+
+        ContentValues values = new ContentValues();
+
+        values.put(FavContract.FavMovieEntry.COLUMN_MOVIE_ID, movieDetails.getId());
+        values.put(FavContract.FavMovieEntry.COLUMN_TITLE, movieDetails.getTitle());
+        values.put(FavMovieEntry.COLUMN_POSTER_PATH, movieDetails.getPosterPath());
+        values.put(FavMovieEntry.COLUMN_BACKDROP_PATH, movieDetails.getBackdropPath());
+        values.put(FavMovieEntry.COLUMN_RELEASE_DATE, movieDetails.getReleaseDate());
+        values.put(FavMovieEntry.COLUMN_OVERVIEW, movieDetails.getOverview());
+        values.put(FavMovieEntry.COLUMN_VOTE_AVERAGE, movieDetails.getVoteAverage());
+
+        getContentResolver().insert(FavMovieEntry.CONTENT_URI, values);
+    }
+
+    void deleteFavItem() {
+        //getContentResolver().de
+        getContentResolver().delete(GlobalRef.buildURIMovieId(movieDetails.getId()), null, null);
+    }
+
+    void isFavorite() {
+
+        getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, null, this);
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
+        int movieId = movieDetails.getId();
+        String[] projection = new String[] {FavMovieEntry.COLUMN_MOVIE_ID};
+
+        return new CursorLoader(this,
+                GlobalRef.buildURIMovieId(movieId),
+                projection,
+                null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        if(null != cursor) {
+
+            if(cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                detailBinding.likeButton.setLiked(true);
+            }
+        }
     }
 
     @Override

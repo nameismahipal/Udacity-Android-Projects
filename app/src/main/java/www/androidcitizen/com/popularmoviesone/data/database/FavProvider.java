@@ -150,7 +150,7 @@ public class FavProvider extends ContentProvider {
                 OR
                  */
                 String id = uri.getPathSegments().get(1);
-                String lSelection = "_id=?";
+                String lSelection = "movie_id=?";
                 String[] lSelectionArgs = new String[] {id};
 
                 retCursor = db.query(FavMovieEntry.TABLE_NAME,
@@ -257,7 +257,7 @@ public class FavProvider extends ContentProvider {
             case FAV_MOVIES_ID:
 
                         String id = uri.getPathSegments().get(1);
-                        String lSelection = "_id=?";
+                        String lSelection = "movie_id=?";
                         String[] lSelectionArgs = new String[] {id};
 
                         iNumOfItemsDeleted = db.delete(FavMovieEntry.TABLE_NAME,

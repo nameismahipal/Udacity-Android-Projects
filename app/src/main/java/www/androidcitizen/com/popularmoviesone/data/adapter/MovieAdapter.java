@@ -104,7 +104,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public void newCursorData(Cursor cursor) {
 
-        if(null != cursor && 0 != cursor.getCount()) {
+        if( null != cursor &&
+            0 != cursor.getCount()) {
+
             cursor.moveToFirst();
             do {
 
@@ -121,8 +123,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             } while (cursor.moveToNext());
         }
+        else if ( 0 == cursor.getCount() ||
+                  null == cursor) {
 
-        if (0 == cursor.getCount() || null == cursor) {
             movieDetails = null;
         }
     }

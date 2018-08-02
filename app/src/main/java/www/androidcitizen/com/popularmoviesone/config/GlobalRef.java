@@ -1,5 +1,7 @@
 package www.androidcitizen.com.popularmoviesone.config;
 
+import android.net.Uri;
+
 import www.androidcitizen.com.popularmoviesone.BuildConfig;
 import www.androidcitizen.com.popularmoviesone.data.database.FavContract;
 
@@ -12,10 +14,20 @@ public final class GlobalRef {
 
     private GlobalRef() { }
 
+    public static Uri buildURIMovieId(int id){
+
+        Uri uriId = FavContract.BASE_CONTENT_URI.buildUpon()
+                    .appendPath(FavContract.PATH_FAV_MOVIES)
+                    .appendPath(String.valueOf(id))
+                    .build();
+
+        return uriId;
+    }
+
     public final static  String API_KEY = BuildConfig.ApiKey;
 
     public static final String[] PROJECTION = new String[] {
-            FavContract.FavMovieEntry._ID,
+            // Any Changes here, make sure the below index values match
             FavContract.FavMovieEntry.COLUMN_MOVIE_ID,
             FavContract.FavMovieEntry.COLUMN_TITLE,
             FavContract.FavMovieEntry.COLUMN_POSTER_PATH,
@@ -25,13 +37,13 @@ public final class GlobalRef {
             FavContract.FavMovieEntry.COLUMN_VOTE_AVERAGE
     };
 
-    public static final int INDEX_MOVIE_ID      = 1;
-    public static final int INDEX_TITLE         = 2;
-    public static final int INDEX_POSTER_PATH   = 3;
-    public static final int INDEX_BACKDROP_PATH = 4;
-    public static final int INDEX_RELEASE_DATE  = 5;
-    public static final int INDEX_OVERVIEW      = 6;
-    public static final int INDEX_VOTE_AVERAGE  = 7;
+    public static final int INDEX_MOVIE_ID      = 0;
+    public static final int INDEX_TITLE         = 1;
+    public static final int INDEX_POSTER_PATH   = 2;
+    public static final int INDEX_BACKDROP_PATH = 3;
+    public static final int INDEX_RELEASE_DATE  = 4;
+    public static final int INDEX_OVERVIEW      = 5;
+    public static final int INDEX_VOTE_AVERAGE  = 6;
 
     public static int PAGE_NUM = 1;
 

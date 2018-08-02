@@ -58,8 +58,8 @@ public class FavDbHelper extends SQLiteOpenHelper {
                         FavMovieEntry.COLUMN_BACKDROP_PATH + " TEXT NOT NULL," +
                         FavMovieEntry.COLUMN_RELEASE_DATE + " TEXT NOT NULL," +
                         FavMovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL," +
-                        FavMovieEntry.COLUMN_VOTE_AVERAGE + " REAL NOT NULL" +
-                        ")";
+                        FavMovieEntry.COLUMN_VOTE_AVERAGE + " REAL NOT NULL," +
+                        " UNIQUE (" + FavMovieEntry.COLUMN_MOVIE_ID + ") ON CONFLICT REPLACE);";
 
         db.execSQL(SQL_CREATE_FAVORITE_TABLE);
 

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         bundle2.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_NULL);
 
         getLoaderManager().initLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle1, this);
-        //getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle2, this);
+        getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle2, this);
 
         setupRecycleView();
     }
@@ -72,10 +72,13 @@ public class MainActivity extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_READ);
 
-            //getLoaderManager().destroyLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID);
+            getLoaderManager().destroyLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID);
             getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle, this);
 
-        } else {
+        } else if ( (GlobalRef.ALL_MOVIES_INDEX == iIndex)      ||
+                    (GlobalRef.TOPRATED_MOVIES_INDEX == iIndex) ||
+                    (GlobalRef.POPULAR_MOVIES_INDEX == iIndex)) {
+
             Bundle bundle = new Bundle();
             bundle.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, iIndex);
 

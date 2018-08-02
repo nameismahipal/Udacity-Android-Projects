@@ -38,7 +38,7 @@ public class FavContract {
     public static final String AUTHORITY = "www.androidcitizen.com.popularmoviesone";
     public static final String PATH_FAV_MOVIES = "favorites";
 
-    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
     private FavContract() {}
 
