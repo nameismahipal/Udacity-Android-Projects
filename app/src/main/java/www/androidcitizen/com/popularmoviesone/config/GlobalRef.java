@@ -14,16 +14,6 @@ public final class GlobalRef {
 
     private GlobalRef() { }
 
-    public static Uri buildURIMovieId(int id){
-
-        Uri uriId = FavContract.BASE_CONTENT_URI.buildUpon()
-                    .appendPath(FavContract.PATH_FAV_MOVIES)
-                    .appendPath(String.valueOf(id))
-                    .build();
-
-        return uriId;
-    }
-
     public final static  String API_KEY = BuildConfig.ApiKey;
 
     public static final String[] PROJECTION = new String[] {

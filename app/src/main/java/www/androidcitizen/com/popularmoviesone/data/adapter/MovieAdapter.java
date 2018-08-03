@@ -1,6 +1,7 @@
 package www.androidcitizen.com.popularmoviesone.data.adapter;
 
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.List;
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
+import www.androidcitizen.com.popularmoviesone.databinding.GridItemViewBinding;
 
 /**
  * Created by Mahi on 13/06/18.
@@ -47,37 +49,37 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext())
-                                    .inflate(R.layout.grid_item_view,
-                                             parent, false);
+        GridItemViewBinding gridItemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                                                    R.layout.grid_item_view,
+                                                    parent,
+                                                    false);
 
-        return (new MovieViewHolder(view));
+        return new MovieViewHolder(gridItemViewBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.onBind(position);
+         holder.onBind(position);
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        final ImageView imagePosterView;
+        private final GridItemViewBinding itemViewBinding;
 
-        private MovieViewHolder(View view) {
-            super(view);
-            imagePosterView = view.findViewById(R.id.iv_posterImage);
-            imagePosterView.setOnClickListener(this);
+        private MovieViewHolder(GridItemViewBinding itemViewBinding) {
+            super(itemViewBinding.getRoot());
+            this.itemViewBinding = itemViewBinding;
+            itemViewBinding.ivPosterImage.setOnClickListener(this);
         }
 
         void onBind(int index) {
 
             Picasso.get()
-                    .load(movieDetails.get(index).getPosterPath())
+                    .load(GlobalRef.PORT_POSTER_IMAGE_URL_PATH  + movieDetails.get(index).getPosterPath())
                     //.placeholder("http://via.placeholder.com/350x150")
                     //.error(R.drawable.user_placeholder_error)
-                    .into(imagePosterView);
-
+                    .into(itemViewBinding.ivPosterImage);
         }
 
         @Override

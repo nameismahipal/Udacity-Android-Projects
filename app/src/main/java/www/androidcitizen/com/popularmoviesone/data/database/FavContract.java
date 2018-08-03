@@ -1,5 +1,6 @@
 package www.androidcitizen.com.popularmoviesone.data.database;
 
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -45,6 +46,10 @@ public class FavContract {
     public static final class FavMovieEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_FAV_MOVIES).build();
+
+        public static Uri buildURIMovieId(long id){
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
 
         public static final String TABLE_NAME               = "fav_movies";
 

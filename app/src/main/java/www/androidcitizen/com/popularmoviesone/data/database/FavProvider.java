@@ -1,6 +1,7 @@
 package www.androidcitizen.com.popularmoviesone.data.database;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -97,9 +98,9 @@ public class FavProvider extends ContentProvider {
 
         switch (match){
             case FAV_MOVIES:
-                return "vnd.android.cursor.dir" + "/" + FavContract.AUTHORITY + "/" + FavContract.PATH_FAV_MOVIES;
+                return ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + FavContract.AUTHORITY + "/" + FavContract.PATH_FAV_MOVIES;
             case FAV_MOVIES_ID:
-                return "vnd.android.cursor.item" + "/" + FavContract.AUTHORITY + "/" + FavContract.PATH_FAV_MOVIES;
+                return ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + FavContract.AUTHORITY + "/" + FavContract.PATH_FAV_MOVIES;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

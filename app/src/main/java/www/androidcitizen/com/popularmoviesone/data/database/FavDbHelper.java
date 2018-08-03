@@ -51,7 +51,7 @@ public class FavDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_FAVORITE_TABLE =
 
                         "CREATE TABLE " + FavMovieEntry.TABLE_NAME + "(" +
-                        FavMovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        FavMovieEntry._ID + " INTEGER PRIMARY KEY," +
                         FavMovieEntry.COLUMN_MOVIE_ID + " INTEGER NOT NULL," +
                         FavMovieEntry.COLUMN_TITLE + " TEXT NOT NULL," +
                         FavMovieEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL," +
@@ -72,8 +72,4 @@ public class FavDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
-    }
 }

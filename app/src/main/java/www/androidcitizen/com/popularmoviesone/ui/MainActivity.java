@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,8 +43,6 @@ public class MainActivity extends AppCompatActivity
 
     private static int MOVIE_FETCH_INDEX = GlobalRef.ALL_MOVIES_INDEX;
 
-    private final static String API_KEY = GlobalRef.API_KEY;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,16 +51,18 @@ public class MainActivity extends AppCompatActivity
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Bundle bundle1 = new Bundle();
-        bundle1.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, MOVIE_FETCH_INDEX);
-
-        Bundle bundle2 = new Bundle();
-        bundle2.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_NULL);
-
-        getLoaderManager().initLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle1, this);
-        getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle2, this);
+//        Bundle bundle1 = new Bundle();
+//        bundle1.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, MOVIE_FETCH_INDEX);
+//
+//        Bundle bundle2 = new Bundle();
+//        bundle2.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_NULL);
+//
+//        getLoaderManager().initLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle1, this);
+//        getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle2, this);
 
         setupRecycleView();
+
+        fetchMovies(GlobalRef.ALL_MOVIES_INDEX);
     }
 
     private void fetchMovies(int iIndex) {
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_READ);
 
-            getLoaderManager().destroyLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID);
             getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle, this);
 
         } else if ( (GlobalRef.ALL_MOVIES_INDEX == iIndex)      ||
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, iIndex);
 
-            getLoaderManager().destroyLoader(GlobalRef.MOVIE_SERVER_LOADING_ID);
             getLoaderManager().restartLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle, this);
 
         }
@@ -98,7 +95,7 @@ public class MainActivity extends AppCompatActivity
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 GlobalRef.PAGE_NUM = page;
                 if(page < TOTAL_PAGES){
-                    fetchMovies(MOVIE_FETCH_INDEX);
+                    //fetchMovies(MOVIE_FETCH_INDEX);
                 }
             }
         };
@@ -201,10 +198,11 @@ public class MainActivity extends AppCompatActivity
                             return null;
 
                     case GlobalRef.FAV_MOVIE_READ:
+                            String sortOrder = FavContract.FavMovieEntry.COLUMN_VOTE_AVERAGE + " DESC";
                             return new CursorLoader(this,
                             FavContract.FavMovieEntry.CONTENT_URI,
                             GlobalRef.PROJECTION,
-                            null, null, null);
+                            null, null, sortOrder);
                 }
         }
 
@@ -242,8 +240,15 @@ public class MainActivity extends AppCompatActivity
 
     private void setupAdapterDatabaseData(Object object){
 
-        Cursor cursor = (Cursor) object;
-        adapter.newCursorData(cursor);
+        if(MOVIE_FETCH_INDEX == GlobalRef.FAVOURITE_MOVIES_INDEX) {
+            //Upon every Fav Set, this condition prevents page refresh.
+            adapter.clearAll();
+            Cursor cursor = (Cursor) object;
+
+            if (cursor.getCount() > 0) {
+                adapter.newCursorData(cursor);
+            }
+        }
     }
 
 }

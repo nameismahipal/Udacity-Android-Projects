@@ -10,12 +10,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
+import www.androidcitizen.com.popularmoviesone.data.Loader.GlideApp;
 import www.androidcitizen.com.popularmoviesone.data.database.FavContract;
 import www.androidcitizen.com.popularmoviesone.data.database.FavContract.*;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMovieDetailBinding;
@@ -65,8 +67,16 @@ public class MovieDetailActivity extends AppCompatActivity
 
     void setViewData(MovieDetails movieUIDetails){
 
-        isFavorite();
+        checkIfFavoriteAndSet();
 
+        GlideApp.with(this)
+                .load(GlobalRef.PORT_BACKDROP_IMAGE_URL_PATH + movieUIDetails.getBackdropPath())
+                .into(detailBinding.ivBackgroundImage);
+
+        GlideApp.with(this)
+                .load(GlobalRef.PORT_POSTER_IMAGE_URL_PATH  + movieUIDetails.getPosterPath())
+                .into(detailBinding.ivPosterImage);
+/*
         Picasso.get()
                 .load(movieUIDetails.getBackdropPath())
                 //.placeholder("http://via.placeholder.com/350x150")
@@ -78,6 +88,7 @@ public class MovieDetailActivity extends AppCompatActivity
                 //.placeholder("http://via.placeholder.com/350x150")
                 //.error(R.drawable.user_placeholder_error)
                 .into(detailBinding.ivPosterImage);
+*/
 
         detailBinding.tvTitle.setText(movieUIDetails.getTitle());
         detailBinding.ratingBar.setRating(movieUIDetails.getVoteAverage());
@@ -101,11 +112,10 @@ public class MovieDetailActivity extends AppCompatActivity
     }
 
     void deleteFavItem() {
-        //getContentResolver().de
-        getContentResolver().delete(GlobalRef.buildURIMovieId(movieDetails.getId()), null, null);
+        getContentResolver().delete(FavMovieEntry.buildURIMovieId(movieDetails.getId()), null, null);
     }
 
-    void isFavorite() {
+    void checkIfFavoriteAndSet() {
 
         getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, null, this);
     }
@@ -117,7 +127,7 @@ public class MovieDetailActivity extends AppCompatActivity
         String[] projection = new String[] {FavMovieEntry.COLUMN_MOVIE_ID};
 
         return new CursorLoader(this,
-                GlobalRef.buildURIMovieId(movieId),
+                FavMovieEntry.buildURIMovieId(movieId),
                 projection,
                 null, null, null);
     }

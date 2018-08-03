@@ -85,7 +85,7 @@ public class MovieDetails implements Parcelable {
     }
 
     public String getPosterPath() {
-        return GlobalRef.PORT_POSTER_IMAGE_URL_PATH + posterPath;
+        return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -94,7 +94,7 @@ public class MovieDetails implements Parcelable {
 
 
     public String getBackdropPath() {
-        return GlobalRef.PORT_BACKDROP_IMAGE_URL_PATH + backdropPath;
+        return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
