@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -18,6 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.stetho.Stetho;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
@@ -51,18 +56,15 @@ public class MainActivity extends AppCompatActivity
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-//        Bundle bundle1 = new Bundle();
-//        bundle1.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, MOVIE_FETCH_INDEX);
-//
-//        Bundle bundle2 = new Bundle();
-//        bundle2.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_NULL);
-//
-//        getLoaderManager().initLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle1, this);
-//        getLoaderManager().initLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle2, this);
-
         setupRecycleView();
 
-        fetchMovies(GlobalRef.ALL_MOVIES_INDEX);
+        if (null == savedInstanceState) {
+            fetchMovies(GlobalRef.ALL_MOVIES_INDEX);
+        } else {
+            List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST);
+            MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
+            adapter.newData(movieDetails);
+        }
     }
 
     private void fetchMovies(int iIndex) {
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 GlobalRef.PAGE_NUM = page;
                 if(page < TOTAL_PAGES){
-                    //fetchMovies(MOVIE_FETCH_INDEX);
+                    fetchMovies(MOVIE_FETCH_INDEX);
                 }
             }
         };
@@ -152,6 +154,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+
+        enableMenuItemAndFetchMovies(item);
+
+        return true;
+    }
+
+    void enableMenuItemAndFetchMovies(MenuItem item) {
+        enableMenuItem(item);
+        clearAndFetch();
+    }
+
+    private void enableMenuItem(MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.all:
                 MOVIE_FETCH_INDEX = GlobalRef.ALL_MOVIES_INDEX;
@@ -166,12 +181,13 @@ public class MainActivity extends AppCompatActivity
                 MOVIE_FETCH_INDEX = GlobalRef.FAVOURITE_MOVIES_INDEX;
                 break;
         }
+    }
 
+    private void clearAndFetch(){
         clearList();
         GlobalRef.PAGE_NUM = 1;
         fetchMovies(MOVIE_FETCH_INDEX);
 
-        return true;
     }
 
     private void clearList() {
@@ -235,6 +251,7 @@ public class MainActivity extends AppCompatActivity
         Movie movieObj = (Movie) object;
         GlobalRef.PAGE_NUM = movieObj.getPage();
         TOTAL_PAGES = movieObj.getTotalPages();
+        GlobalRef.TOTAL_ITEMS_COUNT = movieObj.getTotalResults();
         adapter.newData(movieObj.getMovieDetails());
     }
 
@@ -244,11 +261,18 @@ public class MainActivity extends AppCompatActivity
             //Upon every Fav Set, this condition prevents page refresh.
             adapter.clearAll();
             Cursor cursor = (Cursor) object;
-
+            GlobalRef.TOTAL_ITEMS_COUNT = cursor.getCount();
             if (cursor.getCount() > 0) {
                 adapter.newCursorData(cursor);
             }
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<MovieDetails> movieDetailsSavedStateList = new ArrayList<>(adapter.getMovies());
+        outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST, movieDetailsSavedStateList);
+        outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
+    }
 }

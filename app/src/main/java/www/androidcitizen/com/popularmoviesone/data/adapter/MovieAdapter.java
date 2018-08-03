@@ -37,6 +37,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void  onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails);
     }
 
+    public List<MovieDetails> getMovies(){
+        return movieDetails;
+    }
     @Override
     public int getItemCount() {
         if(null != movieDetails)

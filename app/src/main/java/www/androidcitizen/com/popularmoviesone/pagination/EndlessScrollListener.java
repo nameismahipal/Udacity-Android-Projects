@@ -31,7 +31,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     // True if we are still waiting for the last set of data to load.
     private boolean loading = true;
     // Sets the starting page index
-    private final int startingPageIndex = 0;
+    private final int startingPageIndex = 1;
 
     private final RecyclerView.LayoutManager mLayoutManager;
 

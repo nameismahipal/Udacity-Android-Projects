@@ -36,6 +36,10 @@ public final class GlobalRef {
     public static final int INDEX_VOTE_AVERAGE  = 6;
 
     public static int PAGE_NUM = 1;
+    public static int TOTAL_ITEMS_COUNT = 1;
+
+    public static final String INSTANCE_STATE_LIST = "adapter_list";
+    public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "movie_type_index";
 
     public final static int ALL_MOVIES_INDEX       = 0;
     public final static int TOPRATED_MOVIES_INDEX  = 1;
