@@ -45,7 +45,7 @@ public class MovieLoader extends AsyncTaskLoader<Object> {
     public Object loadInBackground() {
         Movie movie = null;
 
-        int index = bundle.getInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY);
+        int index = bundle.getInt(GlobalRef.KEY_MOVIE_SERVICE_LOADING);
 
         Call<Movie> movieServiceCall = fetchMovies(index);
 

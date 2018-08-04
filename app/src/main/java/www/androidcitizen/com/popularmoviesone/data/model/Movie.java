@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Mahi on 13/06/18.
  * www.androidcitizen.com
-
+ *
  Used http://www.jsonschema2pojo.org/ tool for Code creation.
  */
 

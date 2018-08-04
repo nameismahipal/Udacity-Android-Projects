@@ -5,6 +5,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import www.androidcitizen.com.popularmoviesone.data.model.Movie;
+import www.androidcitizen.com.popularmoviesone.data.model.Reviews;
 
 /**
  * Created by Mahi on 01/07/18.
@@ -26,7 +27,6 @@ public interface MovieService {
     Call<Movie> getMovieVideos(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
     @GET("movie/{movie_id}/reviews")
-    Call<Movie> getMovieReviews(@Path("movie_id") int movieId, @Query("api_key") String apiKey,
-                               @Query("page") int pageNum);
+    Call<Reviews> getMovieReviews(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
 }

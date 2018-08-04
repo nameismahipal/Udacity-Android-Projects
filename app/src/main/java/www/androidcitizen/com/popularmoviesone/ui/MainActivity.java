@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -57,9 +58,12 @@ public class MainActivity extends AppCompatActivity
         setupRecycleView();
 
         if (null == savedInstanceState) {
+
             getSupportActionBar().setTitle("Now Playing");
             fetchMovies(GlobalRef.NOW_PLAYING_MOVIES);
+
         } else {
+
             List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST);
             MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
             getSupportActionBar().setTitle(savedInstanceState.getString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE));
@@ -72,18 +76,18 @@ public class MainActivity extends AppCompatActivity
 
         if(GlobalRef.FAVOURITE_MOVIES_INDEX == iIndex) {
             Bundle bundle = new Bundle();
-            bundle.putInt(GlobalRef.FAV_MOVIE_DB_KEY, GlobalRef.FAV_MOVIE_READ);
+            bundle.putInt(GlobalRef.KEY_FAV_MOVIE_ID, GlobalRef.FAV_MOVIE_READ);
 
-            getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle, this);
+            getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_DATABASE, bundle, this);
 
         } else if ( (GlobalRef.NOW_PLAYING_MOVIES == iIndex)      ||
                     (GlobalRef.TOPRATED_MOVIES_INDEX == iIndex) ||
                     (GlobalRef.POPULAR_MOVIES_INDEX == iIndex)) {
 
             Bundle bundle = new Bundle();
-            bundle.putInt(GlobalRef.MOVIE_SERVICE_LOADING_KEY, iIndex);
+            bundle.putInt(GlobalRef.KEY_MOVIE_SERVICE_LOADING, iIndex);
 
-            getLoaderManager().restartLoader(GlobalRef.MOVIE_SERVER_LOADING_ID, bundle, this);
+            getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_SERVER, bundle, this);
 
         }
     }
@@ -105,6 +109,7 @@ public class MainActivity extends AppCompatActivity
 
         mainBinding.rvMovieList.setHasFixedSize(true);
         mainBinding.rvMovieList.setLayoutManager(layoutManager);
+        mainBinding.rvMovieList.setItemAnimator(new DefaultItemAnimator());
         mainBinding.rvMovieList.addOnScrollListener(scrollListener);
 
         adapter = new MovieAdapter(this);
@@ -205,13 +210,13 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
 
-            case GlobalRef.MOVIE_SERVER_LOADING_ID:
+            case GlobalRef.LOADING_ID_MOVIE_SERVER:
 
                 return new MovieLoader(this, bundleArgs);
 
-            case GlobalRef.MOVIE_DATABASE_LOADING_ID:
+            case GlobalRef.LOADING_ID_MOVIE_DATABASE:
 
-                int iDbAction = bundleArgs.getInt(GlobalRef.FAV_MOVIE_DB_KEY);
+                int iDbAction = bundleArgs.getInt(GlobalRef.KEY_FAV_MOVIE_ID);
 
                 switch (iDbAction) {
 
@@ -236,11 +241,11 @@ public class MainActivity extends AppCompatActivity
         int id = loader.getId();
 
         switch (id) {
-            case GlobalRef.MOVIE_SERVER_LOADING_ID:
+            case GlobalRef.LOADING_ID_MOVIE_SERVER:
                 setupAdapterServerData(data);
                 break;
 
-            case GlobalRef.MOVIE_DATABASE_LOADING_ID:
+            case GlobalRef.LOADING_ID_MOVIE_DATABASE:
                 setupAdapterDatabaseData(data);
                 break;
         }

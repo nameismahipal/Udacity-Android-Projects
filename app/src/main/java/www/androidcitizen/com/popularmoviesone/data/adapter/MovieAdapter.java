@@ -146,6 +146,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
     }
 
+    private MovieDetails getItem(int position) {
+        return movieDetails.get(position);
+    }
+
     private void remove(MovieDetails movie) {
         int position = movieDetails.indexOf(movie);
         movieDetails.remove(position);
@@ -153,9 +157,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     }
 
-    private MovieDetails getItem(int position) {
-        return movieDetails.get(position);
-    }
+
 
 
 }
