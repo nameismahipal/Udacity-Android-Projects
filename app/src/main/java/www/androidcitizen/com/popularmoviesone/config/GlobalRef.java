@@ -40,6 +40,7 @@ public final class GlobalRef {
 
     public static final String INSTANCE_STATE_LIST = "adapter_list";
     public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "movie_type_index";
+    public static final String INSTANCE_STATE_TOOLBAR_MOVIE_TITLE = "title_toolbar";
 
     public final static int ALL_MOVIES_INDEX       = 0;
     public final static int TOPRATED_MOVIES_INDEX  = 1;
@@ -83,6 +84,13 @@ public final class GlobalRef {
     https://api.themoviedb.org/3/movie/{movie_id}/images?api_key=231770e320e461bebfa9c748217ae54e
 
     https://api.themoviedb.org/3/movie/351286?api_key=231770e320e461bebfa9c748217ae54e
+
+    video:
+    key=vn9mMeWcgoM
+    https://www.youtube.com/watch?v=vn9mMeWcgoM
+
+    Reviews:
+    https://api.themoviedb.org/3/movie/299536/reviews?api_key=<KEY>&page=1
 
 
      */

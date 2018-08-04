@@ -19,7 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.stetho.Stetho;
-import com.google.gson.Gson;
+
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         LoaderManager.LoaderCallbacks,
         PopupMenu.OnMenuItemClickListener {
 
-    ActivityMainBinding mainBinding;
+    private ActivityMainBinding mainBinding;
 
     private static MovieAdapter adapter;
     private EndlessScrollListener scrollListener;
@@ -59,10 +60,13 @@ public class MainActivity extends AppCompatActivity
         setupRecycleView();
 
         if (null == savedInstanceState) {
+            getSupportActionBar().setTitle("All Movies");
             fetchMovies(GlobalRef.ALL_MOVIES_INDEX);
         } else {
             List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST);
             MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
+            getSupportActionBar().setTitle(savedInstanceState.getString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE));
+
             adapter.newData(movieDetails);
         }
     }
@@ -160,7 +164,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    void enableMenuItemAndFetchMovies(MenuItem item) {
+    private void enableMenuItemAndFetchMovies(MenuItem item) {
         enableMenuItem(item);
         clearAndFetch();
     }
@@ -169,15 +173,19 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()){
             case R.id.all:
+                getSupportActionBar().setTitle("All");
                 MOVIE_FETCH_INDEX = GlobalRef.ALL_MOVIES_INDEX;
                 break;
             case R.id.toprated:
+                getSupportActionBar().setTitle("Top Rated");
                 MOVIE_FETCH_INDEX = GlobalRef.TOPRATED_MOVIES_INDEX;
                 break;
             case R.id.popular:
+                getSupportActionBar().setTitle("Popular");
                 MOVIE_FETCH_INDEX = GlobalRef.POPULAR_MOVIES_INDEX;
                 break;
             case R.id.favourite:
+                getSupportActionBar().setTitle("Favorites");
                 MOVIE_FETCH_INDEX = GlobalRef.FAVOURITE_MOVIES_INDEX;
                 break;
         }
@@ -274,5 +282,6 @@ public class MainActivity extends AppCompatActivity
         ArrayList<MovieDetails> movieDetailsSavedStateList = new ArrayList<>(adapter.getMovies());
         outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST, movieDetailsSavedStateList);
         outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
+        outState.putString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE, getSupportActionBar().getTitle().toString());
     }
 }

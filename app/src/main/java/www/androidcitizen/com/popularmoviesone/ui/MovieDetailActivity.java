@@ -15,6 +15,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import android.support.v7.widget.Toolbar;
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.Loader.GlideApp;

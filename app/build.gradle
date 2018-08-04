@@ -6,7 +6,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "www.androidcitizen.com.popularmoviesone"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation ('com.android.support:design:27.1.1') {
+        exclude group: 'com.android.support', module:'exifinterface'
+        exclude group: 'com.android.support', module:'animated-vector-drawable'
+    }
 
     // Support Library
     implementation ('com.android.support:appcompat-v7:27.1.1') {
@@ -59,8 +63,6 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-
-    implementation 'com.google.code.gson:gson:2.8.5'
 
     // Stetho Log Interceptor
     implementation 'com.facebook.stetho:stetho:1.5.0'
