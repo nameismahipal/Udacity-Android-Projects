@@ -19,8 +19,8 @@ public interface MovieService {
     @GET("movie/popular")
     Call<Movie> getPopularMovies(@Query("api_key") String apiKey, @Query("page") int pageNum);
 
-    @GET("discover/movie")
-    Call<Movie> getAllMovies(@Query("api_key") String apiKey, @Query("page") int pageNum);
+    @GET("movie/now_playing")
+    Call<Movie> getNowPlayingMovies(@Query("api_key") String apiKey, @Query("page") int pageNum);
 
     @GET("movie/{movie_id}/videos")
     Call<Movie> getMovieVideos(@Path("movie_id") int movieId, @Query("api_key") String apiKey);

@@ -8,7 +8,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -19,8 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.stetho.Stetho;
-
-import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     private static int TOTAL_PAGES = 1;
 
-    private static int MOVIE_FETCH_INDEX = GlobalRef.ALL_MOVIES_INDEX;
+    private static int MOVIE_FETCH_INDEX = GlobalRef.NOW_PLAYING_MOVIES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +57,8 @@ public class MainActivity extends AppCompatActivity
         setupRecycleView();
 
         if (null == savedInstanceState) {
-            getSupportActionBar().setTitle("All Movies");
-            fetchMovies(GlobalRef.ALL_MOVIES_INDEX);
+            getSupportActionBar().setTitle("Now Playing");
+            fetchMovies(GlobalRef.NOW_PLAYING_MOVIES);
         } else {
             List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST);
             MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
@@ -79,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
             getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, bundle, this);
 
-        } else if ( (GlobalRef.ALL_MOVIES_INDEX == iIndex)      ||
+        } else if ( (GlobalRef.NOW_PLAYING_MOVIES == iIndex)      ||
                     (GlobalRef.TOPRATED_MOVIES_INDEX == iIndex) ||
                     (GlobalRef.POPULAR_MOVIES_INDEX == iIndex)) {
 
@@ -173,8 +170,8 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()){
             case R.id.all:
-                getSupportActionBar().setTitle("All");
-                MOVIE_FETCH_INDEX = GlobalRef.ALL_MOVIES_INDEX;
+                getSupportActionBar().setTitle("Now Playing");
+                MOVIE_FETCH_INDEX = GlobalRef.NOW_PLAYING_MOVIES;
                 break;
             case R.id.toprated:
                 getSupportActionBar().setTitle("Top Rated");
@@ -267,9 +264,11 @@ public class MainActivity extends AppCompatActivity
 
         if(MOVIE_FETCH_INDEX == GlobalRef.FAVOURITE_MOVIES_INDEX) {
             //Upon every Fav Set, this condition prevents page refresh.
+
             adapter.clearAll();
+
             Cursor cursor = (Cursor) object;
-            GlobalRef.TOTAL_ITEMS_COUNT = cursor.getCount();
+            //GlobalRef.TOTAL_ITEMS_COUNT = cursor.getCount();
             if (cursor.getCount() > 0) {
                 adapter.newCursorData(cursor);
             }

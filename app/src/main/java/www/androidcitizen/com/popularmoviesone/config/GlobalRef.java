@@ -42,7 +42,7 @@ public final class GlobalRef {
     public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "movie_type_index";
     public static final String INSTANCE_STATE_TOOLBAR_MOVIE_TITLE = "title_toolbar";
 
-    public final static int ALL_MOVIES_INDEX       = 0;
+    public final static int NOW_PLAYING_MOVIES = 0;
     public final static int TOPRATED_MOVIES_INDEX  = 1;
     public final static int POPULAR_MOVIES_INDEX   = 2;
     public final static int FAVOURITE_MOVIES_INDEX = 3;

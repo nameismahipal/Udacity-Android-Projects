@@ -80,8 +80,8 @@ public class MovieLoader extends AsyncTaskLoader<Object> {
 
         switch (movieIndex) {
 
-            case GlobalRef.ALL_MOVIES_INDEX:
-                moviesServiceCall = fetchAllMovies();
+            case GlobalRef.NOW_PLAYING_MOVIES:
+                moviesServiceCall = fetchNowPlayingMovies();
                 break;
             case GlobalRef.TOPRATED_MOVIES_INDEX:
                 moviesServiceCall = fetchTopRatedMovies();
@@ -104,9 +104,9 @@ public class MovieLoader extends AsyncTaskLoader<Object> {
         // Call Loader for quering data from database, and set to adapter
     }
 
-    private Call<Movie> fetchAllMovies() {
+    private Call<Movie> fetchNowPlayingMovies() {
 
-        Call<Movie> moviesServiceCall = initializeMovieService().getAllMovies(GlobalRef.API_KEY, GlobalRef.PAGE_NUM);
+        Call<Movie> moviesServiceCall = initializeMovieService().getNowPlayingMovies(GlobalRef.API_KEY, GlobalRef.PAGE_NUM);
 
         return moviesServiceCall;
     }
