@@ -68,7 +68,7 @@ public class MovieDetailActivity extends AppCompatActivity
 
     void setViewData(MovieDetails movieUIDetails){
 
-        checkIfFavoriteAndSet();
+        checkDbIfFavoriteSet();
 
         GlideApp.with(this)
                 .load(GlobalRef.PORT_BACKDROP_IMAGE_URL_PATH + movieUIDetails.getBackdropPath())
@@ -116,7 +116,7 @@ public class MovieDetailActivity extends AppCompatActivity
         getContentResolver().delete(FavMovieEntry.buildURIMovieId(movieDetails.getId()), null, null);
     }
 
-    void checkIfFavoriteAndSet() {
+    void checkDbIfFavoriteSet() {
 
         getLoaderManager().restartLoader(GlobalRef.MOVIE_DATABASE_LOADING_ID, null, this);
     }
