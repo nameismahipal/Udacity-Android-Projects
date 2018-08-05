@@ -9,6 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
+    android:background="@color/colorReviewItemDark"
     android:onClick="toggleReviewDetails">
 
     <TextView
@@ -16,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reviews: "
-        style="@style/TextAppearance.AppCompat.Subhead"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +26,8 @@
         android:id="@+id/reviewValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginLeft="@dimen/dimen_12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintStart_toEndOf="@+id/reviewLabel"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +35,7 @@
         android:id="@+id/downButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_8dp"
+        android:layout_marginLeft="@dimen/dimen_16dp"
         android:src="@drawable/ic_twotone_keyboard_arrow_up_24px"
         app:layout_constraintBottom_toBottomOf="@+id/reviewLabel"
         app:layout_constraintStart_toEndOf="@+id/reviewValue"
