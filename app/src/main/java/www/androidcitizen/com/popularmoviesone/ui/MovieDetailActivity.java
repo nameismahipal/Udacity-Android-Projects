@@ -15,6 +15,7 @@ import com.like.OnLikeListener;
 
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class MovieDetailActivity extends AppCompatActivity
     ReviewAdapter reviewAdapter;
 
     List<ReviewResultsItem> reviewResultsItems = null;
+
+    private static boolean toggleUserReviews = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +132,10 @@ public class MovieDetailActivity extends AppCompatActivity
         detailBinding.tvTitle.setText(movieUIDetails.getTitle());
         detailBinding.ratingBar.setRating(movieUIDetails.getVoteAverage());
         detailBinding.tvReleaseDate.setText(movieUIDetails.getReleaseDate());
-        detailBinding.tvOverView.setText(movieUIDetails.getOverview());
+//        detailBinding.tvOverView.setText(movieUIDetails.getOverview());
+
+        detailBinding.itemDetails.tvOverView.setText(movieUIDetails.getOverview());
+
     }
 
     void insertFavItem() {
@@ -157,11 +163,16 @@ public class MovieDetailActivity extends AppCompatActivity
         reviewAdapter = new ReviewAdapter(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//
+//        detailBinding.authorReviewsList.setHasFixedSize(true);
+//        detailBinding.authorReviewsList.setLayoutManager(layoutManager);
+//        detailBinding.authorReviewsList.setItemAnimator(new DefaultItemAnimator());
+//        detailBinding.authorReviewsList.setAdapter(reviewAdapter);
 
-        detailBinding.authorReviewsList.setHasFixedSize(true);
-        detailBinding.authorReviewsList.setLayoutManager(layoutManager);
-        detailBinding.authorReviewsList.setItemAnimator(new DefaultItemAnimator());
-        detailBinding.authorReviewsList.setAdapter(reviewAdapter);
+        detailBinding.itemDetails.authorReviewsList.setHasFixedSize(true);
+        detailBinding.itemDetails.authorReviewsList.setLayoutManager(layoutManager);
+        detailBinding.itemDetails.authorReviewsList.setItemAnimator(new DefaultItemAnimator());
+        detailBinding.itemDetails.authorReviewsList.setAdapter(reviewAdapter);
     }
 
 
@@ -197,8 +208,9 @@ public class MovieDetailActivity extends AppCompatActivity
 
             case GlobalRef.LOADING_ID_MOVIE_REVIEWS:
                 Reviews reviews = (Reviews) objectData;
+                detailBinding.itemDetails.reviewLabelContainer.reviewValue.setText(String.valueOf(reviews.getTotalResults()));
                 reviewAdapter.newData(reviews.getReviewItems());
-                //reviewResultsItems = reviews.getReviewItems();
+
                 break;
 
             case GlobalRef.LOADING_ID_MOVIE_VIDEOS:
@@ -220,7 +232,21 @@ public class MovieDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoaderReset(Loader loader) {
+    public void onLoaderReset(Loader loader) { }
+
+    public void toggleReviewDetails(View view){
+
+        if(toggleUserReviews) {
+            detailBinding.itemDetails.authorReviewsList.setVisibility(View.VISIBLE);
+            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_up_24px);
+
+        } else {
+            detailBinding.itemDetails.authorReviewsList.setVisibility(View.GONE);
+            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_down_24px);
+
+        }
+
+        toggleUserReviews = !toggleUserReviews;
 
     }
 }

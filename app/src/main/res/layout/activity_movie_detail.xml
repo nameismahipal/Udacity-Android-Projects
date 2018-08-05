@@ -116,61 +116,14 @@
                 app:constraint_referenced_ids="ratingBar, tv_releaseDate"
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
-            <TextView
-                android:id="@+id/synopsisLabel"
-                android:layout_width="0dp"
+            <include
+                android:id="@+id/itemDetails"
+                layout="@layout/movie_overview_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:text="@string/synopsis"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
                 app:layout_constraintTop_toBottomOf="@+id/barrier1" />
-
-            <ScrollView
-                android:id="@+id/synopsis_ScrollView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8dp"
-                android:backgroundTint="@color/colorPrimary"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-                app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-                app:layout_constraintTop_toBottomOf="@+id/synopsisLabel">
-
-                <TextView
-                    android:id="@+id/tv_OverView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </ScrollView>
-
-            <include
-                android:id="@+id/reviewLabelContainer"
-                layout="@layout/review_label_item"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/synopsis_ScrollView"
-                app:layout_constraintBottom_toTopOf="@id/authorReviewsList"
-                app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-                app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-                />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/authorReviewsList"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                android:layout_marginTop="16dp"
-                android:isScrollContainer="true"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintTop_toBottomOf="@+id/reviewLabelContainer"
-                app:layout_constraintStart_toEndOf="@id/guidelineLeft"
-                app:layout_constraintEnd_toEndOf="@id/guidelineRight">
-            </android.support.v7.widget.RecyclerView>
-
 
 
         </android.support.constraint.ConstraintLayout>
