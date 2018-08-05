@@ -39,6 +39,11 @@ public final class GlobalRef {
     public static int TOTAL_ITEMS_COUNT = 1;
 
     public static final String INSTANCE_STATE_LIST = "adapter_list";
+
+    public static final String INSTANCE_STATE_LIST_MOVIES = "movies_list";
+    public static final String INSTANCE_STATE_LIST_REVIEWS = "reviews_list";
+    public static final String INSTANCE_STATE_LIST_VIDEOS = "videos_list";
+
     public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "movie_type_index";
     public static final String INSTANCE_STATE_TOOLBAR_MOVIE_TITLE = "title_toolbar";
 

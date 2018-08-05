@@ -100,4 +100,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewItem
         reviewResultsItems.remove(index);
         notifyItemRemoved(index);
     }
+
+    public List<ReviewResultsItem> getReviewResults() {
+        return reviewResultsItems;
+    }
 }

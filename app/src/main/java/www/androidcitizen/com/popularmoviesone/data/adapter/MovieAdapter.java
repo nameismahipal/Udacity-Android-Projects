@@ -40,6 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public List<MovieDetails> getMovies(){
         return movieDetails;
     }
+
     @Override
     public int getItemCount() {
         if(null != movieDetails)

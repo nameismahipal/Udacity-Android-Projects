@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,6 +18,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
@@ -34,13 +36,13 @@ import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 public class MovieDetailActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks {
 
-    ActivityMovieDetailBinding detailBinding;
+    private ActivityMovieDetailBinding detailBinding;
 
-    MovieDetails movieDetails;
+    private MovieDetails movieDetails;
 
-    ReviewAdapter reviewAdapter;
+    private ReviewAdapter reviewAdapter;
 
-    List<ReviewResultsItem> reviewResultsItems = null;
+    private List<ReviewResultsItem> reviewResultsItems = null;
 
     private static boolean toggleUserReviews = true;
 
@@ -50,6 +52,7 @@ public class MovieDetailActivity extends AppCompatActivity
 
         detailBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
 
+        setupRecycleView();
 
         if(null == savedInstanceState) {
 
@@ -67,9 +70,20 @@ public class MovieDetailActivity extends AppCompatActivity
 
         } else {
 
-        }
+            List<ReviewResultsItem> reviewsItems = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS);
 
-        setupRecycleView();
+            movieDetails = savedInstanceState.getParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
+
+            if(null != movieDetails) {
+                setViewData(movieDetails);
+
+                detailBinding.itemDetails.reviewLabelContainer.reviewValue.setText(String.valueOf(reviewsItems));
+                String noOfReviews = savedInstanceState.getString("review_value_key");
+                detailBinding.itemDetails.reviewLabelContainer.reviewValue.setText(noOfReviews);
+                reviewAdapter.newData(reviewsItems);
+            }
+
+        }
 
         detailBinding.likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
@@ -132,8 +146,6 @@ public class MovieDetailActivity extends AppCompatActivity
         detailBinding.tvTitle.setText(movieUIDetails.getTitle());
         detailBinding.ratingBar.setRating(movieUIDetails.getVoteAverage());
         detailBinding.tvReleaseDate.setText(movieUIDetails.getReleaseDate());
-//        detailBinding.tvOverView.setText(movieUIDetails.getOverview());
-
         detailBinding.itemDetails.tvOverView.setText(movieUIDetails.getOverview());
 
     }
@@ -159,15 +171,9 @@ public class MovieDetailActivity extends AppCompatActivity
 
     private void setupRecycleView(){
 
-        //reviewAdapter = new ReviewAdapter(reviewResultsItems);
         reviewAdapter = new ReviewAdapter(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//
-//        detailBinding.authorReviewsList.setHasFixedSize(true);
-//        detailBinding.authorReviewsList.setLayoutManager(layoutManager);
-//        detailBinding.authorReviewsList.setItemAnimator(new DefaultItemAnimator());
-//        detailBinding.authorReviewsList.setAdapter(reviewAdapter);
 
         detailBinding.itemDetails.authorReviewsList.setHasFixedSize(true);
         detailBinding.itemDetails.authorReviewsList.setLayoutManager(layoutManager);
@@ -234,15 +240,25 @@ public class MovieDetailActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader loader) { }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        ArrayList<ReviewResultsItem> reviewItemsStateList = new ArrayList<>(reviewAdapter.getReviewResults());
+        outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS, reviewItemsStateList);
+        outState.putParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetails);
+        outState.putString("review_value_key", detailBinding.itemDetails.reviewLabelContainer.reviewValue.getText().toString());
+
+    }
+
     public void toggleReviewDetails(View view){
 
         if(toggleUserReviews) {
             detailBinding.itemDetails.authorReviewsList.setVisibility(View.VISIBLE);
-            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_up_24px);
-
+            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_down_24px);
         } else {
             detailBinding.itemDetails.authorReviewsList.setVisibility(View.GONE);
-            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_down_24px);
+            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_up_24px);
 
         }
 
