@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
-
 /**
  * Created by Mahi on 13/06/18.
  * www.androidcitizen.com

@@ -1,9 +1,6 @@
 package www.androidcitizen.com.popularmoviesone.data.adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,10 +13,7 @@ import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
-import www.androidcitizen.com.popularmoviesone.data.Loader.GlideApp;
-import www.androidcitizen.com.popularmoviesone.data.model.ReviewResultsItem;
 import www.androidcitizen.com.popularmoviesone.data.model.VideoResultsItem;
-import www.androidcitizen.com.popularmoviesone.databinding.ReviewListItemBinding;
 import www.androidcitizen.com.popularmoviesone.databinding.VideosListItemBinding;
 
 /**

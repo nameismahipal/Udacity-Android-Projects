@@ -9,7 +9,6 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
 import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
-import www.androidcitizen.com.popularmoviesone.data.model.Reviews;
 import www.androidcitizen.com.popularmoviesone.data.model.Videos;
 import www.androidcitizen.com.popularmoviesone.data.remote.MovieInterface;
 import www.androidcitizen.com.popularmoviesone.data.remote.MovieService;

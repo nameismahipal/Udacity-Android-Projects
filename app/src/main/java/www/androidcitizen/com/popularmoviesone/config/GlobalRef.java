@@ -1,7 +1,5 @@
 package www.androidcitizen.com.popularmoviesone.config;
 
-import android.net.Uri;
-
 import www.androidcitizen.com.popularmoviesone.BuildConfig;
 import www.androidcitizen.com.popularmoviesone.data.database.FavContract;
 
