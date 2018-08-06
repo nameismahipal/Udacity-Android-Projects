@@ -6,11 +6,19 @@ https://www.androidcitizen.com/hiding-api-keys/
 
 Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (Module: app).
 
-Enter 'git log --graph --oneline` to check full list of commits.
+Enter 'git log --graph --oneline` to get actual list of commits.
 
 Enter 'git checkout <####commit_code>' to go to particular version
 
 ## Output:
+
+#### commit 9591548 
+
+ - movie trailers
+
+#### commit 4a566de 
+
+ - movie reviews
 
 #### commit ede3959
 
