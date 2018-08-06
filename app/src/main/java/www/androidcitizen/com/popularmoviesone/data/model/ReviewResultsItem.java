@@ -12,6 +12,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * Used http://www.jsonschema2pojo.org/ tool for Code creation.
  *
+ * Parcelable code generated using http://www.parcelabler.com
  */
 
 public class ReviewResultsItem implements Parcelable {

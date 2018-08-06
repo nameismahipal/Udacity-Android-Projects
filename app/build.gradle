@@ -60,10 +60,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     // Stetho Log Interceptor
-//     implementation 'com.facebook.stetho:stetho:1.5.0'
+     implementation 'com.facebook.stetho:stetho:1.5.0'
 
     // Network Helper
-//     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
     // Like Button
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'

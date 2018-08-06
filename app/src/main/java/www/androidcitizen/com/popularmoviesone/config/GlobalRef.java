@@ -76,7 +76,10 @@ public final class GlobalRef {
     public final static int FAV_MOVIE_DELETE  = 22;
     public final static int FAV_MOVIE_READ    = 23;
 
-    private final static String IMAGE_BASE_URL        = "https://image.tmdb.org/t/p";
+    private final static String IMAGE_BASE_URL              = "https://image.tmdb.org/t/p";
+    public final static String YOUTUBE_BASE_URL             = "https://www.youtube.com/watch?v=";
+    public final static String YOUTUBE_THUMBNAIL_BASE_URL   = "https://img.youtube.com/vi/";
+    public final static String YOUTUBE_THUMBNAIL_END_URL   = "/0.jpg";
 
     private final static  String PORTRAIT_POSTER_SIZE           = "/w154";
     private final static  String PORTRAIT_BACKDROP_POSTER_SIZE  = "/w300";
@@ -104,6 +107,8 @@ public final class GlobalRef {
     video:
     key=vn9mMeWcgoM
     https://www.youtube.com/watch?v=vn9mMeWcgoM
+
+    https://api.themoviedb.org/3/movie/299536/videos?api_key=231770e320e461bebfa9c748217ae54e
 
     Reviews:
     https://api.themoviedb.org/3/movie/299536/reviews?api_key=<KEY>&page=1

@@ -18,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.stetho.Stetho;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//         Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
 
         IF_ADAPTER_IS_SET = false;
 
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         setupRecycleView();
 
         if (null == savedInstanceState) {
-
 
             getSupportActionBar().setTitle(R.string.now_playing);
             fetchMovies(GlobalRef.NOW_PLAYING_MOVIES);
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
 
             if(IF_ADAPTER_IS_SET) {
-                if (null != adapter.getMovies()) {
+                if (0 < adapter.getItemCount()) {
                     ArrayList<MovieDetails> movieDetailsSavedStateList = new ArrayList<>(adapter.getMovies());
                     outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetailsSavedStateList);
                     outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);

@@ -11,6 +11,8 @@ import java.util.List;
  *
  * Used http://www.jsonschema2pojo.org/ tool for Code creation.
  *
+ * Parcelable code generated using http://www.parcelabler.com
+ *
  */
 
 public class Reviews {
