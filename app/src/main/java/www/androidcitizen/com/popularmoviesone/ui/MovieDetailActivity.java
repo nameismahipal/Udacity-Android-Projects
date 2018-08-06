@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +41,7 @@ import www.androidcitizen.com.popularmoviesone.databinding.ActivityMovieDetailBi
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 
 public class MovieDetailActivity extends AppCompatActivity
-    implements LoaderManager.LoaderCallbacks {
+    implements LoaderManager.LoaderCallbacks, VideosAdapter.VideoClickListener {
 
     private ActivityMovieDetailBinding detailBinding;
 
@@ -49,10 +50,6 @@ public class MovieDetailActivity extends AppCompatActivity
     private ReviewAdapter reviewAdapter;
     private VideosAdapter videosAdapter;
 
-    private static boolean IF_ADAPTER_IS_SET = false;
-    private static boolean IF_REVIEW_LIST_DATA_AVAILABLE = false;
-    private static boolean IF_VIDEO_LIST_DATA_AVAILABLE = false;
-
     private static boolean toggleUserReviews = true;
 
     @Override
@@ -60,10 +57,6 @@ public class MovieDetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         detailBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
-
-        IF_ADAPTER_IS_SET = false;
-        IF_REVIEW_LIST_DATA_AVAILABLE = false;
-        IF_VIDEO_LIST_DATA_AVAILABLE = false;
 
         setupRecycleView();
 
@@ -83,26 +76,21 @@ public class MovieDetailActivity extends AppCompatActivity
 
         } else {
 
-            if(IF_REVIEW_LIST_DATA_AVAILABLE) {
                 List<ReviewResultsItem> reviewsItems = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS);
-                //detailBinding.itemDetails.reviewContainer.reviewValue.setText(String.valueOf(reviewsItems));
                 reviewAdapter.newData(reviewsItems);
-            }
 
-            if(IF_VIDEO_LIST_DATA_AVAILABLE) {
+
                 List<VideoResultsItem> videoItems = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_VIDEOS);
                 videosAdapter.newData(videoItems);
-            }
 
-            movieDetails = savedInstanceState.getParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
+                movieDetails = savedInstanceState.getParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
 
-            if(null != movieDetails) {
-                setViewData(movieDetails);
+                if(null != movieDetails) {
+                    setViewData(movieDetails);
 
-                String noOfReviews = savedInstanceState.getString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS);
-                detailBinding.itemDetails.reviewContainer.reviewValue.setText(noOfReviews);
-
-            }
+                    String noOfReviews = savedInstanceState.getString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS);
+                    detailBinding.itemDetails.reviewContainer.reviewValue.setText(noOfReviews);
+                }
 
         }
 
@@ -209,15 +197,12 @@ public class MovieDetailActivity extends AppCompatActivity
         //Set Video Adapter
         videosAdapter = new VideosAdapter(this);
 
-        //LinearLayoutManager videoLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager videoLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager videoLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        detailBinding.movieTrailersList.setHasFixedSize(true);
-        detailBinding.movieTrailersList.setLayoutManager(videoLayoutManager);
-//        detailBinding.movieTrailersList.setItemAnimator(new DefaultItemAnimator());
-        detailBinding.movieTrailersList.setAdapter(videosAdapter);
-
-        IF_ADAPTER_IS_SET = true;
+        detailBinding.itemDetails.movieTrailersList.setHasFixedSize(true);
+        detailBinding.itemDetails.movieTrailersList.setLayoutManager(videoLayoutManager);
+        detailBinding.itemDetails.movieTrailersList.setItemAnimator(new DefaultItemAnimator());
+        detailBinding.itemDetails.movieTrailersList.setAdapter(videosAdapter);
     }
 
 
@@ -250,31 +235,33 @@ public class MovieDetailActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader loader, Object objectData) {
 
-        switch (loader.getId()) {
+        if(null != objectData) {
 
-            case GlobalRef.LOADING_ID_MOVIE_REVIEWS:
-                Reviews reviews = (Reviews) objectData;
-                detailBinding.itemDetails.reviewContainer.reviewValue.setText(String.valueOf(reviews.getTotalResults()));
-                reviewAdapter.newData(reviews.getReviewItems());
+            switch (loader.getId()) {
 
-                break;
+                case GlobalRef.LOADING_ID_MOVIE_REVIEWS:
+                    Reviews reviews = (Reviews) objectData;
+                    detailBinding.itemDetails.reviewContainer.reviewValue.setText(String.valueOf(reviews.getTotalResults()));
+                    reviewAdapter.newData(reviews.getReviewItems());
 
-            case GlobalRef.LOADING_ID_MOVIE_VIDEOS:
-                Videos videos = (Videos) objectData;
-                videosAdapter.newData(videos.getVideoItems());
-                break;
-            case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+                    break;
 
-                if (null != objectData) {
+                case GlobalRef.LOADING_ID_MOVIE_VIDEOS:
+
+                    Videos videos = (Videos) objectData;
+                    videosAdapter.newData(videos.getVideoItems());
+                    break;
+
+                case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+
                     Cursor cursor = (Cursor) objectData;
 
                     if (cursor.getCount() > 0) {
                         cursor.moveToFirst();
                         detailBinding.likeButton.setLiked(true);
                     }
-                }
-
-                break;
+                    break;
+            }
         }
 
     }
@@ -286,23 +273,20 @@ public class MovieDetailActivity extends AppCompatActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if(IF_ADAPTER_IS_SET) {
 
-            if (0 < reviewAdapter.getItemCount()) {
-                ArrayList<ReviewResultsItem> reviewItemsStateList = new ArrayList<>(reviewAdapter.getReviewResults());
-                outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS, reviewItemsStateList);
-                IF_REVIEW_LIST_DATA_AVAILABLE = true;
-            }
+        if (0 < reviewAdapter.getItemCount()) {
+            ArrayList<ReviewResultsItem> reviewItemsStateList = new ArrayList<>(reviewAdapter.getReviewResults());
+            outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS, reviewItemsStateList);
+        }
 
-            if (0 < videosAdapter.getItemCount()) {
-                ArrayList<VideoResultsItem> videoResultsItems = new ArrayList<>(videosAdapter.getVideoResults());
-                outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_VIDEOS, videoResultsItems);
-                IF_VIDEO_LIST_DATA_AVAILABLE = true;
-            }
+        if (0 < videosAdapter.getItemCount()) {
+            ArrayList<VideoResultsItem> videoResultsItems = new ArrayList<>(videosAdapter.getVideoResults());
+            outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_VIDEOS, videoResultsItems);
         }
-            outState.putParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetails);
-            outState.putString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS, detailBinding.itemDetails.reviewContainer.reviewValue.getText().toString());
-        }
+
+        outState.putParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetails);
+        outState.putString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS, detailBinding.itemDetails.reviewContainer.reviewValue.getText().toString());
+    }
 
 
     public void toggleReviewDetails(View view){
@@ -313,10 +297,23 @@ public class MovieDetailActivity extends AppCompatActivity
         } else {
             detailBinding.itemDetails.reviewContainer.authorReviewsList.setVisibility(View.GONE);
             detailBinding.itemDetails.reviewContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_up_24px);
-
         }
 
         toggleUserReviews = !toggleUserReviews;
 
+    }
+
+    @Override
+    public void onVideoItemClick(int iClickedIndex, String videoKey) {
+
+        String videoPath = GlobalRef.YOUTUBE_BASE_URL + videoKey;
+
+        Intent videoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
+
+        Intent chooseWith = Intent.createChooser(videoIntent, "Open With");
+
+        if(null != videoIntent.resolveActivity(getPackageManager())){
+            startActivity(chooseWith);
+        }
     }
 }

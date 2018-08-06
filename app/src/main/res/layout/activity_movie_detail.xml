@@ -133,29 +133,6 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/barrier2" />
 
-    <TextView
-        android:id="@+id/label_trailer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TRAILERS"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/itemDetails"
-        app:layout_constraintBottom_toTopOf="@id/movieTrailersList"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/movieTrailersList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:isScrollContainer="true"
-        android:nestedScrollingEnabled="false"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/label_trailer"/>
-
 </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -244,18 +244,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader loader, Object data) {
 
-        int id = loader.getId();
+        if(null != data) {
+            int id = loader.getId();
 
-        switch (id) {
-            case GlobalRef.LOADING_ID_MOVIE_SERVER:
-                getLoaderManager().destroyLoader(id);
-                setupAdapterServerData(data);
-                break;
+            switch (id) {
+                case GlobalRef.LOADING_ID_MOVIE_SERVER:
+                    setupAdapterServerData(data);
+                    getLoaderManager().destroyLoader(id);
+                    break;
 
-            case GlobalRef.LOADING_ID_MOVIE_DATABASE:
-                getLoaderManager().destroyLoader(id);
-                setupAdapterDatabaseData(data);
-                break;
+                case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+                    setupAdapterDatabaseData(data);
+                    getLoaderManager().destroyLoader(id);
+                    break;
+            }
         }
     }
 
@@ -266,26 +268,25 @@ public class MainActivity extends AppCompatActivity
 
     private void setupAdapterServerData(Object object){
 
-        Movie movieObj = (Movie) object;
-        GlobalRef.PAGE_NUM = movieObj.getPage();
-        TOTAL_PAGES = movieObj.getTotalPages();
-        GlobalRef.TOTAL_ITEMS_COUNT = movieObj.getTotalResults();
-        adapter.newData(movieObj.getMovieDetails());
+            Movie movieObj = (Movie) object;
+            GlobalRef.PAGE_NUM = movieObj.getPage();
+            TOTAL_PAGES = movieObj.getTotalPages();
+            GlobalRef.TOTAL_ITEMS_COUNT = movieObj.getTotalResults();
+            adapter.newData(movieObj.getMovieDetails());
     }
 
     private void setupAdapterDatabaseData(Object object){
 
-        if(MOVIE_FETCH_INDEX == GlobalRef.FAVOURITE_MOVIES_INDEX) {
-            //Upon every Fav Set, this condition prevents page refresh.
+            if (MOVIE_FETCH_INDEX == GlobalRef.FAVOURITE_MOVIES_INDEX) {
+                //Upon every Fav Set, this condition prevents page refresh.
 
-            adapter.clearAll();
+                adapter.clearAll();
 
-            Cursor cursor = (Cursor) object;
-            //GlobalRef.TOTAL_ITEMS_COUNT = cursor.getCount();
-            if (cursor.getCount() > 0) {
-                adapter.newCursorData(cursor);
+                Cursor cursor = (Cursor) object;
+                if (cursor.getCount() > 0) {
+                    adapter.newCursorData(cursor);
+                }
             }
-        }
     }
 
     @Override

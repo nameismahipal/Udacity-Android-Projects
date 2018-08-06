@@ -29,6 +29,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     final private MovieClickListener movieClickListener;
 
+    //private GridItemViewBinding gridItemViewBinding;
+
     public MovieAdapter(MovieClickListener movieClickListener) {
         this.movieClickListener = movieClickListener;
     }
@@ -54,9 +56,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         GridItemViewBinding gridItemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                                                    R.layout.grid_item_view,
-                                                    parent,
-                                                    false);
+                    R.layout.grid_item_view,
+                    parent,
+                    false);
 
         return new MovieViewHolder(gridItemViewBinding);
     }
