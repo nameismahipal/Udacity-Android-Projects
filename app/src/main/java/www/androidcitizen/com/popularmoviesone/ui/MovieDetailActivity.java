@@ -42,8 +42,6 @@ public class MovieDetailActivity extends AppCompatActivity
 
     private ReviewAdapter reviewAdapter;
 
-    private List<ReviewResultsItem> reviewResultsItems = null;
-
     private static boolean toggleUserReviews = true;
 
     @Override
@@ -57,9 +55,9 @@ public class MovieDetailActivity extends AppCompatActivity
         if(null == savedInstanceState) {
 
             Intent intent = getIntent();
-            if (intent.hasExtra("movieDetailsdata")) {
+            if (intent.hasExtra(GlobalRef.KEY_MOVIE_DETAILS_DATA)) {
 
-                movieDetails = getIntent().getParcelableExtra("movieDetailsdata");
+                movieDetails = getIntent().getParcelableExtra(GlobalRef.KEY_MOVIE_DETAILS_DATA);
 
                 if (null != movieDetails) {
                     setViewData(movieDetails);
@@ -77,9 +75,9 @@ public class MovieDetailActivity extends AppCompatActivity
             if(null != movieDetails) {
                 setViewData(movieDetails);
 
-                detailBinding.itemDetails.reviewLabelContainer.reviewValue.setText(String.valueOf(reviewsItems));
-                String noOfReviews = savedInstanceState.getString("review_value_key");
-                detailBinding.itemDetails.reviewLabelContainer.reviewValue.setText(noOfReviews);
+                detailBinding.itemDetails.reviewContainer.reviewValue.setText(String.valueOf(reviewsItems));
+                String noOfReviews = savedInstanceState.getString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS);
+                detailBinding.itemDetails.reviewContainer.reviewValue.setText(noOfReviews);
                 reviewAdapter.newData(reviewsItems);
             }
 
@@ -119,6 +117,8 @@ public class MovieDetailActivity extends AppCompatActivity
     }
 
     void setViewData(MovieDetails movieUIDetails){
+
+        getSupportActionBar().setTitle(movieUIDetails.getTitle());
 
         fetchReviewsAndVideosAndDataBase(GlobalRef.CHECK_DB_IF_MOVIE_IS_FAVORITE);
 
@@ -175,10 +175,10 @@ public class MovieDetailActivity extends AppCompatActivity
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        detailBinding.itemDetails.authorReviewsList.setHasFixedSize(true);
-        detailBinding.itemDetails.authorReviewsList.setLayoutManager(layoutManager);
-        detailBinding.itemDetails.authorReviewsList.setItemAnimator(new DefaultItemAnimator());
-        detailBinding.itemDetails.authorReviewsList.setAdapter(reviewAdapter);
+        detailBinding.itemDetails.reviewContainer.authorReviewsList.setHasFixedSize(true);
+        detailBinding.itemDetails.reviewContainer.authorReviewsList.setLayoutManager(layoutManager);
+        detailBinding.itemDetails.reviewContainer.authorReviewsList.setItemAnimator(new DefaultItemAnimator());
+        detailBinding.itemDetails.reviewContainer.authorReviewsList.setAdapter(reviewAdapter);
     }
 
 
@@ -214,7 +214,7 @@ public class MovieDetailActivity extends AppCompatActivity
 
             case GlobalRef.LOADING_ID_MOVIE_REVIEWS:
                 Reviews reviews = (Reviews) objectData;
-                detailBinding.itemDetails.reviewLabelContainer.reviewValue.setText(String.valueOf(reviews.getTotalResults()));
+                detailBinding.itemDetails.reviewContainer.reviewValue.setText(String.valueOf(reviews.getTotalResults()));
                 reviewAdapter.newData(reviews.getReviewItems());
 
                 break;
@@ -247,18 +247,18 @@ public class MovieDetailActivity extends AppCompatActivity
         ArrayList<ReviewResultsItem> reviewItemsStateList = new ArrayList<>(reviewAdapter.getReviewResults());
         outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS, reviewItemsStateList);
         outState.putParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetails);
-        outState.putString("review_value_key", detailBinding.itemDetails.reviewLabelContainer.reviewValue.getText().toString());
+        outState.putString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS, detailBinding.itemDetails.reviewContainer.reviewValue.getText().toString());
 
     }
 
     public void toggleReviewDetails(View view){
 
         if(toggleUserReviews) {
-            detailBinding.itemDetails.authorReviewsList.setVisibility(View.VISIBLE);
-            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_down_24px);
+            detailBinding.itemDetails.reviewContainer.authorReviewsList.setVisibility(View.VISIBLE);
+            detailBinding.itemDetails.reviewContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_down_24px);
         } else {
-            detailBinding.itemDetails.authorReviewsList.setVisibility(View.GONE);
-            detailBinding.itemDetails.reviewLabelContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_up_24px);
+            detailBinding.itemDetails.reviewContainer.authorReviewsList.setVisibility(View.GONE);
+            detailBinding.itemDetails.reviewContainer.downButton.setImageResource(R.drawable.ic_twotone_keyboard_arrow_up_24px);
 
         }
 

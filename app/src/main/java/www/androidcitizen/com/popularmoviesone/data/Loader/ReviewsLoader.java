@@ -68,6 +68,8 @@ public class ReviewsLoader extends AsyncTaskLoader<Object> {
             e.printStackTrace();
         }
 
+        movieReviewsCall.cancel();
+
         return reviews;
     }
 

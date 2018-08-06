@@ -18,8 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.facebook.stetho.Stetho;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +43,17 @@ public class MainActivity extends AppCompatActivity
 
     private static int TOTAL_PAGES = 1;
 
+    private static boolean IF_ADAPTER_IS_SET = false;
+
     private static int MOVIE_FETCH_INDEX = GlobalRef.NOW_PLAYING_MOVIES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Stetho.initializeWithDefaults(this);
+//         Stetho.initializeWithDefaults(this);
+
+        IF_ADAPTER_IS_SET = false;
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -59,7 +61,8 @@ public class MainActivity extends AppCompatActivity
 
         if (null == savedInstanceState) {
 
-            getSupportActionBar().setTitle("Now Playing");
+
+            getSupportActionBar().setTitle(R.string.now_playing);
             fetchMovies(GlobalRef.NOW_PLAYING_MOVIES);
 
         } else {
@@ -115,6 +118,8 @@ public class MainActivity extends AppCompatActivity
         adapter = new MovieAdapter(this);
 
         mainBinding.rvMovieList.setAdapter(adapter);
+
+        IF_ADAPTER_IS_SET = true;
     }
 
     private static int getColumnValue(Context context){
@@ -129,7 +134,7 @@ public class MainActivity extends AppCompatActivity
     public void onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails) {
 
             Intent movieDetailActivity = new Intent(this, MovieDetailActivity.class);
-            movieDetailActivity.putExtra("movieDetailsdata", movieDetails);
+            movieDetailActivity.putExtra(GlobalRef.KEY_MOVIE_DETAILS_DATA, movieDetails);
             startActivity(movieDetailActivity);
 
     }
@@ -175,19 +180,19 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()){
             case R.id.all:
-                getSupportActionBar().setTitle("Now Playing");
+                getSupportActionBar().setTitle(R.string.now_playing);
                 MOVIE_FETCH_INDEX = GlobalRef.NOW_PLAYING_MOVIES;
                 break;
             case R.id.toprated:
-                getSupportActionBar().setTitle("Top Rated");
+                getSupportActionBar().setTitle(R.string.top_rated);
                 MOVIE_FETCH_INDEX = GlobalRef.TOPRATED_MOVIES_INDEX;
                 break;
             case R.id.popular:
-                getSupportActionBar().setTitle("Popular");
+                getSupportActionBar().setTitle(R.string.popular);
                 MOVIE_FETCH_INDEX = GlobalRef.POPULAR_MOVIES_INDEX;
                 break;
             case R.id.favourite:
-                getSupportActionBar().setTitle("Favorites");
+                getSupportActionBar().setTitle(R.string.favorites);
                 MOVIE_FETCH_INDEX = GlobalRef.FAVOURITE_MOVIES_INDEX;
                 break;
         }
@@ -242,10 +247,12 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case GlobalRef.LOADING_ID_MOVIE_SERVER:
+                getLoaderManager().destroyLoader(id);
                 setupAdapterServerData(data);
                 break;
 
             case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+                getLoaderManager().destroyLoader(id);
                 setupAdapterDatabaseData(data);
                 break;
         }
@@ -284,10 +291,15 @@ public class MainActivity extends AppCompatActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-            ArrayList<MovieDetails> movieDetailsSavedStateList = new ArrayList<>(adapter.getMovies());
-            outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetailsSavedStateList);
-            outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
-            outState.putString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE, getSupportActionBar().getTitle().toString());
+            if(IF_ADAPTER_IS_SET) {
+                if (null != adapter.getMovies()) {
+                    ArrayList<MovieDetails> movieDetailsSavedStateList = new ArrayList<>(adapter.getMovies());
+                    outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetailsSavedStateList);
+                    outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
+                    outState.putString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE, getSupportActionBar().getTitle().toString());
+                }
+            }
 
     }
+
 }

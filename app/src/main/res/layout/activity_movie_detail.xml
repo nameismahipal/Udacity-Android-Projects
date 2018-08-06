@@ -65,11 +65,11 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_backgroundImage" />
 
     <com.like.LikeButton
+        android:id="@+id/like_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:icon_type="heart"
         app:icon_size="32dp"
-        android:id="@+id/like_button"
         app:circle_start_color="@color/colorPrimary"
         app:circle_end_color="@color/colorAccent"
         app:dots_primary_color="@color/colorAccent"
@@ -78,7 +78,8 @@
         app:anim_scale_factor="2"
         app:is_enabled="true"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@+id/iv_backgroundImage" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintBottom_toTopOf="@+id/tv_title"/>
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier1"

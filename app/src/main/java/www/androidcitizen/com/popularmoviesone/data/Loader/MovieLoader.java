@@ -65,6 +65,8 @@ public class MovieLoader extends AsyncTaskLoader<Object> {
             e.printStackTrace();
         }
 
+        movieServiceCall.cancel();
+
         return movie;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
 import www.androidcitizen.com.popularmoviesone.data.model.ReviewResultsItem;
-import www.androidcitizen.com.popularmoviesone.databinding.ReviewItemBinding;
+import www.androidcitizen.com.popularmoviesone.databinding.ReviewListItemBinding;
 
 /**
  * Created by Mahi on 04/08/18.
@@ -30,8 +30,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewItem
     @NonNull
     @Override
     public ReviewItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ReviewItemBinding reviewItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.review_item, parent, false);
+        ReviewListItemBinding reviewItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.review_list_item, parent, false);
 
         return new ReviewItemViewHolder(reviewItemBinding);
     }
@@ -52,9 +52,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewItem
 
     class ReviewItemViewHolder extends RecyclerView.ViewHolder {
 
-        private final ReviewItemBinding reviewItemBinding;
+        private final ReviewListItemBinding reviewItemBinding;
 
-        public ReviewItemViewHolder(ReviewItemBinding reviewItemView) {
+        public ReviewItemViewHolder(ReviewListItemBinding reviewItemView) {
             super(reviewItemView.getRoot());
             this.reviewItemBinding = reviewItemView;
         }

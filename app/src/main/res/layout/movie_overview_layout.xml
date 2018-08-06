@@ -59,28 +59,14 @@
             app:layout_constraintTop_toBottomOf="@id/synopsis_ScrollView" />
 
         <include
-            android:id="@+id/reviewLabelContainer"
-            layout="@layout/review_label_item"
+            android:id="@+id/reviewContainer"
+            layout="@layout/review_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_8dp"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="@+id/barrier2" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/authorReviewsList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:isScrollContainer="true"
-            android:nestedScrollingEnabled="false"
-            android:visibility="gone"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/reviewLabelContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/barrier2" />
 
 
     </android.support.constraint.ConstraintLayout>

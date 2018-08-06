@@ -40,12 +40,12 @@ public final class GlobalRef {
 
     public static final String INSTANCE_STATE_LIST = "adapter_list";
 
-    public static final String INSTANCE_STATE_LIST_MOVIES = "movies_list";
-    public static final String INSTANCE_STATE_LIST_REVIEWS = "reviews_list";
-    public static final String INSTANCE_STATE_LIST_VIDEOS = "videos_list";
+    public static final String INSTANCE_STATE_LIST_MOVIES = "save_movies_list";
+    public static final String INSTANCE_STATE_LIST_REVIEWS = "save_reviews_list";
+    public static final String INSTANCE_STATE_LIST_VIDEOS = "save_videos_list";
 
-    public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "movie_type_index";
-    public static final String INSTANCE_STATE_TOOLBAR_MOVIE_TITLE = "title_toolbar";
+    public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "save_movie_type_index";
+    public static final String INSTANCE_STATE_TOOLBAR_MOVIE_TITLE = "save_title_toolbar";
 
     public final static int NOW_PLAYING_MOVIES = 0;
     public final static int TOPRATED_MOVIES_INDEX  = 1;
@@ -56,19 +56,21 @@ public final class GlobalRef {
     public final static int CHECK_DB_IF_MOVIE_IS_FAVORITE = 5;
 
     public final static int LOADING_ID_MOVIE_SERVER = 11;
-    public final static String KEY_MOVIE_SERVICE_LOADING = "MOVIE_SERVICE_CALL";
+    public final static String KEY_MOVIE_SERVICE_LOADING = "key_movie_service_call";
 
-    public final static String KEY_MOVIE_ID = "MOVIE_ID";
+    public final static String KEY_MOVIE_ID = "key_movie_id";
+    public final static String KEY_MOVIE_NO_OF_REVIEWS = "key_num_of_reviews";
+    public final static String KEY_MOVIE_DETAILS_DATA = "key_movie_details_data";
 
     public final static int LOADING_ID_MOVIE_DATABASE = 12;
     public final static int LOADING_ID_MOVIE_REVIEWS = 13;
     public final static int LOADING_ID_MOVIE_VIDEOS = 14;
 
-    public final static String FAV_MOVIE_DB_FAV_ITEM     = "FAV_MOVIE_DB_FAV_ITEM";
-    public final static String FAV_MOVIE_DB_FAV_MOVIE_ID = "FAV_MOVIE_DB_MOVIE_ID";
+    public final static String FAV_MOVIE_DB_FAV_ITEM     = "fav_movie_db_fav_item";
+    public final static String FAV_MOVIE_DB_FAV_MOVIE_ID = "fav_movie_db_movie_id";
 
 
-    public final static String KEY_FAV_MOVIE_ID = "FAV_MOVIE_DB_UPDATE_KEY";
+    public final static String KEY_FAV_MOVIE_ID = "fav_movie_db_update_key";
     public final static int FAV_MOVIE_NULL    = 20;
     public final static int FAV_MOVIE_ADD     = 21;
     public final static int FAV_MOVIE_DELETE  = 22;
