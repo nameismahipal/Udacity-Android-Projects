@@ -4,6 +4,8 @@ Please See Commit Messages for more details.
 
 https://www.androidcitizen.com/hiding-api-keys/
 
+Create API Key (v3 auth) at https://www.themoviedb.org/ -> Settings -> API -> Create.
+
 Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (Module: app).
 
 Enter 'git log --graph --oneline` to get actual list of commits.

@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -71,8 +72,10 @@ public class MainActivity extends AppCompatActivity
             List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
             MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
             getSupportActionBar().setTitle(savedInstanceState.getString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE));
-
             adapter.newData(movieDetails);
+
+            Parcelable state = savedInstanceState.getParcelable(GlobalRef.INSTANCE_STATE_LAYOUTMANAGER);
+            mainBinding.rvMovieList.getLayoutManager().onRestoreInstanceState(state);
         }
     }
 
@@ -299,9 +302,11 @@ public class MainActivity extends AppCompatActivity
                     outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetailsSavedStateList);
                     outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
                     outState.putString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE, getSupportActionBar().getTitle().toString());
+
+                    Parcelable listState = mainBinding.rvMovieList.getLayoutManager().onSaveInstanceState();
+                    outState.putParcelable(GlobalRef.INSTANCE_STATE_LAYOUTMANAGER, listState);
                 }
             }
-
     }
 
 }

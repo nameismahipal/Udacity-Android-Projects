@@ -44,6 +44,7 @@ public final class GlobalRef {
 
     public static final String INSTANCE_STATE_MOVIE_TYPE_INDEX = "save_movie_type_index";
     public static final String INSTANCE_STATE_TOOLBAR_MOVIE_TITLE = "save_title_toolbar";
+    public static final String INSTANCE_STATE_LAYOUTMANAGER = "save_layoutmanager";
 
     public final static int NOW_PLAYING_MOVIES = 0;
     public final static int TOPRATED_MOVIES_INDEX  = 1;
