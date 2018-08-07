@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity
 
         } else {
 
+            getLoaderManager().destroyLoader(GlobalRef.LOADING_ID_MOVIE_SERVER);
+            getLoaderManager().destroyLoader(GlobalRef.LOADING_ID_MOVIE_DATABASE);
+
             List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
             MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
             getSupportActionBar().setTitle(savedInstanceState.getString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE));
