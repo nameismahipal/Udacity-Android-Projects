@@ -1,18 +1,35 @@
-# PopularMoviesOne
+# Popular Movies
 
-Please See Commit Messages for more details.
+This repo covers both Stage 1, Stage 2 of Popular Movies project.
 
-https://www.androidcitizen.com/hiding-api-keys/
+
+## Creating API Key:
 
 Create API Key (v3 auth) at https://www.themoviedb.org/ -> Settings -> API -> Create.
 
 Enter API-KEY, in gradle.properties file, and use the variable in build.gradle (Module: app).
 
+https://www.androidcitizen.com/hiding-api-keys/
+
+
+## Libraries Used:
+
+- DataBinding
+
+- Retrofit 2 with Gson Converter
+
+- Gson
+
+- Stetho
+
+- Glide / Picaso
+
+
+## Commits:
+
 Enter 'git log --graph --oneline` to get actual list of commits.
 
 Enter 'git checkout <####commit_code>' to go to particular version
-
-## Output:
 
 #### commit 9591548 
 

@@ -253,12 +253,10 @@ public class MainActivity extends AppCompatActivity
             switch (id) {
                 case GlobalRef.LOADING_ID_MOVIE_SERVER:
                     setupAdapterServerData(data);
-                    getLoaderManager().destroyLoader(id);
                     break;
 
                 case GlobalRef.LOADING_ID_MOVIE_DATABASE:
                     setupAdapterDatabaseData(data);
-                    getLoaderManager().destroyLoader(id);
                     break;
             }
         }

@@ -139,19 +139,6 @@ public class MovieDetailActivity extends AppCompatActivity
         GlideApp.with(this)
                 .load(GlobalRef.PORT_POSTER_IMAGE_URL_PATH  + movieUIDetails.getPosterPath())
                 .into(detailBinding.ivPosterImage);
-/*
-        Picasso.get()
-                .load(movieUIDetails.getBackdropPath())
-                //.placeholder("http://via.placeholder.com/350x150")
-                //.error(R.drawable.user_placeholder_error)
-                .into(detailBinding.ivBackgroundImage);
-
-        Picasso.get()
-                .load(movieUIDetails.getPosterPath())
-                //.placeholder("http://via.placeholder.com/350x150")
-                //.error(R.drawable.user_placeholder_error)
-                .into(detailBinding.ivPosterImage);
-*/
 
         detailBinding.tvTitle.setText(movieUIDetails.getTitle());
         detailBinding.ratingBar.setRating(movieUIDetails.getVoteAverage());
