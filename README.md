@@ -30,6 +30,16 @@ Enter 'git log --graph --oneline` to get actual list of commits.
 
 Enter 'git checkout <####commit_code>' to go to particular version
 
+#### 01de116
+
+- Stage 2 Complete.
+
+	Uses 
+	- Activities 
+	- Loaders, Cursor Loader
+	- Content Provider
+	- Constraint Layout
+	- 3rd party libs 
 
 ### OLD commits
 
