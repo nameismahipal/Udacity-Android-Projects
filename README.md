@@ -2,6 +2,8 @@
 
 This repo covers both Stage 1, Stage 2 of Popular Movies project.
 
+This project continued here.
+https://github.com/sayaMahi/Popular-Movies
 
 ## Creating API Key:
 
@@ -30,6 +32,12 @@ https://www.androidcitizen.com/hiding-api-keys/
 Enter 'git log --graph --oneline` to get actual list of commits.
 
 Enter 'git checkout <####commit_code>' to go to particular version
+
+#### This project continued in a different repo
+
+https://github.com/sayaMahi/Popular-Movies
+
+I forgot to clean the project somewhere in below commits and file size got big, so moved to new repo.
 
 #### commit 9591548 
 
