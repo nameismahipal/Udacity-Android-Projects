@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.adapter.MovieAdapter;
 import www.androidcitizen.com.popularmoviesone.data.database.FavContract;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMainBinding;
@@ -33,6 +32,8 @@ import www.androidcitizen.com.popularmoviesone.data.model.Movie;
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 import www.androidcitizen.com.popularmoviesone.pagination.EndlessScrollListener;
 import www.androidcitizen.com.popularmoviesone.data.Loader.MovieLoader;
+
+import static www.androidcitizen.com.popularmoviesone.config.Constants.*;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.MovieClickListener,
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
     private static boolean IF_ADAPTER_IS_SET = false;
 
-    private static int MOVIE_FETCH_INDEX = GlobalRef.NOW_PLAYING_MOVIES;
+    private static int MOVIE_FETCH_INDEX = NOW_PLAYING_MOVIES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,39 +66,39 @@ public class MainActivity extends AppCompatActivity
         if (null == savedInstanceState) {
 
             getSupportActionBar().setTitle(R.string.now_playing);
-            fetchMovies(GlobalRef.NOW_PLAYING_MOVIES);
+            fetchMovies(NOW_PLAYING_MOVIES);
 
         } else {
 
-            getLoaderManager().destroyLoader(GlobalRef.LOADING_ID_MOVIE_SERVER);
-            getLoaderManager().destroyLoader(GlobalRef.LOADING_ID_MOVIE_DATABASE);
+            getLoaderManager().destroyLoader(LOADING_ID_MOVIE_SERVER);
+            getLoaderManager().destroyLoader(LOADING_ID_MOVIE_DATABASE);
 
-            List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
-            MOVIE_FETCH_INDEX = savedInstanceState.getInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX);
-            getSupportActionBar().setTitle(savedInstanceState.getString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE));
+            List<MovieDetails> movieDetails = savedInstanceState.getParcelableArrayList(INSTANCE_STATE_LIST_MOVIES);
+            MOVIE_FETCH_INDEX = savedInstanceState.getInt(INSTANCE_STATE_MOVIE_TYPE_INDEX);
+            getSupportActionBar().setTitle(savedInstanceState.getString(INSTANCE_STATE_TOOLBAR_MOVIE_TITLE));
             adapter.newData(movieDetails);
 
-            Parcelable state = savedInstanceState.getParcelable(GlobalRef.INSTANCE_STATE_LAYOUTMANAGER);
+            Parcelable state = savedInstanceState.getParcelable(INSTANCE_STATE_LAYOUTMANAGER);
             mainBinding.rvMovieList.getLayoutManager().onRestoreInstanceState(state);
         }
     }
 
     private void fetchMovies(int iIndex) {
 
-        if(GlobalRef.FAVOURITE_MOVIES_INDEX == iIndex) {
+        if(FAVOURITE_MOVIES_INDEX == iIndex) {
             Bundle bundle = new Bundle();
-            bundle.putInt(GlobalRef.KEY_FAV_MOVIE_ID, GlobalRef.FAV_MOVIE_READ);
+            bundle.putInt(KEY_FAV_MOVIE_ID, FAV_MOVIE_READ);
 
-            getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_DATABASE, bundle, this);
+            getLoaderManager().restartLoader(LOADING_ID_MOVIE_DATABASE, bundle, this);
 
-        } else if ( (GlobalRef.NOW_PLAYING_MOVIES == iIndex)      ||
-                    (GlobalRef.TOPRATED_MOVIES_INDEX == iIndex) ||
-                    (GlobalRef.POPULAR_MOVIES_INDEX == iIndex)) {
+        } else if ( (NOW_PLAYING_MOVIES == iIndex)      ||
+                    (TOPRATED_MOVIES_INDEX == iIndex) ||
+                    (POPULAR_MOVIES_INDEX == iIndex)) {
 
             Bundle bundle = new Bundle();
-            bundle.putInt(GlobalRef.KEY_MOVIE_SERVICE_LOADING, iIndex);
+            bundle.putInt(KEY_MOVIE_SERVICE_LOADING, iIndex);
 
-            getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_SERVER, bundle, this);
+            getLoaderManager().restartLoader(LOADING_ID_MOVIE_SERVER, bundle, this);
 
         }
     }
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity
         scrollListener = new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                GlobalRef.PAGE_NUM = page;
+                PAGE_NUM = page;
                 if(page < TOTAL_PAGES){
                     fetchMovies(MOVIE_FETCH_INDEX);
                 }
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity
     public void onMovieItemClick(int clickedItemIndex, MovieDetails movieDetails) {
 
             Intent movieDetailActivity = new Intent(this, MovieDetailActivity.class);
-            movieDetailActivity.putExtra(GlobalRef.KEY_MOVIE_DETAILS_DATA, movieDetails);
+            movieDetailActivity.putExtra(KEY_MOVIE_DETAILS_DATA, movieDetails);
             startActivity(movieDetailActivity);
 
     }
@@ -188,26 +189,26 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.all:
                 getSupportActionBar().setTitle(R.string.now_playing);
-                MOVIE_FETCH_INDEX = GlobalRef.NOW_PLAYING_MOVIES;
+                MOVIE_FETCH_INDEX = NOW_PLAYING_MOVIES;
                 break;
             case R.id.toprated:
                 getSupportActionBar().setTitle(R.string.top_rated);
-                MOVIE_FETCH_INDEX = GlobalRef.TOPRATED_MOVIES_INDEX;
+                MOVIE_FETCH_INDEX = TOPRATED_MOVIES_INDEX;
                 break;
             case R.id.popular:
                 getSupportActionBar().setTitle(R.string.popular);
-                MOVIE_FETCH_INDEX = GlobalRef.POPULAR_MOVIES_INDEX;
+                MOVIE_FETCH_INDEX = POPULAR_MOVIES_INDEX;
                 break;
             case R.id.favourite:
                 getSupportActionBar().setTitle(R.string.favorites);
-                MOVIE_FETCH_INDEX = GlobalRef.FAVOURITE_MOVIES_INDEX;
+                MOVIE_FETCH_INDEX = FAVOURITE_MOVIES_INDEX;
                 break;
         }
     }
 
     private void clearAndFetch(){
         clearList();
-        GlobalRef.PAGE_NUM = 1;
+        PAGE_NUM = 1;
         fetchMovies(MOVIE_FETCH_INDEX);
 
     }
@@ -222,24 +223,24 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
 
-            case GlobalRef.LOADING_ID_MOVIE_SERVER:
+            case LOADING_ID_MOVIE_SERVER:
 
                 return new MovieLoader(this, bundleArgs);
 
-            case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+            case LOADING_ID_MOVIE_DATABASE:
 
-                int iDbAction = bundleArgs.getInt(GlobalRef.KEY_FAV_MOVIE_ID);
+                int iDbAction = bundleArgs.getInt(KEY_FAV_MOVIE_ID);
 
                 switch (iDbAction) {
 
-                    case GlobalRef.FAV_MOVIE_NULL:
+                    case FAV_MOVIE_NULL:
                             return null;
 
-                    case GlobalRef.FAV_MOVIE_READ:
+                    case FAV_MOVIE_READ:
                             String sortOrder = FavContract.FavMovieEntry.COLUMN_VOTE_AVERAGE + " DESC";
                             return new CursorLoader(this,
                             FavContract.FavMovieEntry.CONTENT_URI,
-                            GlobalRef.PROJECTION,
+                            PROJECTION,
                             null, null, sortOrder);
                 }
         }
@@ -254,11 +255,11 @@ public class MainActivity extends AppCompatActivity
             int id = loader.getId();
 
             switch (id) {
-                case GlobalRef.LOADING_ID_MOVIE_SERVER:
+                case LOADING_ID_MOVIE_SERVER:
                     setupAdapterServerData(data);
                     break;
 
-                case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+                case LOADING_ID_MOVIE_DATABASE:
                     setupAdapterDatabaseData(data);
                     break;
             }
@@ -273,15 +274,15 @@ public class MainActivity extends AppCompatActivity
     private void setupAdapterServerData(Object object){
 
             Movie movieObj = (Movie) object;
-            GlobalRef.PAGE_NUM = movieObj.getPage();
+            PAGE_NUM = movieObj.getPage();
             TOTAL_PAGES = movieObj.getTotalPages();
-            GlobalRef.TOTAL_ITEMS_COUNT = movieObj.getTotalResults();
+            TOTAL_ITEMS_COUNT = movieObj.getTotalResults();
             adapter.newData(movieObj.getMovieDetails());
     }
 
     private void setupAdapterDatabaseData(Object object){
 
-            if (MOVIE_FETCH_INDEX == GlobalRef.FAVOURITE_MOVIES_INDEX) {
+            if (MOVIE_FETCH_INDEX == FAVOURITE_MOVIES_INDEX) {
                 //Upon every Fav Set, this condition prevents page refresh.
 
                 adapter.clearAll();
@@ -300,12 +301,12 @@ public class MainActivity extends AppCompatActivity
             if(IF_ADAPTER_IS_SET) {
                 if (0 < adapter.getItemCount()) {
                     ArrayList<MovieDetails> movieDetailsSavedStateList = new ArrayList<>(adapter.getMovies());
-                    outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetailsSavedStateList);
-                    outState.putInt(GlobalRef.INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
-                    outState.putString(GlobalRef.INSTANCE_STATE_TOOLBAR_MOVIE_TITLE, getSupportActionBar().getTitle().toString());
+                    outState.putParcelableArrayList(INSTANCE_STATE_LIST_MOVIES, movieDetailsSavedStateList);
+                    outState.putInt(INSTANCE_STATE_MOVIE_TYPE_INDEX, MOVIE_FETCH_INDEX);
+                    outState.putString(INSTANCE_STATE_TOOLBAR_MOVIE_TITLE, getSupportActionBar().getTitle().toString());
 
                     Parcelable listState = mainBinding.rvMovieList.getLayoutManager().onSaveInstanceState();
-                    outState.putParcelable(GlobalRef.INSTANCE_STATE_LAYOUTMANAGER, listState);
+                    outState.putParcelable(INSTANCE_STATE_LAYOUTMANAGER, listState);
                 }
             }
     }

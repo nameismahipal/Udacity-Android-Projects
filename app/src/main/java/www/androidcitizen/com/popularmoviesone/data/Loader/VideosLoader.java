@@ -8,10 +8,11 @@ import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.model.Videos;
 import www.androidcitizen.com.popularmoviesone.data.remote.MovieInterface;
 import www.androidcitizen.com.popularmoviesone.data.remote.MovieService;
+
+import static www.androidcitizen.com.popularmoviesone.config.Constants.*;
 
 /**
  * Created by Mahi on 27/06/18.
@@ -46,9 +47,9 @@ public class VideosLoader extends AsyncTaskLoader<Object> {
 
         Videos videos = null;
 
-        int movieId = bundle.getInt(GlobalRef.KEY_MOVIE_ID);
+        int movieId = bundle.getInt(KEY_MOVIE_ID);
 
-        Call<Videos> movieVideosCall = initializeMovieService().getMovieVideos(movieId, GlobalRef.API_KEY);
+        Call<Videos> movieVideosCall = initializeMovieService().getMovieVideos(movieId, API_KEY);
 
         try {
 

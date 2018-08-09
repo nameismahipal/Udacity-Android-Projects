@@ -8,9 +8,9 @@ import www.androidcitizen.com.popularmoviesone.data.database.FavContract;
  * www.androidcitizen.com
  */
 
-public final class GlobalRef {
+public final class Constants {
 
-    private GlobalRef() { }
+    private Constants() { }
 
     public final static  String API_KEY = BuildConfig.ApiKey;
 

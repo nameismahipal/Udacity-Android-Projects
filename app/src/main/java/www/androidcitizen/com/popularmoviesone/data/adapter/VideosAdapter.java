@@ -12,9 +12,10 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.model.VideoResultsItem;
 import www.androidcitizen.com.popularmoviesone.databinding.VideosListItemBinding;
+
+import static www.androidcitizen.com.popularmoviesone.config.Constants.*;
 
 /**
  * Created by Mahi on 04/08/18.
@@ -74,7 +75,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideosItem
 
         void onBind(int iIndex) {
 
-            String youPath = GlobalRef.YOUTUBE_THUMBNAIL_BASE_URL + videoResultsItems.get(iIndex).getKey() + GlobalRef.YOUTUBE_THUMBNAIL_END_URL;
+            String youPath = YOUTUBE_THUMBNAIL_BASE_URL + videoResultsItems.get(iIndex).getKey() + YOUTUBE_THUMBNAIL_END_URL;
 
 //            GlideApp.with(context)
 //                    .load(youPath)

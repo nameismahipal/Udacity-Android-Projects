@@ -13,9 +13,10 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
 import www.androidcitizen.com.popularmoviesone.databinding.GridItemViewBinding;
+
+import static www.androidcitizen.com.popularmoviesone.config.Constants.*;
 
 /**
  * Created by Mahi on 13/06/18.
@@ -81,7 +82,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void onBind(int index) {
 
             Picasso.get()
-                    .load(GlobalRef.PORT_POSTER_IMAGE_URL_PATH  + movieDetails.get(index).getPosterPath())
+                    .load(PORT_POSTER_IMAGE_URL_PATH  + movieDetails.get(index).getPosterPath())
                     //.placeholder("http://via.placeholder.com/350x150")
                     //.error(R.drawable.user_placeholder_error)
                     .into(itemViewBinding.ivPosterImage);
@@ -118,13 +119,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             do {
 
                 MovieDetails movieDetails =
-                        new MovieDetails(cursor.getInt(GlobalRef.INDEX_MOVIE_ID),
-                                cursor.getString(GlobalRef.INDEX_TITLE),
-                                cursor.getString(GlobalRef.INDEX_POSTER_PATH),
-                                cursor.getString(GlobalRef.INDEX_BACKDROP_PATH),
-                                cursor.getString(GlobalRef.INDEX_RELEASE_DATE),
-                                cursor.getString(GlobalRef.INDEX_OVERVIEW),
-                                cursor.getFloat(GlobalRef.INDEX_VOTE_AVERAGE));
+                        new MovieDetails(cursor.getInt(INDEX_MOVIE_ID),
+                                cursor.getString(INDEX_TITLE),
+                                cursor.getString(INDEX_POSTER_PATH),
+                                cursor.getString(INDEX_BACKDROP_PATH),
+                                cursor.getString(INDEX_RELEASE_DATE),
+                                cursor.getString(INDEX_OVERVIEW),
+                                cursor.getFloat(INDEX_VOTE_AVERAGE));
 
                 add(movieDetails);
 

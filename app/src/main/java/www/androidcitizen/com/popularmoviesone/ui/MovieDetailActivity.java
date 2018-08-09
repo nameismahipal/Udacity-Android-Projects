@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 
 import com.like.LikeButton;
@@ -17,15 +16,12 @@ import com.like.OnLikeListener;
 
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.popularmoviesone.R;
-import www.androidcitizen.com.popularmoviesone.config.GlobalRef;
 import www.androidcitizen.com.popularmoviesone.data.Loader.GlideApp;
 import www.androidcitizen.com.popularmoviesone.data.Loader.ReviewsLoader;
 import www.androidcitizen.com.popularmoviesone.data.Loader.VideosLoader;
@@ -39,6 +35,8 @@ import www.androidcitizen.com.popularmoviesone.data.model.VideoResultsItem;
 import www.androidcitizen.com.popularmoviesone.data.model.Videos;
 import www.androidcitizen.com.popularmoviesone.databinding.ActivityMovieDetailBinding;
 import www.androidcitizen.com.popularmoviesone.data.model.MovieDetails;
+
+import static www.androidcitizen.com.popularmoviesone.config.Constants.*;
 
 public class MovieDetailActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks, VideosAdapter.VideoClickListener {
@@ -63,32 +61,32 @@ public class MovieDetailActivity extends AppCompatActivity
         if(null == savedInstanceState) {
 
             Intent intent = getIntent();
-            if (intent.hasExtra(GlobalRef.KEY_MOVIE_DETAILS_DATA)) {
+            if (intent.hasExtra(KEY_MOVIE_DETAILS_DATA)) {
 
-                movieDetails = getIntent().getParcelableExtra(GlobalRef.KEY_MOVIE_DETAILS_DATA);
+                movieDetails = getIntent().getParcelableExtra(KEY_MOVIE_DETAILS_DATA);
 
                 if (null != movieDetails) {
                     setViewData(movieDetails);
                 }
 
-                fetchReviewsAndVideosAndDataBase(GlobalRef.LOAD_MOVIE_REVIEWS_AND_VIDEOS);
+                fetchReviewsAndVideosAndDataBase(LOAD_MOVIE_REVIEWS_AND_VIDEOS);
             }
 
         } else {
 
-                List<ReviewResultsItem> reviewsItems = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS);
+                List<ReviewResultsItem> reviewsItems = savedInstanceState.getParcelableArrayList(INSTANCE_STATE_LIST_REVIEWS);
                 reviewAdapter.newData(reviewsItems);
 
 
-                List<VideoResultsItem> videoItems = savedInstanceState.getParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_VIDEOS);
+                List<VideoResultsItem> videoItems = savedInstanceState.getParcelableArrayList(INSTANCE_STATE_LIST_VIDEOS);
                 videosAdapter.newData(videoItems);
 
-                movieDetails = savedInstanceState.getParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES);
+                movieDetails = savedInstanceState.getParcelable(INSTANCE_STATE_LIST_MOVIES);
 
                 if(null != movieDetails) {
                     setViewData(movieDetails);
 
-                    String noOfReviews = savedInstanceState.getString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS);
+                    String noOfReviews = savedInstanceState.getString(KEY_MOVIE_NO_OF_REVIEWS);
                     detailBinding.itemDetails.reviewContainer.reviewValue.setText(noOfReviews);
                 }
 
@@ -114,17 +112,17 @@ public class MovieDetailActivity extends AppCompatActivity
     void fetchReviewsAndVideosAndDataBase(int iIndex) {
 
         switch (iIndex) {
-            case GlobalRef.LOAD_MOVIE_REVIEWS_AND_VIDEOS:
+            case LOAD_MOVIE_REVIEWS_AND_VIDEOS:
 
                 Bundle bundle = new Bundle();
-                bundle.putInt(GlobalRef.KEY_MOVIE_ID, movieDetails.getId());
+                bundle.putInt(KEY_MOVIE_ID, movieDetails.getId());
 
-                getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_REVIEWS, bundle, this);
-                getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_VIDEOS, bundle, this);
+                getLoaderManager().restartLoader(LOADING_ID_MOVIE_REVIEWS, bundle, this);
+                getLoaderManager().restartLoader(LOADING_ID_MOVIE_VIDEOS, bundle, this);
                 break;
 
-            case GlobalRef.CHECK_DB_IF_MOVIE_IS_FAVORITE:
-                getLoaderManager().restartLoader(GlobalRef.LOADING_ID_MOVIE_DATABASE, null, this);
+            case CHECK_DB_IF_MOVIE_IS_FAVORITE:
+                getLoaderManager().restartLoader(LOADING_ID_MOVIE_DATABASE, null, this);
                 break;
         }
     }
@@ -133,14 +131,14 @@ public class MovieDetailActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle(movieUIDetails.getTitle());
 
-        fetchReviewsAndVideosAndDataBase(GlobalRef.CHECK_DB_IF_MOVIE_IS_FAVORITE);
+        fetchReviewsAndVideosAndDataBase(CHECK_DB_IF_MOVIE_IS_FAVORITE);
 
         GlideApp.with(this)
-                .load(GlobalRef.PORT_BACKDROP_IMAGE_URL_PATH + movieUIDetails.getBackdropPath())
+                .load(PORT_BACKDROP_IMAGE_URL_PATH + movieUIDetails.getBackdropPath())
                 .into(detailBinding.ivBackgroundImage);
 
         GlideApp.with(this)
-                .load(GlobalRef.PORT_POSTER_IMAGE_URL_PATH  + movieUIDetails.getPosterPath())
+                .load(PORT_POSTER_IMAGE_URL_PATH  + movieUIDetails.getPosterPath())
                 .into(detailBinding.ivPosterImage);
 
         detailBinding.tvTitle.setText(movieUIDetails.getTitle());
@@ -198,13 +196,13 @@ public class MovieDetailActivity extends AppCompatActivity
 
         switch (id) {
 
-            case GlobalRef.LOADING_ID_MOVIE_REVIEWS:
+            case LOADING_ID_MOVIE_REVIEWS:
                 return new ReviewsLoader(this, bundleArgs);
 
-            case GlobalRef.LOADING_ID_MOVIE_VIDEOS:
+            case LOADING_ID_MOVIE_VIDEOS:
                 return new VideosLoader(this, bundleArgs);
 
-            case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+            case LOADING_ID_MOVIE_DATABASE:
 
                 int movieId = movieDetails.getId();
 
@@ -226,20 +224,20 @@ public class MovieDetailActivity extends AppCompatActivity
 
             switch (loader.getId()) {
 
-                case GlobalRef.LOADING_ID_MOVIE_REVIEWS:
+                case LOADING_ID_MOVIE_REVIEWS:
                     Reviews reviews = (Reviews) objectData;
                     detailBinding.itemDetails.reviewContainer.reviewValue.setText(String.valueOf(reviews.getTotalResults()));
                     reviewAdapter.newData(reviews.getReviewItems());
 
                     break;
 
-                case GlobalRef.LOADING_ID_MOVIE_VIDEOS:
+                case LOADING_ID_MOVIE_VIDEOS:
 
                     Videos videos = (Videos) objectData;
                     videosAdapter.newData(videos.getVideoItems());
                     break;
 
-                case GlobalRef.LOADING_ID_MOVIE_DATABASE:
+                case LOADING_ID_MOVIE_DATABASE:
 
                     Cursor cursor = (Cursor) objectData;
 
@@ -263,16 +261,16 @@ public class MovieDetailActivity extends AppCompatActivity
 
         if (0 < reviewAdapter.getItemCount()) {
             ArrayList<ReviewResultsItem> reviewItemsStateList = new ArrayList<>(reviewAdapter.getReviewResults());
-            outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_REVIEWS, reviewItemsStateList);
+            outState.putParcelableArrayList(INSTANCE_STATE_LIST_REVIEWS, reviewItemsStateList);
         }
 
         if (0 < videosAdapter.getItemCount()) {
             ArrayList<VideoResultsItem> videoResultsItems = new ArrayList<>(videosAdapter.getVideoResults());
-            outState.putParcelableArrayList(GlobalRef.INSTANCE_STATE_LIST_VIDEOS, videoResultsItems);
+            outState.putParcelableArrayList(INSTANCE_STATE_LIST_VIDEOS, videoResultsItems);
         }
 
-        outState.putParcelable(GlobalRef.INSTANCE_STATE_LIST_MOVIES, movieDetails);
-        outState.putString(GlobalRef.KEY_MOVIE_NO_OF_REVIEWS, detailBinding.itemDetails.reviewContainer.reviewValue.getText().toString());
+        outState.putParcelable(INSTANCE_STATE_LIST_MOVIES, movieDetails);
+        outState.putString(KEY_MOVIE_NO_OF_REVIEWS, detailBinding.itemDetails.reviewContainer.reviewValue.getText().toString());
     }
 
 
@@ -296,7 +294,7 @@ public class MovieDetailActivity extends AppCompatActivity
     @Override
     public void onVideoItemClick(int iClickedIndex, String videoKey) {
 
-        String videoPath = GlobalRef.YOUTUBE_BASE_URL + videoKey;
+        String videoPath = YOUTUBE_BASE_URL + videoKey;
 
         Intent videoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
 
