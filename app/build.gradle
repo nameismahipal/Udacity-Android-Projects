@@ -23,13 +23,25 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Support Design
+    implementation "com.android.support:design:${supportLibVersion}"
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+
+    // Constraint Layout
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     // Recycler View
     implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
 
-    implementation "com.android.support:design:${supportLibVersion}"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+
+    // Stetho Log Interceptor
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    // Network Helper
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
 
     testImplementation 'junit:junit:4.12'
