@@ -18,6 +18,17 @@ Enter 'git log --graph --oneline' to get actual list of commits.
 
 Enter 'git checkout <####commit_code>' to go to particular version
 
+#### 4b8aecd 
+
+	UI-fragment to show recipes, adapter, fixes
+
+#### 0e2b2d7 
+
+	implements Parcelable for model objects
+
+#### ddc2665 
+
+	Added Model files, Retrofit2.0 files (End Points)
 
 #### a53207a
 
