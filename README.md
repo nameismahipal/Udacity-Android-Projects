@@ -2,10 +2,15 @@
 
 
 
+<div>Icons by <a href="http://www.freepik.com" title="Freepik">Freepik</a></div>
+
 ## Libraries Used:
 
+	- DataBinding
 
+	- Retrofit 2 with Gson Converter
 
+	- Stetho
 
 ## Commit History:
 

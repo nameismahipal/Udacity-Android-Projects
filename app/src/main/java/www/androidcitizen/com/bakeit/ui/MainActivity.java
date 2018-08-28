@@ -1,8 +1,8 @@
-package www.androidcitizen.com.bakeit;
+package www.androidcitizen.com.bakeit.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import www.androidcitizen.com.bakeit.R;
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -10,4 +10,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
 }

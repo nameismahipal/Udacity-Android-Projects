@@ -33,8 +33,6 @@ public class BakingInterface {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                     .addNetworkInterceptor(new StethoInterceptor());
 
-
-
             retrofit = new Retrofit.Builder()
                      .baseUrl(BAKING_BASE_URL)
                      .addConverterFactory(GsonConverterFactory.create())

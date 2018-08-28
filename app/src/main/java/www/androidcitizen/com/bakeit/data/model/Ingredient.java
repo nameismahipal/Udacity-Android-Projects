@@ -20,7 +20,7 @@ public class Ingredient implements Parcelable {
 
     @SerializedName("quantity")
     @Expose
-    private int quantity;
+    private float quantity;
     @SerializedName("measure")
     @Expose
     private String measure;
@@ -28,11 +28,11 @@ public class Ingredient implements Parcelable {
     @Expose
     private String ingredient;
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 
@@ -54,7 +54,7 @@ public class Ingredient implements Parcelable {
 
 
     protected Ingredient(Parcel in) {
-        quantity = in.readInt();
+        quantity = in.readFloat();
         measure = in.readString();
         ingredient = in.readString();
     }
@@ -66,7 +66,7 @@ public class Ingredient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(quantity);
+        dest.writeFloat(quantity);
         dest.writeString(measure);
         dest.writeString(ingredient);
     }
