@@ -1,4 +1,4 @@
-package www.androidcitizen.com.bakeit.fragment;
+package www.androidcitizen.com.bakeit.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,21 +7,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import www.androidcitizen.com.bakeit.R;
-import www.androidcitizen.com.bakeit.data.RecipeClickListenerInterface;
+import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.adapter.RecipeAdapter;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.remote.BakingInterface;

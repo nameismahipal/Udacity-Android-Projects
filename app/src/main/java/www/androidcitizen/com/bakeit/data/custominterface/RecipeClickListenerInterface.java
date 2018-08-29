@@ -1,4 +1,4 @@
-package www.androidcitizen.com.bakeit.data;
+package www.androidcitizen.com.bakeit.data.custominterface;
 
 /**
  * Created by Mahi on 29/08/18.

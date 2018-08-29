@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<fragment android:name="www.androidcitizen.com.bakeit.fragment.RecipeListFragment"
+<fragment android:name="www.androidcitizen.com.bakeit.ui.fragment.RecipeListFragment"
     android:id="@+id/recipeListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
