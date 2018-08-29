@@ -23,7 +23,7 @@ import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.adapter.RecipeAdapter;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.remote.BakingInterface;
-import www.androidcitizen.com.bakeit.data.remote.BakingService;
+
 import www.androidcitizen.com.bakeit.databinding.FragmentRecipeListBinding;
 
 import java.util.List;
