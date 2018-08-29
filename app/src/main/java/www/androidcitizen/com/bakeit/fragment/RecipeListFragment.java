@@ -14,12 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import www.androidcitizen.com.bakeit.R;
+import www.androidcitizen.com.bakeit.data.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.adapter.RecipeAdapter;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.remote.BakingInterface;
@@ -41,6 +43,8 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding bakingListBinding = null;
     private Context context;
 
+    RecipeClickListenerInterface recipeClickListenerInterface;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment
      */
@@ -51,6 +55,13 @@ public class RecipeListFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof Activity){
             this.context = context;
+        }
+
+        try {
+            recipeClickListenerInterface = (RecipeClickListenerInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement RecipeClickListenerInterface");
         }
     }
 
@@ -65,7 +76,6 @@ public class RecipeListFragment extends Fragment {
         }
 
         return bakingListBinding.getRoot();
-
     }
 
     @Override
@@ -76,7 +86,8 @@ public class RecipeListFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        recipeAdapter = new RecipeAdapter(context);
+        recipeAdapter = new RecipeAdapter(context, recipeClickListenerInterface);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
 
         bakingListBinding.recipeList.setLayoutManager(layoutManager);

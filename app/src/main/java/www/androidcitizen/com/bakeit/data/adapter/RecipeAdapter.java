@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
+import www.androidcitizen.com.bakeit.data.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.databinding.RecipeItemViewBinding;
 
@@ -26,9 +27,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     List<Recipe> recipes = null;
 
     Context context;
+    RecipeClickListenerInterface recipeListenerInterface;
 
-    public RecipeAdapter(Context context) {
+    public RecipeAdapter(Context context, RecipeClickListenerInterface recipeListenerInterface) {
         this.context = context;
+        this.recipeListenerInterface = recipeListenerInterface;
     }
 
     @NonNull
@@ -62,14 +65,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public RecipeViewHolder(@NonNull RecipeItemViewBinding recipeItemBind) {
             super(recipeItemBind.getRoot());
             this.itemViewBinding = recipeItemBind;
+            itemViewBinding.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recipeListenerInterface.onRecipeSelected();
+                }
+            });
         }
 
         void onBind(int iPosition) {
             itemViewBinding.recipeName.setText(recipes.get(iPosition).getName());
             itemViewBinding.recipeServings.setText(context.getString(R.string.servings, recipes.get(iPosition).getServings()));
         }
-
-
     }
 
     public void updateRecipes(List<Recipe> newRecipes){
