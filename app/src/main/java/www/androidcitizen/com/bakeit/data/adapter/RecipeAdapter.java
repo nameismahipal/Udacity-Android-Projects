@@ -75,7 +75,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         @Override
         public void onClick(View view) {
-            recipeListenerInterface.onRecipeSelected();
+            int index = getAdapterPosition();
+            recipeListenerInterface.onRecipeSelected(recipes.get(index));
         }
     }
 
