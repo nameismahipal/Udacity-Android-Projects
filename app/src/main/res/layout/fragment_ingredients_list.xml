@@ -10,8 +10,8 @@
     android:orientation="vertical"
     tools:context=".ui.fragment.IngredientsListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ingredients : "
@@ -27,7 +27,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="@color/colorAccent"
-
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

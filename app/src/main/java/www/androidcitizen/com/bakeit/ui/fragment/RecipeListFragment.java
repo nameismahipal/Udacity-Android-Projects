@@ -59,7 +59,7 @@ public class RecipeListFragment extends Fragment {
             recipeClickListenerInterface = (RecipeClickListenerInterface) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
-                    + " must implement RecipeClickListenerInterface");
+                    + " must implement onRecipeSelected Interface");
         }
     }
 

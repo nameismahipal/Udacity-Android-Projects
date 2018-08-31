@@ -1,7 +1,5 @@
 package www.androidcitizen.com.bakeit.data.custominterface;
 
-import java.util.List;
-
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.model.Step;
 
@@ -10,6 +8,6 @@ import www.androidcitizen.com.bakeit.data.model.Step;
  * www.androidcitizen.com
  */
 
-public interface RecipeClickListenerInterface {
-    void onRecipeSelected(Recipe recipe);
+public interface StepClickListenerInterface {
+    void onStepSelected(Step step);
 }

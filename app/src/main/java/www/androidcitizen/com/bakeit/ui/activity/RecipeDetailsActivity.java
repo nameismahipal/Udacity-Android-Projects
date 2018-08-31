@@ -3,18 +3,23 @@ package www.androidcitizen.com.bakeit.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
+import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
+import www.androidcitizen.com.bakeit.data.model.Step;
 import www.androidcitizen.com.bakeit.ui.fragment.IngredientsListFragment;
+import www.androidcitizen.com.bakeit.ui.fragment.StepsListFragment;
 import www.androidcitizen.com.bakeit.util.Constants;
 
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class RecipeDetailsActivity extends AppCompatActivity implements StepClickListenerInterface{
 
     List<Ingredient> ingredients;
+    List<Step> steps;
     Recipe recipe;
 
     @Override
@@ -27,6 +32,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             if(intent.hasExtra(Constants.RECIPE_KEY)) {
                 recipe = intent.getParcelableExtra(Constants.RECIPE_KEY);
                 ingredients = recipe.getIngredients();
+                steps = recipe.getSteps();
             }
 
             if (null != ingredients) {
@@ -37,6 +43,19 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                         .commit();
             }
 
+            if (null != steps) {
+                StepsListFragment stepsListFragment = StepsListFragment.newInstance(steps);
+
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.stepsListContainer, stepsListFragment)
+                        .commit();
+            }
+
         }
+    }
+
+    @Override
+    public void onStepSelected(Step step) {
+        Toast.makeText(this, "onStepSelected Message", Toast.LENGTH_SHORT).show();
     }
 }
