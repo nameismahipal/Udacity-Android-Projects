@@ -5,7 +5,9 @@
 <a href="http://go.udacity.com/android-baking-app-json" title="Json Data">JSON Data</a>
 </div>
 
-<div>Icons by <a href="http://www.freepik.com" title="Freepik">Freepik</a></div>
+<div>Icons by <a href="http://www.freepik.com" title="Freepik">Freepik</a>
+<a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a>
+</div>
 
 ## Libraries Used:
 

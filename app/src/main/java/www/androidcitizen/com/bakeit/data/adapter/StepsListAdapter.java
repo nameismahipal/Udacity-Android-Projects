@@ -11,12 +11,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
-import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
-import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.model.Step;
-import www.androidcitizen.com.bakeit.databinding.FragmentStepsListBinding;
-import www.androidcitizen.com.bakeit.databinding.RecipeItemViewBinding;
 import www.androidcitizen.com.bakeit.databinding.StepsItemViewBinding;
 
 /**
@@ -75,6 +71,10 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
         void onBind(int iPosition) {
             itemViewBinding.stepText.setText(context.getString(R.string.step,
                     steps.get(iPosition).getId(), steps.get(iPosition).getShortDescription()));
+
+            if(0 == iPosition % 2) {
+                itemViewBinding.stepView.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
+            }
 
             if(isVideoPresent(iPosition)){
                 itemViewBinding.stepImage.setImageResource(R.drawable.ic_video);

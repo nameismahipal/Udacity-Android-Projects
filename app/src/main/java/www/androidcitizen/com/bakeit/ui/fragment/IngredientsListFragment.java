@@ -20,14 +20,14 @@ import java.util.List;
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.adapter.IngredientAdapter;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
-import www.androidcitizen.com.bakeit.databinding.FragmentIngredientsListBinding;
+import www.androidcitizen.com.bakeit.databinding.FragmentRecipeDetailListBinding;
 
 import static www.androidcitizen.com.bakeit.util.Constants.*;
 
 
 public class IngredientsListFragment extends Fragment {
 
-    FragmentIngredientsListBinding ingredientsListBinding;
+    FragmentRecipeDetailListBinding ingredientsListBinding;
     IngredientAdapter ingredientAdapter;
     List<Ingredient> ingredients = null;
     Context context;
@@ -69,7 +69,7 @@ public class IngredientsListFragment extends Fragment {
         if (null == ingredientsListBinding) {
 
             ingredientsListBinding = DataBindingUtil.inflate(inflater,
-                    R.layout.fragment_ingredients_list, container, false);
+                    R.layout.fragment_recipe_detail_list, container, false);
         }
 
         return ingredientsListBinding.getRoot();
@@ -78,9 +78,18 @@ public class IngredientsListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setupViews();
+
         setupRecyclerView();
 
         loadBakingData();
+    }
+
+    private void setupViews() {
+        ingredientsListBinding.title.setText("Ingredients :");
+        ingredientsListBinding.title.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        ingredientsListBinding.recipeDetailsList.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
     }
 
     private void setupRecyclerView() {
@@ -88,10 +97,10 @@ public class IngredientsListFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
 
-        ingredientsListBinding.ingredientsList.setLayoutManager(layoutManager);
-        ingredientsListBinding.ingredientsList.setHasFixedSize(true);
-        ingredientsListBinding.ingredientsList.setItemAnimator(new DefaultItemAnimator());
-        ingredientsListBinding.ingredientsList.setAdapter(ingredientAdapter);
+        ingredientsListBinding.recipeDetailsList.setLayoutManager(layoutManager);
+        ingredientsListBinding.recipeDetailsList.setHasFixedSize(true);
+        ingredientsListBinding.recipeDetailsList.setItemAnimator(new DefaultItemAnimator());
+        ingredientsListBinding.recipeDetailsList.setAdapter(ingredientAdapter);
     }
 
     private void loadBakingData() {

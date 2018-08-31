@@ -18,21 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
-import www.androidcitizen.com.bakeit.data.adapter.IngredientAdapter;
 import www.androidcitizen.com.bakeit.data.adapter.StepsListAdapter;
-import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
-import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Step;
-import www.androidcitizen.com.bakeit.databinding.FragmentIngredientsListBinding;
+import www.androidcitizen.com.bakeit.databinding.FragmentRecipeDetailListBinding;
 
-import static www.androidcitizen.com.bakeit.util.Constants.INGREDIENTS_KEY;
 import static www.androidcitizen.com.bakeit.util.Constants.STEPS_KEY;
 
 
 public class StepsListFragment extends Fragment {
 
-    FragmentIngredientsListBinding stepsListBinding;
+    FragmentRecipeDetailListBinding stepsListBinding;
     StepsListAdapter stepsAdapter;
     List<Step> steps = null;
     Context context;
@@ -83,7 +79,7 @@ public class StepsListFragment extends Fragment {
         if (null == stepsListBinding) {
 
             stepsListBinding = DataBindingUtil.inflate(inflater,
-                    R.layout.fragment_ingredients_list, container, false);
+                    R.layout.fragment_recipe_detail_list, container, false);
         }
 
         return stepsListBinding.getRoot();
@@ -102,7 +98,7 @@ public class StepsListFragment extends Fragment {
 
     private void setupViews() {
         stepsListBinding.title.setText("Steps :");
-        stepsListBinding.ingredientsList.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
+        stepsListBinding.title.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
     }
 
     private void setupRecyclerView() {
@@ -110,10 +106,10 @@ public class StepsListFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
 
-        stepsListBinding.ingredientsList.setLayoutManager(layoutManager);
-        stepsListBinding.ingredientsList.setHasFixedSize(true);
-        stepsListBinding.ingredientsList.setItemAnimator(new DefaultItemAnimator());
-        stepsListBinding.ingredientsList.setAdapter(stepsAdapter);
+        stepsListBinding.recipeDetailsList.setLayoutManager(layoutManager);
+        stepsListBinding.recipeDetailsList.setHasFixedSize(true);
+        stepsListBinding.recipeDetailsList.setItemAnimator(new DefaultItemAnimator());
+        stepsListBinding.recipeDetailsList.setAdapter(stepsAdapter);
     }
 
     private void loadBakingData() {
