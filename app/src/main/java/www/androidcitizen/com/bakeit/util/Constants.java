@@ -12,5 +12,6 @@ public final class Constants {
     public static final String INGREDIENTS_KEY = "ingredients-Key";
     public static final String RECIPE_KEY = "recipe-Key";
     public static final String STEPS_KEY = "steps-Key";
+    public static final String SINGLE_STEP_KEY = "single-step-Key";
 
 }

@@ -3,4 +3,8 @@
     <string name="servings">Servings: %d</string>
     <string name="ingredient">:  %s</string>
     <string name="step">%d : %s</string>
+    <string name="step_number">Step %d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

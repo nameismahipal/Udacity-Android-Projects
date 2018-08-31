@@ -33,6 +33,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
                 recipe = intent.getParcelableExtra(Constants.RECIPE_KEY);
                 ingredients = recipe.getIngredients();
                 steps = recipe.getSteps();
+
+                setTitle(recipe.getName());
             }
 
             if (null != ingredients) {
@@ -56,6 +58,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
 
     @Override
     public void onStepSelected(Step step) {
-        Toast.makeText(this, "onStepSelected Message", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, StepActivity.class);
+        intent.putExtra(Constants.SINGLE_STEP_KEY, step);
+        startActivity(intent);
     }
 }

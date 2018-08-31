@@ -33,4 +33,5 @@ ext {
 
     supportLibVersion = '28.0.0-rc01'
     retrofitVersion = '2.4.0'
+    exoPlayerVersion = '2.8.3'
 }
