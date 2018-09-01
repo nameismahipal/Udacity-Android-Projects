@@ -9,9 +9,13 @@ public final class Constants {
 
     private Constants() { }
 
-    public static final String INGREDIENTS_KEY = "ingredients-Key";
-    public static final String RECIPE_KEY = "recipe-Key";
-    public static final String STEPS_KEY = "steps-Key";
-    public static final String SINGLE_STEP_KEY = "single-step-Key";
+    public static final String INGREDIENTS_KEY = "ingredients-key";
+    public static final String RECIPE_KEY = "recipe-key";
+    public static final String STEPS_KEY = "steps-key";
+    public static final String SINGLE_STEP_KEY = "single-step-key";
+
+    public static final String PLAY_BACK_POSITION_KEY = "play-back-position-key";
+    public static final String PLAY_WHEN_READY_KEY = "play-when-ready-key";
+    public static final String PLAY_CURRENT_WINDOW_KEY = "play-current-window-key";
 
 }

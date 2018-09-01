@@ -20,8 +20,20 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintVertical_bias="1.0"
         >
-
     </com.google.android.exoplayer2.ui.PlayerView>
+
+    <ImageView
+        android:id="@+id/placeholderImage"
+        android:src="@drawable/ic_no_video"
+        android:visibility="gone"
+        android:layout_margin="48dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideLine"
+        />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideLine"
@@ -37,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerView" />

@@ -76,6 +76,12 @@ public class SingleStepFragment extends Fragment {
         if (getArguments() != null) {
             step = getArguments().getParcelable(Constants.SINGLE_STEP_KEY);
         }
+
+        if(null != savedInstanceState) {
+            playbackPosition = savedInstanceState.getLong(Constants.PLAY_BACK_POSITION_KEY);
+            currentWindow = savedInstanceState.getInt(Constants.PLAY_CURRENT_WINDOW_KEY);
+            playWhenReady = savedInstanceState.getBoolean(Constants.PLAY_WHEN_READY_KEY);
+        }
     }
 
     @Override
@@ -94,7 +100,14 @@ public class SingleStepFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         if(!step.getVideoURL().isEmpty()) {
+
+            singleStepBinding.playerView.setVisibility(View.VISIBLE);
+            singleStepBinding.placeholderImage.setVisibility(View.GONE);
+
             initializePlayer();
+        } else {
+            singleStepBinding.playerView.setVisibility(View.GONE);
+            singleStepBinding.placeholderImage.setVisibility(View.VISIBLE);
         }
 
         singleStepBinding.stepDescription.setText(step.getDescription());
@@ -106,14 +119,12 @@ public class SingleStepFragment extends Fragment {
                 new DefaultLoadControl());
 
         singleStepBinding.playerView.setPlayer(player);
-
         player.setPlayWhenReady(playWhenReady);
 
-        player.seekTo(currentWindow, playbackPosition);
-
         MediaSource mediaSource = buildMediaSource();
-
         player.prepare(mediaSource);
+
+        player.seekTo(currentWindow, playbackPosition);
     }
 
     private MediaSource buildMediaSource() {
@@ -130,14 +141,14 @@ public class SingleStepFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
-            initializePlayer();
+           initializePlayer();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //hideSystemUi();
+        hideSystemUi();
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
@@ -155,6 +166,7 @@ public class SingleStepFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+
         if (Util.SDK_INT <= 23) {
             releasePlayer();
         }
@@ -163,6 +175,7 @@ public class SingleStepFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
@@ -170,11 +183,31 @@ public class SingleStepFragment extends Fragment {
 
     private void releasePlayer() {
         if (player != null) {
-            playbackPosition = player.getCurrentPosition();
-            currentWindow = player.getCurrentWindowIndex();
-            playWhenReady = player.getPlayWhenReady();
+
             player.release();
             player = null;
         }
     }
+
+
+    private void getPlayerStates() {
+        playbackPosition = player.getCurrentPosition();
+        currentWindow = player.getCurrentWindowIndex();
+        playWhenReady = player.getPlayWhenReady();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(!step.getVideoURL().isEmpty()) {
+
+            getPlayerStates();
+
+            outState.putLong(Constants.PLAY_BACK_POSITION_KEY, playbackPosition);
+            outState.putInt(Constants.PLAY_CURRENT_WINDOW_KEY, currentWindow);
+            outState.putBoolean(Constants.PLAY_WHEN_READY_KEY, playWhenReady);
+        }
+    }
 }
+
