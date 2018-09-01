@@ -1,8 +1,10 @@
 package www.androidcitizen.com.bakeit.ui.activity;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
@@ -48,7 +50,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
             if (null != steps) {
                 StepsListFragment stepsListFragment = StepsListFragment.newInstance(steps);
 
-                getSupportFragmentManager().beginTransaction()
+                getSupportFragmentManager()
+                        .beginTransaction()
                         .add(R.id.stepsListContainer, stepsListFragment)
                         .commit();
             }
@@ -62,4 +65,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
         intent.putExtra(Constants.SINGLE_STEP_KEY, step);
         startActivity(intent);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }

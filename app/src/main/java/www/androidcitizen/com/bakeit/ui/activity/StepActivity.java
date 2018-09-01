@@ -2,7 +2,9 @@ package www.androidcitizen.com.bakeit.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
@@ -35,6 +37,12 @@ public class StepActivity extends AppCompatActivity {
                     .add(R.id.singleStepFragment, singleStepFragment)
                     .commit();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }
