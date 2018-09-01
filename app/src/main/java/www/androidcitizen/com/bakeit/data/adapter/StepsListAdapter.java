@@ -77,9 +77,9 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
             }
 
             if(isVideoPresent(iPosition)){
-                itemViewBinding.stepImage.setImageResource(R.drawable.ic_video);
-            } else {
                 itemViewBinding.stepImage.setImageResource(R.drawable.ic_notes);
+            } else {
+                itemViewBinding.stepImage.setImageResource(R.drawable.ic_video);
             }
         }
 
