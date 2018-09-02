@@ -17,6 +17,7 @@ import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.model.Step;
 import www.androidcitizen.com.bakeit.ui.fragment.IngredientsListFragment;
+import www.androidcitizen.com.bakeit.ui.fragment.SingleStepFragment;
 import www.androidcitizen.com.bakeit.ui.fragment.StepsListFragment;
 import www.androidcitizen.com.bakeit.util.Constants;
 
@@ -57,15 +58,34 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
                         .commit();
             }
 
+            if(getResources().getBoolean(R.bool.is_tablet)) {
+                SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(0));
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.singleStepContainer, singleStepFragment)
+                        .commit();
+            }
+
         }
     }
 
     @Override
     public void onStepSelected(int iIndex) {
-        Intent intent = new Intent(this, StepActivity.class);
-        intent.putExtra(Constants.STEP_SELECTED_INDEX_KEY, iIndex);
-        intent.putParcelableArrayListExtra(Constants.STEPS_KEY, (ArrayList<Step>) steps);
-        startActivity(intent);
+
+        if(getResources().getBoolean(R.bool.is_tablet)) {
+            SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(iIndex));
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.singleStepContainer, singleStepFragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, StepActivity.class);
+            intent.putExtra(Constants.STEP_SELECTED_INDEX_KEY, iIndex);
+            intent.putParcelableArrayListExtra(Constants.STEPS_KEY, (ArrayList<Step>) steps);
+            startActivity(intent);
+        }
     }
 
     @Override
