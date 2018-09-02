@@ -40,7 +40,7 @@ public class SingleStepFragment extends Fragment {
 
     private Step step;
 
-    ExoPlayer player;
+    ExoPlayer player = null;
 
     Context context;
 
@@ -60,7 +60,6 @@ public class SingleStepFragment extends Fragment {
             this.context = context;
         }
     }
-
 
     public static SingleStepFragment newInstance(Step step) {
         SingleStepFragment fragment = new SingleStepFragment();

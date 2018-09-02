@@ -9,5 +9,5 @@ import www.androidcitizen.com.bakeit.data.model.Step;
  */
 
 public interface StepClickListenerInterface {
-    void onStepSelected(Step step);
+    void onStepSelected(int iIndex);
 }

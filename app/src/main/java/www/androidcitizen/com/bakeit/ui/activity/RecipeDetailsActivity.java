@@ -1,12 +1,14 @@
 package www.androidcitizen.com.bakeit.ui.activity;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
@@ -20,9 +22,8 @@ import www.androidcitizen.com.bakeit.util.Constants;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements StepClickListenerInterface{
 
-    List<Ingredient> ingredients;
     List<Step> steps;
-    Recipe recipe;
+    List<Ingredient> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
         if(null == savedInstanceState) {
             Intent intent = getIntent();
             if(intent.hasExtra(Constants.RECIPE_KEY)) {
-                recipe = intent.getParcelableExtra(Constants.RECIPE_KEY);
+                Recipe recipe = intent.getParcelableExtra(Constants.RECIPE_KEY);
                 ingredients = recipe.getIngredients();
                 steps = recipe.getSteps();
 
@@ -60,9 +61,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
     }
 
     @Override
-    public void onStepSelected(Step step) {
+    public void onStepSelected(int iIndex) {
         Intent intent = new Intent(this, StepActivity.class);
-        intent.putExtra(Constants.SINGLE_STEP_KEY, step);
+        intent.putExtra(Constants.STEP_SELECTED_INDEX_KEY, iIndex);
+        intent.putParcelableArrayListExtra(Constants.STEPS_KEY, (ArrayList<Step>) steps);
         startActivity(intent);
     }
 
