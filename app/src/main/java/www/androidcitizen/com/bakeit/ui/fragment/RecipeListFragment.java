@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -92,9 +93,15 @@ public class RecipeListFragment extends Fragment {
     private void setupRecyclerView() {
         recipeAdapter = new RecipeAdapter(context, recipeClickListenerInterface);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        if(getResources().getBoolean(R.bool.is_tablet)) {
+            GridLayoutManager layoutManager = new GridLayoutManager(context, 3);
+            bakingListBinding.recipeList.setLayoutManager(layoutManager);
 
-        bakingListBinding.recipeList.setLayoutManager(layoutManager);
+        } else {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            bakingListBinding.recipeList.setLayoutManager(layoutManager);
+        }
+
         bakingListBinding.recipeList.setHasFixedSize(true);
         bakingListBinding.recipeList.setItemAnimator(new DefaultItemAnimator());
         bakingListBinding.recipeList.setAdapter(recipeAdapter);
