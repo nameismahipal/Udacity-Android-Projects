@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
 
     List<Step> steps;
     List<Ingredient> ingredients;
+    boolean tabletMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +60,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
                         .commit();
             }
 
-            if(getResources().getBoolean(R.bool.is_tablet)) {
-                SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(0));
+            tabletMode = getResources().getBoolean(R.bool.is_tablet);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.singleStepContainer, singleStepFragment)
-                        .commit();
+            if(tabletMode) {
+                onStepSelected(0);
             }
 
         }
@@ -74,6 +73,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
     public void onStepSelected(int iIndex) {
 
         if(getResources().getBoolean(R.bool.is_tablet)) {
+            Log.e("RecipeDetailsActivity", "onStepSelected step size: " + steps.size());
+
             SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(iIndex));
 
             getSupportFragmentManager()
@@ -94,4 +95,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
         return true;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelableArrayList(Constants.STEPS_KEY, (ArrayList<Step>) steps);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        steps = savedInstanceState.getParcelableArrayList(Constants.STEPS_KEY);
+    }
 }

@@ -13,6 +13,7 @@ import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.adapter.StepsFragmentPagerAdapter;
 import www.androidcitizen.com.bakeit.data.model.Step;
 import www.androidcitizen.com.bakeit.databinding.ActivityStepBinding;
+import www.androidcitizen.com.bakeit.ui.fragment.SingleStepFragment;
 import www.androidcitizen.com.bakeit.util.Constants;
 
 public class StepActivity extends AppCompatActivity {
@@ -20,16 +21,13 @@ public class StepActivity extends AppCompatActivity {
     List<Step> steps;
     int stepSelectedIndex;
     ActivityStepBinding stepBinding;
-    String recipeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        setContentView(R.layout.activity_step);
         stepBinding = DataBindingUtil.setContentView(this, R.layout.activity_step);
 
-        setSupportActionBar(stepBinding.toolbar);
 
         if(null == savedInstanceState) {
             Intent intent = getIntent();
@@ -37,43 +35,14 @@ public class StepActivity extends AppCompatActivity {
             if(intent.hasExtra(Constants.STEPS_KEY)){
                 stepSelectedIndex = intent.getIntExtra(Constants.STEP_SELECTED_INDEX_KEY, 0);
                 steps = intent.getParcelableArrayListExtra(Constants.STEPS_KEY);
-                setTitle(recipeName);
+                setTitle(steps.get(stepSelectedIndex).getShortDescription());
             }
 
-            // Show the Up button in the action bar.
-            final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setTitle(steps.get(stepSelectedIndex).getShortDescription());
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
+            SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(stepSelectedIndex));
 
-            StepsFragmentPagerAdapter stepsPagerAdapter = new StepsFragmentPagerAdapter(
-                    getSupportFragmentManager(), steps);
-
-            stepBinding.pager.setAdapter(stepsPagerAdapter);
-            stepBinding.pager.setCurrentItem(stepSelectedIndex);
-            stepBinding.tabs.setupWithViewPager(stepBinding.pager);
-
-
-            stepBinding.pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int i, float v, int i1) {
-
-                }
-
-                @Override
-                public void onPageSelected(int iPosition) {
-                    if(actionBar != null) {
-                        actionBar.setTitle(steps.get(iPosition).getShortDescription());
-                    }
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int i) {
-
-                }
-            });
-
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.singleStepContainer, singleStepFragment)
+                    .commit();
         }
     }
 

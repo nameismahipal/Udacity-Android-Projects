@@ -155,10 +155,13 @@ public class SingleStepFragment extends Fragment {
 
     @SuppressLint("InlinedApi")
     private void hideSystemUi() {
+
         singleStepBinding.playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
@@ -183,11 +186,12 @@ public class SingleStepFragment extends Fragment {
     private void releasePlayer() {
         if (player != null) {
 
+            getPlayerStates();
+
             player.release();
             player = null;
         }
     }
-
 
     private void getPlayerStates() {
         playbackPosition = player.getCurrentPosition();
@@ -201,11 +205,12 @@ public class SingleStepFragment extends Fragment {
 
         if(!step.getVideoURL().isEmpty()) {
 
-            getPlayerStates();
-
-            outState.putLong(Constants.PLAY_BACK_POSITION_KEY, playbackPosition);
-            outState.putInt(Constants.PLAY_CURRENT_WINDOW_KEY, currentWindow);
-            outState.putBoolean(Constants.PLAY_WHEN_READY_KEY, playWhenReady);
+            if (player != null) {
+                getPlayerStates();
+                outState.putLong(Constants.PLAY_BACK_POSITION_KEY, playbackPosition);
+                outState.putInt(Constants.PLAY_CURRENT_WINDOW_KEY, currentWindow);
+                outState.putBoolean(Constants.PLAY_WHEN_READY_KEY, playWhenReady);
+            }
         }
     }
 }
