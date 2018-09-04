@@ -1,5 +1,7 @@
 package www.androidcitizen.com.bakeit.util;
 
+import www.androidcitizen.com.bakeit.R;
+
 /**
  * Created by Mahi on 30/08/18.
  * www.androidcitizen.com
@@ -20,5 +22,9 @@ public final class Constants {
     public static final String PLAY_CURRENT_WINDOW_KEY = "play-current-window-key";
 
     public static final String STEP_SELECTED_INDEX_KEY = "step-selected-index-key";
+
+    public static final String STEP_NUMBER_STATE_KEY = "stepNumberStateKey";
+    public static final String STEP_PREV_BTN_STATE_KEY = "prevBtnKey";
+    public static final String STEP_NEXT_BTN_STATE_KEY = "nextBtnKey";
 
 }

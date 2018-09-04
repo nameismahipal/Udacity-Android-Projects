@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -29,6 +31,8 @@ import com.google.android.exoplayer2.util.UriUtil;
 import com.google.android.exoplayer2.util.Util;
 
 import www.androidcitizen.com.bakeit.R;
+import www.androidcitizen.com.bakeit.data.custominterface.PrevNextInterface;
+import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Step;
 import www.androidcitizen.com.bakeit.databinding.FragmentSingleStepBinding;
@@ -48,6 +52,12 @@ public class SingleStepFragment extends Fragment {
     int currentWindow;
     boolean playWhenReady;
 
+    String stepNumberState;
+    boolean nxtBtnState;
+    boolean prevBtnState;
+
+    PrevNextInterface prevNextInterface;
+
     public SingleStepFragment() {
         // Required empty public constructor
     }
@@ -58,6 +68,13 @@ public class SingleStepFragment extends Fragment {
 
         if (context instanceof Activity) {
             this.context = context;
+        }
+
+        try {
+            prevNextInterface = (PrevNextInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement PrevNextInterface Interface methods");
         }
     }
 
@@ -74,6 +91,9 @@ public class SingleStepFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             step = getArguments().getParcelable(Constants.SINGLE_STEP_KEY);
+            stepNumberState = getArguments().getString(Constants.STEP_NUMBER_STATE_KEY);
+            prevBtnState = getArguments().getBoolean(Constants.STEP_PREV_BTN_STATE_KEY);
+            nxtBtnState = getArguments().getBoolean(Constants.STEP_NEXT_BTN_STATE_KEY);
         }
 
         if(null != savedInstanceState) {
@@ -92,6 +112,31 @@ public class SingleStepFragment extends Fragment {
                     container, false);
         }
 
+        singleStepBinding.prevStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prevNextInterface.prevButtonClicked();
+            }
+        });
+
+        singleStepBinding.nextStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prevNextInterface.nextButtonClicked();
+            }
+        });
+
+        if(context.getResources().getBoolean(R.bool.is_tablet)){
+            singleStepBinding.prevStep.setVisibility(View.GONE);
+            singleStepBinding.nextStep.setVisibility(View.GONE);
+            singleStepBinding.stepNumber.setVisibility(View.GONE);
+        } else {
+            if(prevBtnState) singleStepBinding.prevStep.setVisibility(View.GONE);
+            if(nxtBtnState) singleStepBinding.nextStep.setVisibility(View.GONE);
+            singleStepBinding.stepNumber.setVisibility(View.VISIBLE);
+        }
+
+
         return singleStepBinding.getRoot();
     }
 
@@ -99,7 +144,6 @@ public class SingleStepFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         if(!step.getVideoURL().isEmpty()) {
-
             singleStepBinding.playerView.setVisibility(View.VISIBLE);
             singleStepBinding.placeholderImage.setVisibility(View.GONE);
 
@@ -109,6 +153,7 @@ public class SingleStepFragment extends Fragment {
             singleStepBinding.placeholderImage.setVisibility(View.VISIBLE);
         }
 
+        singleStepBinding.stepNumber.setText(stepNumberState);
         singleStepBinding.stepDescription.setText(step.getDescription());
     }
 
@@ -147,6 +192,12 @@ public class SingleStepFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        if(context.getResources().getBoolean(R.bool.is_lanscape)){
+            if(!step.getVideoURL().isEmpty()) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            }
+        }
 
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
@@ -201,5 +252,6 @@ public class SingleStepFragment extends Fragment {
             }
         }
     }
+
 }
 

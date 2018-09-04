@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
+import www.androidcitizen.com.bakeit.data.custominterface.PrevNextInterface;
 import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
@@ -22,11 +23,13 @@ import www.androidcitizen.com.bakeit.ui.fragment.SingleStepFragment;
 import www.androidcitizen.com.bakeit.ui.fragment.StepsListFragment;
 import www.androidcitizen.com.bakeit.util.Constants;
 
-public class RecipeDetailsActivity extends AppCompatActivity implements StepClickListenerInterface{
+public class RecipeDetailsActivity extends AppCompatActivity
+        implements StepClickListenerInterface, PrevNextInterface {
 
     List<Step> steps;
     List<Ingredient> ingredients;
     boolean tabletMode;
+    static int iStepIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
             tabletMode = getResources().getBoolean(R.bool.is_tablet);
 
             if(tabletMode) {
-                onStepSelected(0);
+                iStepIndex = 0;
+                onStepSelected(iStepIndex);
             }
 
         }
@@ -73,9 +77,20 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
     public void onStepSelected(int iIndex) {
 
         if(getResources().getBoolean(R.bool.is_tablet)) {
-            Log.e("RecipeDetailsActivity", "onStepSelected step size: " + steps.size());
 
-            SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(iIndex));
+            iStepIndex = iIndex;
+
+            //SingleStepFragment singleStepFragment = SingleStepFragment.newInstance(steps.get(iIndex));
+            SingleStepFragment singleStepFragment = new SingleStepFragment();
+
+            Bundle args = new Bundle();
+            args.putParcelable(Constants.SINGLE_STEP_KEY, steps.get(iIndex));
+            args.putString(Constants.STEP_NUMBER_STATE_KEY, getResources().getString(R.string.step_nav_state, iIndex, steps.size()));
+
+            args.putBoolean(Constants.STEP_PREV_BTN_STATE_KEY, iIndex < 1 );
+            args.putBoolean(Constants.STEP_NEXT_BTN_STATE_KEY, iIndex == steps.size());
+
+            singleStepFragment.setArguments(args);
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -107,4 +122,15 @@ public class RecipeDetailsActivity extends AppCompatActivity implements StepClic
         super.onRestoreInstanceState(savedInstanceState);
         steps = savedInstanceState.getParcelableArrayList(Constants.STEPS_KEY);
     }
+
+    @Override
+    public void prevButtonClicked() {
+        //View Hidden in Tablet Mode
+    }
+
+    @Override
+    public void nextButtonClicked() {
+        //View Hidden in Tablet Mode
+    }
+
 }
