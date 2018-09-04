@@ -126,6 +126,13 @@ public class SingleStepFragment extends Fragment {
             }
         });
 
+        setupViews();
+
+        return singleStepBinding.getRoot();
+    }
+
+    private void setupViews() {
+
         if(context.getResources().getBoolean(R.bool.is_tablet)){
             singleStepBinding.prevStep.setVisibility(View.GONE);
             singleStepBinding.nextStep.setVisibility(View.GONE);
@@ -136,8 +143,15 @@ public class SingleStepFragment extends Fragment {
             singleStepBinding.stepNumber.setVisibility(View.VISIBLE);
         }
 
+        singleStepBinding.stepNumber.setText(stepNumberState);
+        singleStepBinding.stepDescription.setText(step.getDescription());
 
-        return singleStepBinding.getRoot();
+        if(context.getResources().getBoolean(R.bool.is_lanscape)){
+            singleStepBinding.stepNumber.setVisibility(View.GONE);
+            if(!step.getVideoURL().isEmpty()) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            }
+        }
     }
 
     @Override
@@ -153,8 +167,6 @@ public class SingleStepFragment extends Fragment {
             singleStepBinding.placeholderImage.setVisibility(View.VISIBLE);
         }
 
-        singleStepBinding.stepNumber.setText(stepNumberState);
-        singleStepBinding.stepDescription.setText(step.getDescription());
     }
 
     private void initializePlayer() {
@@ -192,12 +204,6 @@ public class SingleStepFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        if(context.getResources().getBoolean(R.bool.is_lanscape)){
-            if(!step.getVideoURL().isEmpty()) {
-                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-            }
-        }
 
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
