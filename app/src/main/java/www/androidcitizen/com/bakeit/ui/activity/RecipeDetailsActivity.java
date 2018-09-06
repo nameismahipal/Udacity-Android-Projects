@@ -1,13 +1,8 @@
 package www.androidcitizen.com.bakeit.ui.activity;
 
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +21,9 @@ import www.androidcitizen.com.bakeit.util.Constants;
 public class RecipeDetailsActivity extends AppCompatActivity
         implements StepClickListenerInterface, PrevNextInterface {
 
-    List<Step> steps;
-    List<Ingredient> ingredients;
-    boolean tabletMode;
-    static int iStepIndex;
+    private List<Step> steps;
+    private List<Ingredient> ingredients;
+    private static int iStepIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +57,7 @@ public class RecipeDetailsActivity extends AppCompatActivity
                         .commit();
             }
 
-            tabletMode = getResources().getBoolean(R.bool.is_tablet);
+            boolean tabletMode = getResources().getBoolean(R.bool.is_tablet);
 
             if(tabletMode) {
                 iStepIndex = 0;

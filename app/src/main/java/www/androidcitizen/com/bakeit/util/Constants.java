@@ -1,7 +1,5 @@
 package www.androidcitizen.com.bakeit.util;
 
-import www.androidcitizen.com.bakeit.R;
-
 /**
  * Created by Mahi on 30/08/18.
  * www.androidcitizen.com

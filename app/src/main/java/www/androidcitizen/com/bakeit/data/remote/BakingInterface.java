@@ -26,7 +26,7 @@ public class BakingInterface {
         }
     }
 
-    public static Retrofit getBakingInterface() {
+    private static Retrofit getBakingInterface() {
 
         if(null == retrofit) {
 

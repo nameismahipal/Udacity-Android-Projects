@@ -28,11 +28,11 @@ import static www.androidcitizen.com.bakeit.util.Constants.STEPS_KEY;
 
 public class StepsListFragment extends Fragment {
 
-    FragmentRecipeDetailListBinding stepsListBinding;
-    StepsListAdapter stepsAdapter;
-    List<Step> steps = null;
-    Context context;
-    StepClickListenerInterface stepClickListenerInterface;
+    private FragmentRecipeDetailListBinding stepsListBinding;
+    private StepsListAdapter stepsAdapter;
+    private List<Step> steps = null;
+    private Context context;
+    private StepClickListenerInterface stepClickListenerInterface;
 
     public StepsListFragment() {
         // Required empty public constructor
@@ -97,7 +97,7 @@ public class StepsListFragment extends Fragment {
     }
 
     private void setupViews() {
-        stepsListBinding.title.setText("Steps :");
+        stepsListBinding.title.setText(R.string.stepsLabel);
         stepsListBinding.title.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
     }
 

@@ -5,18 +5,13 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
-import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
-import www.androidcitizen.com.bakeit.data.model.Recipe;
-import www.androidcitizen.com.bakeit.databinding.FragmentRecipeListBinding;
 import www.androidcitizen.com.bakeit.databinding.IngredientItemViewBinding;
-import www.androidcitizen.com.bakeit.databinding.RecipeItemViewBinding;
 
 /**
  * Created by Mahi on 27/08/18.
@@ -25,11 +20,9 @@ import www.androidcitizen.com.bakeit.databinding.RecipeItemViewBinding;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>{
 
-    private IngredientItemViewBinding itemViewBinding;
+    private List<Ingredient> ingredients = null;
 
-    List<Ingredient> ingredients = null;
-
-    Context context;
+    private final Context context;
 
     public IngredientAdapter(Context context) {
         this.context = context;
@@ -39,7 +32,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
+        IngredientItemViewBinding itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
                 R.layout.ingredient_item_view, viewGroup, false);
 
         return new IngredientViewHolder(itemViewBinding);
@@ -61,9 +54,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        private IngredientItemViewBinding itemViewBinding;
+        private final IngredientItemViewBinding itemViewBinding;
 
-        public IngredientViewHolder(@NonNull IngredientItemViewBinding ingredientItemBind) {
+        IngredientViewHolder(@NonNull IngredientItemViewBinding ingredientItemBind) {
             super(ingredientItemBind.getRoot());
             this.itemViewBinding = ingredientItemBind;
         }

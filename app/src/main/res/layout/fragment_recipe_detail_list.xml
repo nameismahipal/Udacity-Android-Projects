@@ -15,16 +15,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:paddingLeft="8dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:paddingStart="@dimen/dimen_8dp"
+        android:paddingEnd="@dimen/dimen_8dp"
         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipeDetailsList"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:padding="8dp"
+        android:layout_marginLeft="@dimen/dimen_8dp"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:padding="@dimen/dimen_8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

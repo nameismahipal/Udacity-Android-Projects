@@ -42,7 +42,7 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding bakingListBinding = null;
     private Context context;
 
-    RecipeClickListenerInterface recipeClickListenerInterface;
+    private RecipeClickListenerInterface recipeClickListenerInterface;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment

@@ -27,10 +27,10 @@ import static www.androidcitizen.com.bakeit.util.Constants.*;
 
 public class IngredientsListFragment extends Fragment {
 
-    FragmentRecipeDetailListBinding ingredientsListBinding;
-    IngredientAdapter ingredientAdapter;
-    List<Ingredient> ingredients = null;
-    Context context;
+    private FragmentRecipeDetailListBinding ingredientsListBinding;
+    private IngredientAdapter ingredientAdapter;
+    private List<Ingredient> ingredients = null;
+    private Context context;
 
     public IngredientsListFragment() {
         // Required empty public constructor
@@ -87,7 +87,7 @@ public class IngredientsListFragment extends Fragment {
     }
 
     private void setupViews() {
-        ingredientsListBinding.title.setText("Ingredients :");
+        ingredientsListBinding.title.setText(R.string.ingredientsLabel);
         ingredientsListBinding.title.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
         ingredientsListBinding.recipeDetailsList.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,10 @@ import www.androidcitizen.com.bakeit.databinding.StepsItemViewBinding;
 
 public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepsViewHolder>{
 
-    private StepsItemViewBinding itemViewBinding;
+    private List<Step> steps = null;
 
-    List<Step> steps = null;
-
-    Context context;
-    StepClickListenerInterface stepClickListenerInterface;
+    private final Context context;
+    private final StepClickListenerInterface stepClickListenerInterface;
 
     public StepsListAdapter(Context context, StepClickListenerInterface stepClickListenerInterface) {
         this.context = context;
@@ -39,7 +36,7 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
     @Override
     public StepsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
+        StepsItemViewBinding itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
                 R.layout.steps_item_view, viewGroup, false);
 
         return new StepsViewHolder(itemViewBinding);
@@ -61,9 +58,9 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
 
     class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private StepsItemViewBinding itemViewBinding;
+        private final StepsItemViewBinding itemViewBinding;
 
-        public StepsViewHolder(@NonNull StepsItemViewBinding recipeItemBind) {
+        StepsViewHolder(@NonNull StepsItemViewBinding recipeItemBind) {
             super(recipeItemBind.getRoot());
             this.itemViewBinding = recipeItemBind;
             this.itemViewBinding.stepView.setOnClickListener(this);

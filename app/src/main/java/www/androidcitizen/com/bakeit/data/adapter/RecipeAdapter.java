@@ -22,12 +22,10 @@ import www.androidcitizen.com.bakeit.databinding.RecipeItemViewBinding;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
 
-    private RecipeItemViewBinding itemViewBinding;
+    private List<Recipe> recipes = null;
 
-    List<Recipe> recipes = null;
-
-    Context context;
-    RecipeClickListenerInterface recipeListenerInterface;
+    private final Context context;
+    private final RecipeClickListenerInterface recipeListenerInterface;
 
     public RecipeAdapter(Context context, RecipeClickListenerInterface recipeListenerInterface) {
         this.context = context;
@@ -38,7 +36,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
+        RecipeItemViewBinding itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
                 R.layout.recipe_item_view, viewGroup, false);
 
         return new RecipeViewHolder(itemViewBinding);
@@ -60,9 +58,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private RecipeItemViewBinding itemViewBinding;
+        private final RecipeItemViewBinding itemViewBinding;
 
-        public RecipeViewHolder(@NonNull RecipeItemViewBinding recipeItemBind) {
+        RecipeViewHolder(@NonNull RecipeItemViewBinding recipeItemBind) {
             super(recipeItemBind.getRoot());
             this.itemViewBinding = recipeItemBind;
             itemViewBinding.cardView.setOnClickListener(this);
@@ -85,15 +83,4 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         notifyDataSetChanged();
     }
 
-    public void clearData(){
-        while (recipes.size() > 0) {
-            removeItem(recipes.get(0));
-        }
-    }
-
-    private void removeItem(Recipe recipe) {
-        int index = recipes.indexOf(recipe);
-        recipes.remove(index);
-        notifyItemChanged(index);
-    }
 }

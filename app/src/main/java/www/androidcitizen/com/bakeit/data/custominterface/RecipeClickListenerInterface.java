@@ -1,9 +1,6 @@
 package www.androidcitizen.com.bakeit.data.custominterface;
 
-import java.util.List;
-
 import www.androidcitizen.com.bakeit.data.model.Recipe;
-import www.androidcitizen.com.bakeit.data.model.Step;
 
 /**
  * Created by Mahi on 29/08/18.

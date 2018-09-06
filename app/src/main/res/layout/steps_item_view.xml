@@ -12,22 +12,20 @@
 
     <ImageView
         android:id="@+id/stepImage"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_margin="@dimen/dimen_8dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_video"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/stepText"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_margin="@dimen/dimen_8dp"
         android:gravity="center_vertical"
-        android:text="Step 1"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toStartOf="@id/arrow"
         app:layout_constraintStart_toEndOf="@id/stepImage"
@@ -35,9 +33,9 @@
 
     <ImageView
         android:id="@+id/arrow"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/dimen_8dp"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/dimen_48dp"
         android:gravity="center_vertical"
         android:src="@drawable/ic_round_arrow_forward_ios_24px"
         app:layout_constraintStart_toEndOf="@id/stepText"

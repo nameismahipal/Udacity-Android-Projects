@@ -1,35 +1,28 @@
 package www.androidcitizen.com.bakeit.ui.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
-import www.androidcitizen.com.bakeit.data.adapter.StepsFragmentPagerAdapter;
 import www.androidcitizen.com.bakeit.data.custominterface.PrevNextInterface;
 import www.androidcitizen.com.bakeit.data.model.Step;
-import www.androidcitizen.com.bakeit.databinding.ActivityStepBinding;
 import www.androidcitizen.com.bakeit.ui.fragment.SingleStepFragment;
 import www.androidcitizen.com.bakeit.util.Constants;
 
 public class StepActivity extends AppCompatActivity implements PrevNextInterface{
 
-    List<Step> steps;
-    static int stepSelectedIndex;
-    ActivityStepBinding stepBinding;
+    private List<Step> steps;
+    private static int stepSelectedIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        stepBinding = DataBindingUtil.setContentView(this, R.layout.activity_step);
-
+        setContentView(R.layout.activity_step);
 
         if(null == savedInstanceState) {
             Intent intent = getIntent();

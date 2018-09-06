@@ -1,7 +1,6 @@
 package www.androidcitizen.com.bakeit.ui.fragment;
 
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -14,8 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -23,40 +20,37 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ads.AdsMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.UriUtil;
 import com.google.android.exoplayer2.util.Util;
+
+import java.util.Objects;
 
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.custominterface.PrevNextInterface;
-import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
-import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Step;
 import www.androidcitizen.com.bakeit.databinding.FragmentSingleStepBinding;
 import www.androidcitizen.com.bakeit.util.Constants;
 
 public class SingleStepFragment extends Fragment {
 
-    FragmentSingleStepBinding singleStepBinding;
+    private FragmentSingleStepBinding singleStepBinding;
 
     private Step step;
 
-    ExoPlayer player = null;
+    private ExoPlayer player = null;
 
-    Context context;
+    private Context context;
 
-    long playbackPosition;
-    int currentWindow;
-    boolean playWhenReady;
+    private long playbackPosition;
+    private int currentWindow;
+    private boolean playWhenReady;
 
-    String stepNumberState;
-    boolean nxtBtnState;
-    boolean prevBtnState;
+    private String stepNumberState;
+    private boolean nxtBtnState;
+    private boolean prevBtnState;
 
-    PrevNextInterface prevNextInterface;
+    private PrevNextInterface prevNextInterface;
 
     public SingleStepFragment() {
         // Required empty public constructor
@@ -149,7 +143,7 @@ public class SingleStepFragment extends Fragment {
         if(context.getResources().getBoolean(R.bool.is_lanscape)){
             singleStepBinding.stepNumber.setVisibility(View.GONE);
             if(!step.getVideoURL().isEmpty()) {
-                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+                ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar().hide();
             }
         }
     }
