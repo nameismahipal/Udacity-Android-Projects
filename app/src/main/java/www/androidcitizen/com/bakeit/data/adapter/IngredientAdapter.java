@@ -1,17 +1,17 @@
 package www.androidcitizen.com.bakeit.data.adapter;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
-import www.androidcitizen.com.bakeit.databinding.IngredientItemViewBinding;
 
 /**
  * Created by Mahi on 27/08/18.
@@ -32,10 +32,10 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        IngredientItemViewBinding itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
-                R.layout.ingredient_item_view, viewGroup, false);
+        View rootView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.ingredient_item_view, viewGroup, false);
 
-        return new IngredientViewHolder(itemViewBinding);
+        return new IngredientViewHolder(rootView);
     }
 
     @Override
@@ -54,17 +54,21 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        private final IngredientItemViewBinding itemViewBinding;
+        TextView quantity;
+        TextView measure;
+        TextView ingredient;
 
-        IngredientViewHolder(@NonNull IngredientItemViewBinding ingredientItemBind) {
-            super(ingredientItemBind.getRoot());
-            this.itemViewBinding = ingredientItemBind;
+        IngredientViewHolder(@NonNull View view) {
+            super(view);
+            quantity = view.findViewById(R.id.quantity);
+            measure = view.findViewById(R.id.measure);
+            ingredient = view.findViewById(R.id.ingredient);
         }
 
         void onBind(int iPosition) {
-            itemViewBinding.quantity.setText(String.valueOf(ingredients.get(iPosition).getQuantity()));
-            itemViewBinding.measure.setText(ingredients.get(iPosition).getMeasure());
-            itemViewBinding.ingredient.setText(context.getString(R.string.ingredient, ingredients.get(iPosition).getIngredient()));
+            quantity.setText(String.valueOf(ingredients.get(iPosition).getQuantity()));
+            measure.setText(ingredients.get(iPosition).getMeasure());
+            ingredient.setText(context.getString(R.string.ingredient, ingredients.get(iPosition).getIngredient()));
         }
 
     }

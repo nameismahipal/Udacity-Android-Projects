@@ -3,16 +3,17 @@ package www.androidcitizen.com.bakeit.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +21,18 @@ import java.util.List;
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.adapter.IngredientAdapter;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
-import www.androidcitizen.com.bakeit.databinding.FragmentRecipeDetailListBinding;
 
 import static www.androidcitizen.com.bakeit.util.Constants.*;
 
 
 public class IngredientsListFragment extends Fragment {
 
-    private FragmentRecipeDetailListBinding ingredientsListBinding;
     private IngredientAdapter ingredientAdapter;
     private List<Ingredient> ingredients = null;
     private Context context;
+
+    TextView title;
+    RecyclerView recipeDetailsList;
 
     public IngredientsListFragment() {
         // Required empty public constructor
@@ -66,18 +68,17 @@ public class IngredientsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (null == ingredientsListBinding) {
+        View rootView = inflater.inflate(R.layout.fragment_recipe_detail_list, container, false);
 
-            ingredientsListBinding = DataBindingUtil.inflate(inflater,
-                    R.layout.fragment_recipe_detail_list, container, false);
-        }
-
-        return ingredientsListBinding.getRoot();
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        title = view.findViewById(R.id.title);
+        recipeDetailsList = view.findViewById(R.id.recipeDetailsList);
 
         setupViews();
 
@@ -87,9 +88,9 @@ public class IngredientsListFragment extends Fragment {
     }
 
     private void setupViews() {
-        ingredientsListBinding.title.setText(R.string.ingredientsLabel);
-        ingredientsListBinding.title.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
-        ingredientsListBinding.recipeDetailsList.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        title.setText(R.string.ingredientsLabel);
+        title.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        recipeDetailsList.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
     }
 
     private void setupRecyclerView() {
@@ -97,10 +98,10 @@ public class IngredientsListFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
 
-        ingredientsListBinding.recipeDetailsList.setLayoutManager(layoutManager);
-        ingredientsListBinding.recipeDetailsList.setHasFixedSize(true);
-        ingredientsListBinding.recipeDetailsList.setItemAnimator(new DefaultItemAnimator());
-        ingredientsListBinding.recipeDetailsList.setAdapter(ingredientAdapter);
+        recipeDetailsList.setLayoutManager(layoutManager);
+        recipeDetailsList.setHasFixedSize(true);
+        recipeDetailsList.setItemAnimator(new DefaultItemAnimator());
+        recipeDetailsList.setAdapter(ingredientAdapter);
     }
 
     private void loadBakingData() {

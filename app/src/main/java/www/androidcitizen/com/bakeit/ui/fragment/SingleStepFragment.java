@@ -3,7 +3,6 @@ package www.androidcitizen.com.bakeit.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -21,6 +23,7 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
@@ -29,12 +32,9 @@ import java.util.Objects;
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.custominterface.PrevNextInterface;
 import www.androidcitizen.com.bakeit.data.model.Step;
-import www.androidcitizen.com.bakeit.databinding.FragmentSingleStepBinding;
 import www.androidcitizen.com.bakeit.util.Constants;
 
 public class SingleStepFragment extends Fragment {
-
-    private FragmentSingleStepBinding singleStepBinding;
 
     private Step step;
 
@@ -51,6 +51,13 @@ public class SingleStepFragment extends Fragment {
     private boolean prevBtnState;
 
     private PrevNextInterface prevNextInterface;
+
+    PlayerView playerView;
+    ImageView placeholderImage;
+    TextView stepDescription;
+    ImageButton nextStep;
+    ImageButton prevStep;
+    TextView stepNumber;
 
     public SingleStepFragment() {
         // Required empty public constructor
@@ -101,47 +108,51 @@ public class SingleStepFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (null == singleStepBinding) {
-            singleStepBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_single_step,
-                    container, false);
-        }
+        View rootView = inflater.inflate(R.layout.fragment_single_step, container, false);
 
-        singleStepBinding.prevStep.setOnClickListener(new View.OnClickListener() {
+        setupViews(rootView);
+
+        return rootView;
+    }
+
+    private void setupViews(View rootView) {
+
+        playerView = (PlayerView) rootView.findViewById(R.id.playerView);
+        placeholderImage = (ImageView) rootView.findViewById(R.id.placeholderImage);
+        stepDescription = (TextView) rootView.findViewById(R.id.stepDescription);
+        nextStep = (ImageButton) rootView.findViewById(R.id.nextStep);
+        prevStep = (ImageButton) rootView.findViewById(R.id.prevStep);
+        stepNumber = (TextView) rootView.findViewById(R.id.stepNumber);
+
+        prevStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prevNextInterface.prevButtonClicked();
             }
         });
 
-        singleStepBinding.nextStep.setOnClickListener(new View.OnClickListener() {
+        nextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prevNextInterface.nextButtonClicked();
             }
         });
 
-        setupViews();
-
-        return singleStepBinding.getRoot();
-    }
-
-    private void setupViews() {
-
         if(context.getResources().getBoolean(R.bool.is_tablet)){
-            singleStepBinding.prevStep.setVisibility(View.GONE);
-            singleStepBinding.nextStep.setVisibility(View.GONE);
-            singleStepBinding.stepNumber.setVisibility(View.GONE);
+            prevStep.setVisibility(View.GONE);
+            nextStep.setVisibility(View.GONE);
+            stepNumber.setVisibility(View.GONE);
         } else {
-            if(prevBtnState) singleStepBinding.prevStep.setVisibility(View.GONE);
-            if(nxtBtnState) singleStepBinding.nextStep.setVisibility(View.GONE);
-            singleStepBinding.stepNumber.setVisibility(View.VISIBLE);
+            if(prevBtnState) prevStep.setVisibility(View.GONE);
+            if(nxtBtnState) nextStep.setVisibility(View.GONE);
+            stepNumber.setVisibility(View.VISIBLE);
         }
 
-        singleStepBinding.stepNumber.setText(stepNumberState);
-        singleStepBinding.stepDescription.setText(step.getDescription());
+        stepNumber.setText(stepNumberState);
+        stepDescription.setText(step.getDescription());
 
         if(context.getResources().getBoolean(R.bool.is_lanscape)){
-            singleStepBinding.stepNumber.setVisibility(View.GONE);
+            stepNumber.setVisibility(View.GONE);
             if(!step.getVideoURL().isEmpty()) {
                 ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar().hide();
             }
@@ -152,13 +163,13 @@ public class SingleStepFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         if(!step.getVideoURL().isEmpty()) {
-            singleStepBinding.playerView.setVisibility(View.VISIBLE);
-            singleStepBinding.placeholderImage.setVisibility(View.GONE);
+            playerView.setVisibility(View.VISIBLE);
+            placeholderImage.setVisibility(View.GONE);
 
             initializePlayer();
         } else {
-            singleStepBinding.playerView.setVisibility(View.GONE);
-            singleStepBinding.placeholderImage.setVisibility(View.VISIBLE);
+            playerView.setVisibility(View.GONE);
+            placeholderImage.setVisibility(View.VISIBLE);
         }
 
     }
@@ -168,7 +179,7 @@ public class SingleStepFragment extends Fragment {
                 new DefaultTrackSelector(),
                 new DefaultLoadControl());
 
-        singleStepBinding.playerView.setPlayer(player);
+        playerView.setPlayer(player);
         player.setPlayWhenReady(playWhenReady);
 
         MediaSource mediaSource = buildMediaSource();

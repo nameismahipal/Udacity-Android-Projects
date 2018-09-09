@@ -2,7 +2,6 @@ package www.androidcitizen.com.bakeit.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +25,6 @@ import www.androidcitizen.com.bakeit.data.adapter.RecipeAdapter;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.remote.BakingInterface;
 
-import www.androidcitizen.com.bakeit.databinding.FragmentRecipeListBinding;
-
 import java.util.List;
 
 /**
@@ -39,8 +37,8 @@ public class RecipeListFragment extends Fragment {
     private static final String TAG = RecipeListFragment.class.getSimpleName();
 
     private RecipeAdapter recipeAdapter;
-    private FragmentRecipeListBinding bakingListBinding = null;
     private Context context;
+    RecyclerView recipeList;
 
     private RecipeClickListenerInterface recipeClickListenerInterface;
 
@@ -74,17 +72,16 @@ public class RecipeListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if(null == bakingListBinding) {
+        View rootView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
 
-            bakingListBinding = DataBindingUtil.inflate(inflater,
-                    R.layout.fragment_recipe_list, container, false);
-        }
-
-        return bakingListBinding.getRoot();
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        recipeList = view.findViewById(R.id.recipeList);
+
         setupRecyclerView();
 
         loadBakingData();
@@ -95,16 +92,18 @@ public class RecipeListFragment extends Fragment {
 
         if(getResources().getBoolean(R.bool.is_tablet)) {
             GridLayoutManager layoutManager = new GridLayoutManager(context, 3);
-            bakingListBinding.recipeList.setLayoutManager(layoutManager);
+
+            recipeList.setLayoutManager(layoutManager);
 
         } else {
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-            bakingListBinding.recipeList.setLayoutManager(layoutManager);
+
+            recipeList.setLayoutManager(layoutManager);
         }
 
-        bakingListBinding.recipeList.setHasFixedSize(true);
-        bakingListBinding.recipeList.setItemAnimator(new DefaultItemAnimator());
-        bakingListBinding.recipeList.setAdapter(recipeAdapter);
+        recipeList.setHasFixedSize(true);
+        recipeList.setItemAnimator(new DefaultItemAnimator());
+        recipeList.setAdapter(recipeAdapter);
     }
 
     private void loadBakingData() {

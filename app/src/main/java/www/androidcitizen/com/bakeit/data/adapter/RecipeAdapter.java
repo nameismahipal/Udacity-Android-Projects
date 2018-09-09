@@ -1,19 +1,19 @@
 package www.androidcitizen.com.bakeit.data.adapter;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
-import www.androidcitizen.com.bakeit.databinding.RecipeItemViewBinding;
 
 /**
  * Created by Mahi on 27/08/18.
@@ -36,10 +36,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        RecipeItemViewBinding itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
-                R.layout.recipe_item_view, viewGroup, false);
+        View rootView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.recipe_item_view, viewGroup, false);
 
-        return new RecipeViewHolder(itemViewBinding);
+        return new RecipeViewHolder(rootView);
     }
 
     @Override
@@ -58,17 +58,22 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private final RecipeItemViewBinding itemViewBinding;
+        MaterialCardView cardView;
+        TextView recipeName;
+        TextView recipeServings;
 
-        RecipeViewHolder(@NonNull RecipeItemViewBinding recipeItemBind) {
-            super(recipeItemBind.getRoot());
-            this.itemViewBinding = recipeItemBind;
-            itemViewBinding.cardView.setOnClickListener(this);
+        RecipeViewHolder(@NonNull View view) {
+            super(view);
+            cardView = view.findViewById(R.id.cardView);
+            recipeName = view.findViewById(R.id.recipeName);
+            recipeServings = view.findViewById(R.id.recipeServings);
+
+            cardView.setOnClickListener(this);
         }
 
         void onBind(int iPosition) {
-            itemViewBinding.recipeName.setText(recipes.get(iPosition).getName());
-            itemViewBinding.recipeServings.setText(context.getString(R.string.servings, recipes.get(iPosition).getServings()));
+            recipeName.setText(recipes.get(iPosition).getName());
+            recipeServings.setText(context.getString(R.string.servings, recipes.get(iPosition).getServings()));
         }
 
         @Override

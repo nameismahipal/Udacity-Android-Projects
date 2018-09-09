@@ -1,19 +1,21 @@
 package www.androidcitizen.com.bakeit.data.adapter;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Step;
-import www.androidcitizen.com.bakeit.databinding.StepsItemViewBinding;
+
 
 /**
  * Created by Mahi on 27/08/18.
@@ -36,10 +38,10 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
     @Override
     public StepsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        StepsItemViewBinding itemViewBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
-                R.layout.steps_item_view, viewGroup, false);
+        View rootView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.steps_item_view, viewGroup, false);
 
-        return new StepsViewHolder(itemViewBinding);
+        return new StepsViewHolder(rootView);
     }
 
     @Override
@@ -58,26 +60,32 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
 
     class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private final StepsItemViewBinding itemViewBinding;
+        ConstraintLayout stepView;
+        ImageView stepImage;
+        TextView stepText;
 
-        StepsViewHolder(@NonNull StepsItemViewBinding recipeItemBind) {
-            super(recipeItemBind.getRoot());
-            this.itemViewBinding = recipeItemBind;
-            this.itemViewBinding.stepView.setOnClickListener(this);
+
+        StepsViewHolder(@NonNull View view) {
+            super(view);
+            stepView = view.findViewById(R.id.stepView);
+            stepImage = view.findViewById(R.id.stepImage);
+            stepText = view.findViewById(R.id.stepText);
+
+            stepView.setOnClickListener(this);
         }
 
         void onBind(int iPosition) {
-            itemViewBinding.stepText.setText(context.getString(R.string.step,
+            stepText.setText(context.getString(R.string.step,
                     steps.get(iPosition).getId(), steps.get(iPosition).getShortDescription()));
 
             if(0 == iPosition % 2) {
-                itemViewBinding.stepView.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
+                stepView.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
             }
 
             if(isVideoPresent(iPosition)){
-                itemViewBinding.stepImage.setImageResource(R.drawable.ic_notes);
+                stepImage.setImageResource(R.drawable.ic_notes);
             } else {
-                itemViewBinding.stepImage.setImageResource(R.drawable.ic_video);
+                stepImage.setImageResource(R.drawable.ic_video);
             }
         }
 

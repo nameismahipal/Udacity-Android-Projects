@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    >
-
-<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/dimen_8dp">
@@ -50,5 +47,3 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
-
-</layout>

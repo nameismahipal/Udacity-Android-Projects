@@ -1,18 +1,18 @@
 package www.androidcitizen.com.bakeit.ui.fragment;
 
-
 import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,18 +21,18 @@ import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.data.adapter.StepsListAdapter;
 import www.androidcitizen.com.bakeit.data.custominterface.StepClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.model.Step;
-import www.androidcitizen.com.bakeit.databinding.FragmentRecipeDetailListBinding;
 
 import static www.androidcitizen.com.bakeit.util.Constants.STEPS_KEY;
 
 
 public class StepsListFragment extends Fragment {
 
-    private FragmentRecipeDetailListBinding stepsListBinding;
     private StepsListAdapter stepsAdapter;
     private List<Step> steps = null;
     private Context context;
     private StepClickListenerInterface stepClickListenerInterface;
+
+    RecyclerView recipeDetailsList;
 
     public StepsListFragment() {
         // Required empty public constructor
@@ -76,29 +76,28 @@ public class StepsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (null == stepsListBinding) {
+        View rootView = inflater.inflate(R.layout.fragment_recipe_detail_list, container, false);
 
-            stepsListBinding = DataBindingUtil.inflate(inflater,
-                    R.layout.fragment_recipe_detail_list, container, false);
-        }
-
-        return stepsListBinding.getRoot();
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupViews();
+        setupViews(view);
 
         setupRecyclerView();
 
         loadBakingData();
     }
 
-    private void setupViews() {
-        stepsListBinding.title.setText(R.string.stepsLabel);
-        stepsListBinding.title.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
+    private void setupViews(View view) {
+        TextView tvTitle = (TextView) view.findViewById(R.id.title);
+        recipeDetailsList = (RecyclerView) view.findViewById(R.id.recipeDetailsList);
+
+        tvTitle.setText(R.string.stepsLabel);
+        tvTitle.setBackgroundColor(context.getResources().getColor(R.color.lightGrey));
     }
 
     private void setupRecyclerView() {
@@ -106,10 +105,10 @@ public class StepsListFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
 
-        stepsListBinding.recipeDetailsList.setLayoutManager(layoutManager);
-        stepsListBinding.recipeDetailsList.setHasFixedSize(true);
-        stepsListBinding.recipeDetailsList.setItemAnimator(new DefaultItemAnimator());
-        stepsListBinding.recipeDetailsList.setAdapter(stepsAdapter);
+        recipeDetailsList.setLayoutManager(layoutManager);
+        recipeDetailsList.setHasFixedSize(true);
+        recipeDetailsList.setItemAnimator(new DefaultItemAnimator());
+        recipeDetailsList.setAdapter(stepsAdapter);
     }
 
     private void loadBakingData() {
