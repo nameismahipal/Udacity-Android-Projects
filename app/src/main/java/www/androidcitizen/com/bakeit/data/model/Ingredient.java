@@ -1,6 +1,5 @@
 package www.androidcitizen.com.bakeit.data.model;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -27,6 +26,18 @@ public class Ingredient implements Parcelable {
     @SerializedName("ingredient")
     @Expose
     private String ingredient;
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
+    }
 
     public float getQuantity() {
         return quantity;

@@ -20,8 +20,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import www.androidcitizen.com.bakeit.R;
+import www.androidcitizen.com.bakeit.architecturecomponents.RecipeRepository;
 import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.adapter.RecipeAdapter;
+import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.remote.BakingInterface;
 
@@ -41,6 +43,9 @@ public class RecipeListFragment extends Fragment {
     RecyclerView recipeList;
 
     private RecipeClickListenerInterface recipeClickListenerInterface;
+
+    // TODO: Refactor
+    RecipeRepository recipeRepository;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment
@@ -82,6 +87,9 @@ public class RecipeListFragment extends Fragment {
 
         recipeList = view.findViewById(R.id.recipeList);
 
+        // TODO: Refactor
+        recipeRepository = new RecipeRepository(context);
+
         setupRecyclerView();
 
         loadBakingData();
@@ -106,7 +114,10 @@ public class RecipeListFragment extends Fragment {
         recipeList.setAdapter(recipeAdapter);
     }
 
+
+
     private void loadBakingData() {
+        //TODO: Move this to Repository
 
         Call<List<Recipe>> recipesCall = BakingInterface.getBakingService().getRecipes();
 
@@ -117,6 +128,9 @@ public class RecipeListFragment extends Fragment {
                 if(response.isSuccessful()) {
                     if (null != response.body()) {
                         recipeAdapter.updateRecipes(response.body());
+
+                        // Insert to DB.
+                        recipeRepository.insertRecipes(response.body());
                     }
                 } else {
                     Log.e(TAG, "response code = " + response.code());

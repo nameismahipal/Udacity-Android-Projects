@@ -1,5 +1,8 @@
 package www.androidcitizen.com.bakeit.data.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -18,23 +21,29 @@ import com.google.gson.annotations.SerializedName;
  *  Parcelable code generated using http://www.parcelabler.com
  */
 
+
 public class Recipe implements Parcelable {
 
     @SerializedName("id")
     @Expose
     private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("ingredients")
     @Expose
     private List<Ingredient> ingredients;
+
     @SerializedName("steps")
     @Expose
     private List<Step> steps;
+
     @SerializedName("servings")
     @Expose
     private int servings;
+
     @SerializedName("image")
     @Expose
     private String image;
@@ -45,6 +54,14 @@ public class Recipe implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Ingredient> getIngredients() {
