@@ -115,33 +115,20 @@ public class RecipeListFragment extends Fragment {
     }
 
 
-
     private void loadBakingData() {
-        //TODO: Move this to Repository
 
-        Call<List<Recipe>> recipesCall = BakingInterface.getBakingService().getRecipes();
-
-        recipesCall.enqueue(new Callback<List<Recipe>>() {
+        recipeRepository.fetchBakingDataFromServer(new RecipeRepository.RecipeRepoCallback() {
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-
-                if(response.isSuccessful()) {
-                    if (null != response.body()) {
-                        recipeAdapter.updateRecipes(response.body());
-
-                        // Insert to DB.
-                        recipeRepository.insertRecipes(response.body());
-                    }
-                } else {
-                    Log.e(TAG, "response code = " + response.code());
-                }
+            public void onResponse(List<Recipe> recipes) {
+                recipeAdapter.updateRecipes(recipes);
             }
 
             @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+            public void onFailure(Throwable t) {
                 Log.e(TAG, t.getMessage());
             }
         });
+
     }
 
 }
