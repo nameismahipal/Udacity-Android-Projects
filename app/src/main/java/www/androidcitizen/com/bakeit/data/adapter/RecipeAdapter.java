@@ -2,7 +2,7 @@ package www.androidcitizen.com.bakeit.data.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.design.card.MaterialCardView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        MaterialCardView cardView;
+        CardView cardView;
         TextView recipeName;
         TextView recipeServings;
 

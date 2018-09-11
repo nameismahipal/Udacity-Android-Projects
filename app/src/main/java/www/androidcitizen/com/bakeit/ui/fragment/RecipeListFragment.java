@@ -87,7 +87,6 @@ public class RecipeListFragment extends Fragment {
 
         recipeList = view.findViewById(R.id.recipeList);
 
-        // TODO: Refactor
         recipeRepository = new RecipeRepository(context);
 
         setupRecyclerView();
