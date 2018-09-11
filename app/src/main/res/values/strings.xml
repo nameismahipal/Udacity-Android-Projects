@@ -6,5 +6,7 @@
     <string name="step_nav_state">%d / %d</string>
     <string name="ingredientsLabel">Ingredients :</string>
     <string name="stepsLabel">Steps :</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

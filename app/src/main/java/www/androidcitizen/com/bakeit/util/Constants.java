@@ -25,4 +25,10 @@ public final class Constants {
     public static final String STEP_PREV_BTN_STATE_KEY = "prevBtnKey";
     public static final String STEP_NEXT_BTN_STATE_KEY = "nextBtnKey";
 
+    // Widget
+    public static final String WIDGET_SHARED_PREF_FILE = "widget_shared_pref_file";
+    public static final String WIDGET_RECIPE_ID_INDEX = "widget_recipe_id_index";
+    public static final String WIDGET_RECIPE_NAME = "widget_recipe_name";
+
+
 }

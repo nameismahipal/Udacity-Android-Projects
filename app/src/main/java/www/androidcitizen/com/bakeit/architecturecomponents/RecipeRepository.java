@@ -42,6 +42,37 @@ public class RecipeRepository {
         recipeEntityDao = db.recipeEntityDao();
     }
 
+    public void insertRecipes(List<Recipe> recipes) {
+
+        List<RecipeEntity> recipeEntities = new ArrayList<>();
+
+        for(Recipe recipe : recipes) {
+            Gson gson = new Gson();
+            String ingredientJson = gson.toJson(recipe.getIngredients());
+
+            RecipeEntity recipeEntity = new RecipeEntity(
+                    recipe.getId(),
+                    recipe.getName(),
+                    ingredientJson);
+
+            recipeEntities.add(recipeEntity);
+        }
+
+        recipeEntityDao.insertRecipes(recipeEntities);
+    }
+
+    public RecipeEntity fetchRecipe(int recipeId) {
+
+         return recipeEntityDao.getRecipe(recipeId);
+
+    }
+
+    public List<RecipeEntity> fetchRecipes() {
+
+        return recipeEntityDao.getAllRecipes();
+
+    }
+
     public List<Ingredient> fetchIngredientsFromRecipe(int recipeId) {
 
         RecipeEntity recipeEntity = recipeEntityDao.getRecipe(recipeId);
@@ -53,25 +84,6 @@ public class RecipeRepository {
         List<Ingredient> ingredients = gson.fromJson(recipeEntity.getIngredientsJson(), listType);
 
         return ingredients;
-    }
-
-    public void insertRecipes(List<Recipe> recipes) {
-
-        List<RecipeEntity> recipeEntities = new ArrayList<>();
-
-        for(Recipe recipe : recipes) {
-            Gson gson = new Gson();
-            String ingredientJson = gson.toJson(recipe.getIngredients());
-
-            RecipeEntity recipeEntity = new RecipeEntity(
-                                    recipe.getId(),
-                                    recipe.getName(),
-                                    ingredientJson);
-
-            recipeEntities.add(recipeEntity);
-        }
-
-        recipeEntityDao.insertRecipes(recipeEntities);
     }
 
     public void fetchBakingDataFromServer(final RecipeRepoCallback repoCallback) {
