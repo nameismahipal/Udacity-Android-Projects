@@ -1,6 +1,10 @@
 package www.androidcitizen.com.bakeit.architecturecomponents;
 
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -16,6 +20,7 @@ import retrofit2.Response;
 import www.androidcitizen.com.bakeit.architecturecomponents.room.AppDatabase;
 import www.androidcitizen.com.bakeit.architecturecomponents.room.RecipeEntity;
 import www.androidcitizen.com.bakeit.architecturecomponents.room.RecipeEntityDao;
+import www.androidcitizen.com.bakeit.architecturecomponents.room.RecipeExecutors;
 import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
 import www.androidcitizen.com.bakeit.data.remote.BakingInterface;
@@ -26,7 +31,7 @@ import www.androidcitizen.com.bakeit.ui.fragment.RecipeListFragment;
  * www.androidcitizen.com
  */
 
-public class RecipeRepository {
+public class RecipeRepository  {
 
     private static final String TAG = RecipeRepository.class.getSimpleName();
 
@@ -44,7 +49,7 @@ public class RecipeRepository {
 
     public void insertRecipes(List<Recipe> recipes) {
 
-        List<RecipeEntity> recipeEntities = new ArrayList<>();
+        final List<RecipeEntity> recipeEntities = new ArrayList<>();
 
         for(Recipe recipe : recipes) {
             Gson gson = new Gson();
@@ -58,13 +63,18 @@ public class RecipeRepository {
             recipeEntities.add(recipeEntity);
         }
 
-        recipeEntityDao.insertRecipes(recipeEntities);
+        RecipeExecutors.getExecutorInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                recipeEntityDao.insertRecipes(recipeEntities);
+            }
+        });
+
     }
 
     public RecipeEntity fetchRecipe(int recipeId) {
 
          return recipeEntityDao.getRecipe(recipeId);
-
     }
 
     public List<RecipeEntity> fetchRecipes() {
