@@ -16,16 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import www.androidcitizen.com.bakeit.R;
 import www.androidcitizen.com.bakeit.architecturecomponents.RecipeRepository;
 import www.androidcitizen.com.bakeit.data.custominterface.RecipeClickListenerInterface;
 import www.androidcitizen.com.bakeit.data.adapter.RecipeAdapter;
-import www.androidcitizen.com.bakeit.data.model.Ingredient;
 import www.androidcitizen.com.bakeit.data.model.Recipe;
-import www.androidcitizen.com.bakeit.data.remote.BakingInterface;
+import www.androidcitizen.com.bakeit.idlingresources.IdlingResourceManager;
+import www.androidcitizen.com.bakeit.ui.activity.MainActivity;
 
 import java.util.List;
 
@@ -44,7 +41,8 @@ public class RecipeListFragment extends Fragment {
 
     private RecipeClickListenerInterface recipeClickListenerInterface;
 
-    // TODO: Refactor
+    private IdlingResourceManager idlingResourceManager;
+
     RecipeRepository recipeRepository;
 
     /**
@@ -60,6 +58,13 @@ public class RecipeListFragment extends Fragment {
         }
 
         try {
+            this.idlingResourceManager = (IdlingResourceManager) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement IdlingResourceManager");
+        }
+
+        try {
             recipeClickListenerInterface = (RecipeClickListenerInterface) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
@@ -71,6 +76,7 @@ public class RecipeListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         this.recipeClickListenerInterface = null;
+        this.idlingResourceManager = null;
     }
 
     @Nullable
@@ -116,10 +122,14 @@ public class RecipeListFragment extends Fragment {
 
     private void loadBakingData() {
 
+        idlingResourceManager.incrementIdlingResource();
+
         recipeRepository.fetchBakingDataFromServer(new RecipeRepository.RecipeRepoCallback() {
             @Override
             public void onResponse(List<Recipe> recipes) {
                 recipeAdapter.updateRecipes(recipes);
+
+                idlingResourceManager.decrementIdlingResource();
             }
 
             @Override
@@ -127,6 +137,8 @@ public class RecipeListFragment extends Fragment {
                 Log.e(TAG, t.getMessage());
             }
         });
+
+
 
     }
 

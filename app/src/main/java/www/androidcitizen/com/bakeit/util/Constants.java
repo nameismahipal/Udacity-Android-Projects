@@ -30,5 +30,8 @@ public final class Constants {
     public static final String WIDGET_RECIPE_ID_INDEX = "widget_recipe_id_index";
     public static final String WIDGET_RECIPE_NAME = "widget_recipe_name";
 
+    // IDLING RESOURCE
+    public static final String TEST_IDLING_RESOURCE = "test_idling_resource_recipes";
+
 
 }
