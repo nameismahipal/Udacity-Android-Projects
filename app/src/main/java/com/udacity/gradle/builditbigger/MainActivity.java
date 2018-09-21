@@ -12,7 +12,7 @@ import www.androidcitizen.com.androidlib.JokeActivity;
 import www.androidcitizen.com.jokeslib.JokeTeller;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements JokesAsyncTask.JokeCallback {
 
     private final static String KEY_JOKE_INTENT = "KEY_JOKE";
 
@@ -46,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-
-        String joke = new JokeTeller().getJoke();
-//        Toast.makeText(this, new JokeTeller().getJoke(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(KEY_JOKE_INTENT, joke);
-        startActivity(intent);
-
+        new JokesAsyncTask(this).execute();
     }
 
 
+    @Override
+    public void onResponse(String joke) {
+        Intent intent = new Intent(this, JokeActivity.class);
+        intent.putExtra(KEY_JOKE_INTENT, joke);
+        startActivity(intent);
+    }
 }
