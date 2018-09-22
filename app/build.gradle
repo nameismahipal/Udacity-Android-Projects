@@ -10,14 +10,20 @@ buildscript {
     }
 }
 
+configurations {
+    all {
+        exclude module: 'httpclient'
+    }
+}
+
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -31,6 +37,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        def dim = "default"
+        flavorDimensions dim
+
+        free {
+            dimension dim
+            applicationId "com.udacity.gradle.builditbigger.free"
+        }
+
+        paid {
+            dimension dim
+            applicationId "com.udacity.gradle.builditbigger.paid"
+        }
+    }
 }
 
 dependencies {
@@ -42,7 +63,10 @@ dependencies {
     // android lib module
     implementation project(":androidlib")
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation ('com.android.support:appcompat-v7:27.1.1') {
+        exclude group: 'com.android.support', module: 'vector-animated-drawable'
+        exclude group: 'com.android.support', module: 'customtabs'
+    }
 
     //Ads
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
@@ -56,4 +80,6 @@ dependencies {
     })
 
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 }
