@@ -20,3 +20,29 @@ allprojects {
         google()
     }
 }
+
+
+//If appengineStart fails, make sure you Stop the engine
+// (run appengineStop) and retry testing.
+task prjTesting {
+    group = 'Optional Tasks'
+    dependsOn 'startTest'
+}
+
+task startTest {
+    finalizedBy = ['initSetup']
+}
+
+task initSetup {
+    dependsOn = [':backend:appengineStart']
+    finalizedBy = ['othersTests']
+}
+
+task othersTests {
+    dependsOn = [':app:connectedAndroidTest']
+    finalizedBy = ['initClose']
+}
+
+task initClose {
+    finalizedBy = [':backend:appengineStop']
+}
