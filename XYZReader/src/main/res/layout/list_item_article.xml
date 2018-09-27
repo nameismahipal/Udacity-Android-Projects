@@ -9,7 +9,7 @@
     android:layout_marginBottom="4dp"
     android:clickable="true"
     android:focusable="true"
-    android:elevation="4dp"
+    android:elevation="1dp"
     app:cardCornerRadius="4dp"
     app:cardPreventCornerOverlap="true"
     android:foreground="?selectableItemBackground">
