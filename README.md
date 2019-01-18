@@ -4,7 +4,7 @@ Capstone Project for Udacity Android Developer Program.
 ## Dependencies
 
 - ConstraintLayout
-- Architecture Components - Room, ViewModel
+- Architecture Components - Room, ViewModel, LiveData
 - Crashlytics
 - Firebase-invites
 - io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter
