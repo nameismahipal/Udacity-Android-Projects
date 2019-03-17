@@ -1,5 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 # Popular Movies
 
 Movies App project which shows Now Playing, Popular, Top Rated, Favorites.
@@ -160,25 +159,3 @@ I forgot to clean the project somewhere in below commits and file size got big, 
 
 - Have used AsyncTask for fetching movie data from imdb api.
 >>>>>>> 5bd5f9266ec76f4bbe33414f7c43d01943498a61
-||||||| merged common ancestors
-=======
-# MoneyManager
-Capstone Project for Udacity Android Developer Program.
-
-## Dependencies
-
-- ConstraintLayout
-- Architecture Components - Room, ViewModel, LiveData
-- Crashlytics
-- Firebase-invites
-- io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter
-
-## Output
-
-<img src="https://github.com/sayaMahi/MoneyManager/blob/master/art/art3.png" height="400" width="240"/>
-
-<img src="https://github.com/sayaMahi/MoneyManager/blob/master/art/art2.png" height="400" width="240"/>
-
-<img src="https://github.com/sayaMahi/MoneyManager/blob/master/art/art1.png" height="400" width="240"/>
-
->>>>>>> f46e5c7acbad3bd24b0bdbce0ea7db494445b073
