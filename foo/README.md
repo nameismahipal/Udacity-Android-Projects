@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Popular Movies
 
 Movies App project which shows Now Playing, Popular, Top Rated, Favorites.
@@ -182,3 +183,16 @@ Capstone Project for Udacity Android Developer Program.
 <img src="https://github.com/sayaMahi/MoneyManager/blob/master/art/art1.png" height="400" width="240"/>
 
 >>>>>>> f46e5c7acbad3bd24b0bdbce0ea7db494445b073
+||||||| merged common ancestors
+=======
+# Sandwich Club Project Starter Code
+
+## What I Learned.
+- Practice JSON parsing to a model object
+- Design an activity layout (constraint layout; co-ordinator layout)
+- Populate all fields in the layout accordingly
+
+## Ouput
+
+<img src="https://github.com/sayaMahi/sandwich-club/blob/master/assets/sandwich-club.gif" height="400" width="240"/>
+>>>>>>> dcfc6065ee4588750731652e403093c8f6814418
