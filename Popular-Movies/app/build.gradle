@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+
+def MOVIEDB_API_KEY = themoviedb_api_key ?: "Enter API-KEY in gradle.properties (home dir)"
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "www.androidcitizen.com.popularmoviesone"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    each { type ->
+        type.buildConfigField 'String', "ApiKey", MOVIEDB_API_KEY
+
+        type.resValue 'string', "api_key", MOVIEDB_API_KEY
+    }
+
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+    dataBinding.enabled = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Support Library
+    implementation ('com.android.support:appcompat-v7:27.1.1') {
+        exclude group: 'com.android.support', module:'exifinterface'
+        exclude group: 'com.android.support', module:'animated-vector-drawable'
+    }
+    // Recycler View
+    implementation ('com.android.support:recyclerview-v7:27.1.1') {
+        exclude group: 'com.android.support', module:'exifinterface'
+        exclude group: 'com.android.support', module:'animated-vector-drawable'
+    }
+    // Constraint Layout
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    // Picaso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    // Stetho Log Interceptor
+     implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    // Network Helper
+     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    // Like Button
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation ('com.android.support.test:runner:1.0.2') {
+        exclude group: 'com.android.support', module:'exifinterface'
+        exclude group: 'com.android.support', module:'animated-vector-drawable'
+    }
+
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Card View
+    implementation ('com.android.support:cardview-v7:27.1.1') {
+        exclude group: 'com.android.support', module:'exifinterface'
+        exclude group: 'com.android.support', module:'animated-vector-drawable'
+    }
+}

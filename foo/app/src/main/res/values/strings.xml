@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="poster_image">Poster Image</string>
+    <string name="background_image">Background Image</string>
+    <string name="filter">Filter</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="popular">Popular</string>
+    <string name="favourite">Favourite</string>
+    <string name="synopsis">Synopsis :</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="favorites">Favorites</string>
+</resources>
