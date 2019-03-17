@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 include ':app'
+||||||| merged common ancestors
+=======
+include ':XYZReader'
+>>>>>>> 022f8f9f274e1b92791437747eca724f29fb9019
