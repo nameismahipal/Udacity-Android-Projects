@@ -1,14 +1,5 @@
-*.bin
-*.bin
-*.lock
-*.ser
-*.xml
-*.bin
-*.lock
-
 *.iml
 .gradle
-.gradle/
 /local.properties
 /.idea/libraries
 /.idea/modules.xml
@@ -85,13 +76,4 @@ fastlane/test_output
 fastlane/readme.md
 
 gradle.properties
-*.lock
-*.xml
-*.bin
-.gradle/4.4/fileHashes/fileHashes.bin
-.gradle/4.4/fileHashes/fileHashes.lock
-.gradle/4.4/fileHashes/resourceHashesCache.bin
-.gradle/4.4/taskHistory/taskHistory.bin
-.gradle/4.4/taskHistory/taskHistory.lock
-.gradle/buildOutputCleanup/buildOutputCleanup.lock
-.gradle/buildOutputCleanup/outputFiles.bin
+
