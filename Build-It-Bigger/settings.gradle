@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+include ':app'
+||||||| merged common ancestors
+=======
+include ':app', ':backend', ':jokeslib', ':androidlib'
+>>>>>>> e28907e0d52b495a8e27eac7934f3838b3491f19

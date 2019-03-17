@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+<resources>
+    <string name="app_name">Bake It</string>
+    <string name="servings">Servings: %d</string>
+    <string name="ingredient">:  %s</string>
+    <string name="step">%d : %s</string>
+    <string name="step_nav_state">%d / %d</string>
+    <string name="ingredientsLabel">Ingredients :</string>
+    <string name="stepsLabel">Steps :</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+</resources>
+||||||| merged common ancestors
+=======
+<resources>
+    <string name="app_name">Build it Bigger</string>
+    <string name="instructions">Press the button for a delicious joke!</string>
+    <string name="button_text">Tell Joke</string>
+    <string name="action_settings">Settings</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+</resources>
+>>>>>>> e28907e0d52b495a8e27eac7934f3838b3491f19
