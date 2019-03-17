@@ -3,6 +3,7 @@ These are different projects done during Udacity Android Developer Nanodegree - 
 Additionally, Below Applications are collaborative projects made by the Google Udacity Android Developer Scholars.
 
 Upstream: 
+
 https://github.com/UdacityAndroidDevScholarship/explore-india.git
 
 https://github.com/UdacityAndroidDevScholarship/blood-donation.git
